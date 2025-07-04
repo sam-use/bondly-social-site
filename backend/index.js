@@ -39,7 +39,7 @@ app.use("/api/v1/message", messageroute);
 // ✅ Create HTTP Server & Attach Socket.IO
 const server = http.createServer(app);
 
-// Attach Socket.IO using your modular setup
+
 setupSocket(server);
 
 const PORT = process.env.PORT || 3000;

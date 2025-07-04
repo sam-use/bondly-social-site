@@ -11,6 +11,15 @@ import { persistStore } from "redux-persist";
 
 const persistor = persistStore(store);
 
+// Add error boundary
+window.addEventListener('error', (event) => {
+  console.error('Global error:', event.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection:', event.reason);
+});
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
