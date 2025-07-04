@@ -23,6 +23,17 @@ export const register = async (req, res) => {
 
     await User.create({ username, email, password: hashedPassword });
 
+    // Generate token and set cookie (same as login)
+    const user = await User.findOne({ email });
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
     return res.status(201).json({ message: "User registered successfully", success: true });
   } catch (error) {
     console.error("Register Error:", error);
