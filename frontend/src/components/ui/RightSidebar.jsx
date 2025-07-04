@@ -19,7 +19,7 @@ const RightSidebar = () => {
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/user/suggested", {
+        const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/suggested", {
           withCredentials: true,
         });
         if (res.data.success) {
@@ -45,11 +45,11 @@ const RightSidebar = () => {
       if (location.pathname.includes("/profile")) {
         const profileId = location.pathname.split("/")[2];
         if (profileId) {
-          const res = await axios.get(`http://localhost:3000/api/v1/user/${profileId}/profile`, { withCredentials: true });
+          const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/${profileId}/profile`, { withCredentials: true });
           if (res.data.success) dispatch(setUserProfile(res.data.user));
         }
       }
-      const meRes = await axios.get(`http://localhost:3000/api/v1/user/${user._id}/profile`, { withCredentials: true });
+      const meRes = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/${user._id}/profile`, { withCredentials: true });
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
     } catch (err) {
       console.error("Follow/Unfollow failed:", err);

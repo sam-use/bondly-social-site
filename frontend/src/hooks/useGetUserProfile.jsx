@@ -12,7 +12,7 @@ const useGetUserProfile = (userId) => {
     if (!userId) return;
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:3000/api/v1/user/${userId}/profile`, {
+      const response = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/${userId}/profile`, {
         withCredentials: true,
       });
       if (response.data.success) {

@@ -47,7 +47,7 @@ const Profile = () => {
       await axios.post(`/user/followunfollow/${userId}`, {}, { withCredentials: true });
       mapSetter(prev => ({ ...prev, [userId]: !prev[userId] }));
       // Always refetch the logged-in user to update following list in Redux
-      const meRes = await axios.get(`http://localhost:3000/api/v1/user/${authUser._id}/profile`, { withCredentials: true });
+      const meRes = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/${authUser._id}/profile`, { withCredentials: true });
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
       // Refetch the viewed profile to update followers/following counts
       refetchProfile();
@@ -59,7 +59,7 @@ const Profile = () => {
       const res = await axios.post(`/user/followunfollow/${userId}`, {}, { withCredentials: true });
       setIsFollowing(res.data.following);
       // Always refetch the logged-in user to update following list in Redux
-      const meRes = await axios.get(`http://localhost:3000/api/v1/user/${authUser._id}/profile`, { withCredentials: true });
+      const meRes = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/${authUser._id}/profile`, { withCredentials: true });
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
       // Refetch the viewed profile to update followers/following counts
       refetchProfile();

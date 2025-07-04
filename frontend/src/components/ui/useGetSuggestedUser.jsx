@@ -10,7 +10,7 @@ const useGetSuggestedUser = () => {
   useEffect(() => {
     const fetchSuggestedUsers = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/v1/user/${user._id}/profile`, );
+        const response = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/${user._id}/profile`, );
         if(res.data.success) {
           setSuggestedUsers(response.data.suggestedUsers);
           dispatch(setUserProfile(response.data.user));

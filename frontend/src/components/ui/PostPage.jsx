@@ -21,7 +21,7 @@ const PostPage = () => {
 
   const fetchPost = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/posts/${id}`, {
+      const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${id}`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -36,7 +36,7 @@ const PostPage = () => {
 
   const fetchComments = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/posts/${id}/comments`, {
+      const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${id}/comments`, {
         withCredentials: true,
       });
       if (res.data.success) setComments(res.data.comments);
@@ -56,7 +56,7 @@ const PostPage = () => {
   const handleLike = async () => {
     const action = liked ? "dislike" : "like";
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/posts/${id}/${action}`, {
+      const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${id}/${action}`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -76,7 +76,7 @@ const PostPage = () => {
 
   const handleBookmark = async () => {
     try {
-      const res = await axios.post(`http://localhost:3000/api/v1/posts/${id}/bookmark`, {}, {
+      const res = await axios.post(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${id}/bookmark`, {}, {
         withCredentials: true,
       });
       setBookmarked(res.data.type === "saved");
@@ -89,7 +89,7 @@ const PostPage = () => {
   const handleComment = async () => {
     if (!text.trim()) return;
     try {
-      const res = await axios.post(`http://localhost:3000/api/v1/posts/${id}/addcomment`, {
+      const res = await axios.post(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${id}/addcomment`, {
         text,
       }, {
         headers: { "Content-Type": "application/json" },
@@ -107,7 +107,7 @@ const PostPage = () => {
 
   const deleteComment = async (commentId) => {
     try {
-      const res = await axios.delete(`http://localhost:3000/api/v1/posts/${id}/comment/${commentId}`, {
+      const res = await axios.delete(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${id}/comment/${commentId}`, {
         withCredentials: true,
       });
       if (res.data.success) {

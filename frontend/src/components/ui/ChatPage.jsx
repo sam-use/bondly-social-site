@@ -21,7 +21,7 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/user/suggested", {
+        const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/suggested", {
           withCredentials: true,
         });
         if (res.data.success) {
@@ -39,7 +39,7 @@ const ChatPage = () => {
     const fetchMessages = async () => {
       if (!selectedUser) return;
       try {
-        const res = await axios.get(`http://localhost:3000/api/v1/message/get/${selectedUser._id}`, {
+        const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/message/get/${selectedUser._id}`, {
           withCredentials: true,
         });
         if (res.data.success) {

@@ -12,10 +12,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io': {
-        target: 'http://localhost:3000',
+        target: 'https://instagram-clone-backend-nqcw.onrender.com',
         ws: true,
       },
-      '/api': 'http://localhost:3000',
+      '/api': 'https://instagram-clone-backend-nqcw.onrender.com',
     },
   },
 });

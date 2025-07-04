@@ -25,7 +25,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/register",
+        "https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/register",
         input,
         {
           headers: {

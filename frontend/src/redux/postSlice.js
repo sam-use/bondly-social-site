@@ -4,7 +4,7 @@ import axios from "axios";
 // Thunk to fetch all posts
 export const fetchAllPosts = createAsyncThunk("posts/fetchAll", async (_, { rejectWithValue }) => {
   try {
-    const res = await axios.get("http://localhost:3000/api/v1/posts", {
+    const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts", {
       withCredentials: true,
     });
     return res.data.posts;
@@ -16,7 +16,7 @@ export const fetchAllPosts = createAsyncThunk("posts/fetchAll", async (_, { reje
 // Thunk to fetch explore posts
 export const fetchExplorePosts = createAsyncThunk("posts/fetchExplore", async (_, { rejectWithValue }) => {
   try {
-    const res = await axios.get("http://localhost:3000/api/v1/posts/explore");
+    const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/explore");
     return res.data.posts;
   } catch (err) {
     return rejectWithValue(err.response?.data?.message || "Failed to fetch explore posts");
@@ -26,7 +26,7 @@ export const fetchExplorePosts = createAsyncThunk("posts/fetchExplore", async (_
 // ✅ Thunk to create a new post
 export const addPost = createAsyncThunk("posts/addPost", async (formData, { rejectWithValue }) => {
   try {
-    const res = await axios.post("http://localhost:3000/api/v1/posts/addpost", formData, {
+    const res = await axios.post("https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/addpost", formData, {
       withCredentials: true,
       headers: {
         "Content-Type": "multipart/form-data", // if you're uploading images
