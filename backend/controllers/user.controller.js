@@ -40,8 +40,8 @@ export const deleteUser = async (req, res) => {
     // Optionally: Clear cookie
     res.clearCookie("token", {
       httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
+      secure: true,
+      sameSite: "None",
       path: "/"
     });
 
@@ -71,9 +71,9 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // Set true in production with HTTPS
-      sameSite: "Lax",
-      path: "/", // ✅ important
+      secure: true, // Set true for HTTPS
+      sameSite: "None",
+      path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -105,8 +105,8 @@ export const logout = async (req, res) => {
 
     res.clearCookie("token", {
       httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
+      secure: true,
+      sameSite: "None",
       path: "/"
     });
     // res.cookie("token", "", {
