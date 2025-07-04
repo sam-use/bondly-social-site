@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   build: {
+    chunkSizeWarningLimit: 1000, // Increase limit to 1MB
     rollupOptions: {
       output: {
         manualChunks: undefined

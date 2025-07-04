@@ -1,4 +1,4 @@
-import {setUserProfile} from "../../redux/slices/userSlice";
+import {setUserProfile} from "@/redux/slices/userSlice";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useDispatch} from "react-redux";

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
-import { setSelectedUser } from "../../redux/authSlice";
+import { setSelectedUser } from "@/redux/authSlice";
 import axios from "axios";
-import { getSocketInstance } from "../../lib/socketInstance";
+import { getSocketInstance } from "@/lib/socketInstance";
 import "./Chatpage.css";
 
 const fallbackAvatar = (name) =>
