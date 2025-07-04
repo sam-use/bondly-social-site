@@ -5,7 +5,8 @@
   background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  overflow-y: auto;
 }
 
 .sidebar-title {
