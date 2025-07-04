@@ -1,0 +1,101 @@
+.sidebar-container {
+  padding: 20px;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.sidebar-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.sidebar-item:hover {
+  background-color: #efefef;
+}
+
+.sidebar-user {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.sidebar-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.delete-account-btn {
+  margin-top: 16px;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.delete-account-btn:hover {
+  background: #b91c1c;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #222;
+}
+
+.user-email {
+  font-size: 12px;
+  color: #777;
+}
+
+.user-bio {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #555;
+}
+
+.user-follow {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #555;
+}
+
+.user-id {
+  font-size: 11px;
+  margin-top: 4px;
+  color: #aaa;
+}

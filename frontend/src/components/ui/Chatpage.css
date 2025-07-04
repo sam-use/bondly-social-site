@@ -1,0 +1,147 @@
+/* Chatpage.css - Instagram-like DM styling */
+
+.chatpage-container {
+  display: flex;
+  height: 100vh;
+  background: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.chatpage-sidebar {
+  width: 320px;
+  border-right: 1px solid #e6e6e6;
+  padding: 24px 0;
+  background: #fafafa;
+  overflow-y: auto;
+}
+
+.chatpage-sidebar h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+.chatpage-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.chatpage-user:hover {
+  background: #f0f0f0;
+}
+
+.chatpage-user .avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.chatpage-user .username {
+  font-weight: 500;
+}
+
+.chatpage-user .status {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.chatpage-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.chatpage-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e6e6e6;
+  background: #fff;
+}
+
+.chatpage-header .avatar {
+  width: 48px;
+  height: 48px;
+}
+
+.chatpage-header .username {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.chatpage-header .status {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.chatpage-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 12px 18px;
+  border-radius: 22px;
+  font-size: 1rem;
+  word-break: break-word;
+  margin-bottom: 2px;
+  display: inline-block;
+}
+
+.chat-bubble.own {
+  background: #3797f0;
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+}
+
+.chat-bubble.other {
+  background: #f0f0f0;
+  color: #222;
+  align-self: flex-start;
+  border-bottom-left-radius: 6px;
+}
+
+.chatpage-input-area {
+  display: flex;
+  padding: 16px 24px;
+  border-top: 1px solid #e6e6e6;
+  background: #fff;
+}
+
+.chatpage-input-area input {
+  flex: 1;
+  border: 1px solid #e6e6e6;
+  border-radius: 22px 0 0 22px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.chatpage-input-area button {
+  background: #3797f0;
+  color: #fff;
+  border: none;
+  border-radius: 0 22px 22px 0;
+  padding: 0 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chatpage-input-area button:hover {
+  background: #1877f2;
+} 

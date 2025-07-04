@@ -1,0 +1,154 @@
+/* Instagram-like Post Page Styles */
+.postpage-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 470px;
+  margin: 40px auto;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.postpage-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #fafafa;
+  border-bottom: 1px solid #dbdbdb;
+  display: block;
+  max-width: 470px;
+  max-height: 470px;
+  margin: 0 auto;
+}
+
+.postpage-info {
+  width: 100%;
+  padding: 24px 18px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: #fff;
+}
+
+.postpage-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.postpage-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #dbdbdb;
+  object-fit: cover;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #262626;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.likes-count {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #262626;
+}
+
+.caption {
+  margin-bottom: 16px;
+  color: #333;
+  font-size: 1rem;
+}
+
+.comments-section {
+  margin-bottom: 16px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #262626;
+}
+
+.comment-delete-btn {
+  background: none;
+  border: none;
+  color: #f87171;
+  font-size: 13px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.add-comment {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}
+
+.comment-input {
+  flex: 1;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  background: #fafafa;
+  outline: none;
+}
+
+.comment-post-btn {
+  background: #0095f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.comment-post-btn:hover {
+  background: #1877f2;
+}
+
+.post-loading {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+}
+
+@media (max-width: 600px) {
+  .postpage-container {
+    max-width: 99vw;
+    margin: 0 auto;
+    border-radius: 0;
+  }
+  .postpage-image {
+    height: 220px;
+  }
+  .postpage-info {
+    padding: 12px 6px 10px 6px;
+  }
+}

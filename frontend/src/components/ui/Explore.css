@@ -1,0 +1,43 @@
+.explore-bg {
+  background: #fafafa;
+  min-height: 100vh;
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.explore-title {
+  font-family: 'Grand Hotel', cursive, Arial, sans-serif;
+  font-size: 2.5rem;
+  color: #262626;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 900px;
+}
+
+@media (max-width: 900px) {
+  .explore-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .explore-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.explore-post {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  border: 1px solid #dbdbdb;
+} 
