@@ -40,7 +40,7 @@ function App() {
     let socket;
 
     if (user) {
-      socket = io("http://localhost:3000", {
+      socket = io("https://your-backend.onrender.com", {
         query: { userId: user._id },
         withCredentials: true,
       });
