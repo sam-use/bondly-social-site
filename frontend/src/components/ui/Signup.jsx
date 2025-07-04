@@ -7,6 +7,8 @@ import { toast } from "react-hot-toast";
 import "./Auth.css";
 
 const Signup = () => {
+  console.log("Signup component is rendering"); // Debug log
+
   const [input, setInput] = React.useState({
     username: "",
     email: "",
@@ -50,7 +52,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-bg">
+    <div className="auth-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <form className="auth-card" onSubmit={signupHandler}>
         <div className="text-center">
           <h1 className="auth-logo">Instagram</h1>
