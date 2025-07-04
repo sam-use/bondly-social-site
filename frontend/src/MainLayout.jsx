@@ -8,28 +8,19 @@ import "./MainLayout.css";
 
 const MainLayout = () => {
   const [isPostOpen, setIsPostOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    // Give Redux a moment to load the user state
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      if (!user) {
-        navigate('/login');
-      }
-    }, 100);
-
-    return () => clearTimeout(timer);
+    // Only redirect if user is not authenticated
+    if (!user) {
+      navigate('/login');
+    }
   }, [user, navigate]);
 
-  if (isLoading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  }
-
+  // Don't render anything if user is not authenticated
   if (!user) {
-    return null; // Don't render anything while redirecting
+    return null;
   }
 
   return (
