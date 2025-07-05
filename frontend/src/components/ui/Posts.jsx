@@ -40,7 +40,7 @@ const Posts = ({ gridMode }) => {
               <img
                 src={post.image}
                 alt={post.caption}
-                style={{ width: "100%", height: 250, objectFit: "cover" }}
+                className="explore-post"
               />
             </div>
           ))

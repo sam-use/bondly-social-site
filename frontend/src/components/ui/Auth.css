@@ -174,7 +174,7 @@
     justify-content: flex-start !important;
     align-items: flex-start !important;
     padding-top: 0 !important;
-    padding-bottom: 80px !important;
+    padding-bottom: 120px !important;
   }
   .feed-container {
     padding: 0 !important;
@@ -238,7 +238,7 @@
     font-size: 2rem;
   }
   .feed-bg {
-    padding-bottom: 60px !important;
+    padding-bottom: 100px !important;
   }
   .feed-container {
     gap: 8px !important;
