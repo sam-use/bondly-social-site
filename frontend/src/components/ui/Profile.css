@@ -329,12 +329,15 @@
 
 @media (max-width: 480px) {
   .profile-container {
-    padding: 8px 4px 0 4px;
+    padding: 0;
+    max-width: 100%;
+    margin: 0;
   }
   
   .profile-header {
     gap: 12px;
     margin-bottom: 20px;
+    padding: 0 12px;
   }
   
   .profile-avatar {
@@ -368,6 +371,10 @@
     font-size: 0.9rem;
   }
   
+  .profile-tabs {
+    margin-top: 20px;
+  }
+  
   .tab {
     padding: 10px 0;
     font-size: 0.9rem;
@@ -375,6 +382,8 @@
   
   .posts-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin-top: 0;
   }
   
   .post-item {
