@@ -28,6 +28,7 @@
   padding: 16px;
   background-color: #f9f9f9;
   border-left: 1px solid #ccc;
+  overflow-y: auto;
 }
 
 /* Mobile Navigation */
@@ -136,13 +137,19 @@
   }
   
   .right-sidebar {
-    display: none;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border-left: none;
+    border-top: 1px solid #ccc;
+    order: 3; /* Show after feed */
   }
   
   .feed {
     width: 100%;
     padding: 8px;
     margin-bottom: 80px; /* Space for mobile nav */
+    order: 2; /* Show after sidebar */
   }
   
   .mobile-nav {
@@ -173,6 +180,10 @@
 @media (max-width: 480px) {
   .feed {
     padding: 4px;
+  }
+  
+  .right-sidebar {
+    padding: 6px;
   }
   
   .mobile-sidebar {

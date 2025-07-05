@@ -276,3 +276,145 @@
   margin-bottom: 18px;
   padding-left: 24px;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .rightsidebar-container {
+    padding: 16px;
+    width: 100%;
+    max-width: 100%;
+    border-left: none;
+    background: #fff;
+  }
+  
+  .profile {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .profile-info {
+    flex: 1;
+  }
+  
+  .username-link {
+    font-size: 16px;
+  }
+  
+  .bio-text {
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  
+  .suggestions {
+    margin-top: 20px;
+  }
+  
+  .suggested-heading {
+    font-size: 16px;
+    margin-bottom: 12px;
+    padding-left: 0;
+  }
+  
+  .suggested-list {
+    gap: 8px;
+  }
+  
+  .suggested-user {
+    padding: 8px 0;
+  }
+  
+  .suggested-link {
+    gap: 10px;
+    padding: 6px 8px;
+  }
+  
+  .suggested-avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .suggested-username {
+    font-size: 14px;
+  }
+  
+  .follow-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    margin-left: 4px !important;
+  }
+  
+  .no-suggestions {
+    font-size: 14px;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .rightsidebar-container {
+    padding: 12px;
+  }
+  
+  .profile {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .username-link {
+    font-size: 15px;
+  }
+  
+  .bio-text {
+    font-size: 13px;
+  }
+  
+  .suggestions {
+    margin-top: 16px;
+  }
+  
+  .suggested-heading {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .suggested-list {
+    gap: 6px;
+  }
+  
+  .suggested-user {
+    padding: 6px 0;
+  }
+  
+  .suggested-link {
+    gap: 8px;
+    padding: 4px 6px;
+  }
+  
+  .suggested-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .suggested-username {
+    font-size: 13px;
+  }
+  
+  .follow-btn {
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+    margin-left: 2px !important;
+  }
+  
+  .no-suggestions {
+    font-size: 13px;
+  }
+}
