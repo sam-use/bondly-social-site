@@ -401,21 +401,22 @@
 /* Desktop Styles */
 @media (min-width: 769px) {
   .profile-container {
-    padding: 40px 20px 120px 20px;
-    max-width: 100%;
-    margin: 0;
-    width: 100%;
-    min-width: 0;
+    padding: 40px 20px 120px 20px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
   }
   
   .posts-grid {
-    max-width: 100%;
-    width: 100%;
-    min-width: 0;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
   }
   
   .profile-header {
-    margin-bottom: 32px;
-    width: 100%;
+    margin-bottom: 32px !important;
+    width: 100% !important;
   }
 }
