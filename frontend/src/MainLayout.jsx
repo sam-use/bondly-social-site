@@ -55,6 +55,13 @@ const MainLayout = () => {
     return location.pathname === path;
   };
 
+  // Check if current route should be full-width (no sidebars)
+  const isFullWidthRoute = () => {
+    return location.pathname.includes('/user/') && location.pathname.includes('/profile') || 
+           location.pathname === '/chat' ||
+           location.pathname.includes('/post/');
+  };
+
   return (
     <div className="main-layout">
       {/* Mobile Top Navigation */}
@@ -128,19 +135,23 @@ const MainLayout = () => {
       </div>
 
       {/* Desktop Sidebar */}
-      <div className="sidebar">
-        <Sidebar onCreatePostClick={() => setIsPostOpen(true)} />
-      </div>
+      {!isFullWidthRoute() && (
+        <div className="sidebar">
+          <Sidebar onCreatePostClick={() => setIsPostOpen(true)} />
+        </div>
+      )}
 
       {/* Main Feed */}
-      <div className="feed">
+      <div className={isFullWidthRoute() ? "feed-full-width" : "feed"}>
         <Outlet />
       </div>
 
       {/* Desktop Right Sidebar */}
-      <div className="right-sidebar">
-        <RightSidebar />
-      </div>
+      {!isFullWidthRoute() && (
+        <div className="right-sidebar">
+          <RightSidebar />
+        </div>
+      )}
 
       {/* Mobile Bottom Navigation */}
       <nav className="mobile-nav">

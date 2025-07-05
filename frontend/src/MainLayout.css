@@ -75,6 +75,16 @@
   min-width: 0;
 }
 
+/* Full-width feed for profile, chat, and post pages */
+.feed-full-width {
+  width: 100%;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+  min-width: 0;
+  border-right: none;
+}
+
 /* Right Sidebar - Hidden on mobile, visible on desktop */
 .right-sidebar {
   width: 320px;
@@ -351,6 +361,14 @@
     flex: 1;
     min-width: 0;
     padding: 16px;
+    width: 100%;
+    max-width: none;
+  }
+  
+  .feed-full-width {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
     width: 100%;
     max-width: none;
   }
