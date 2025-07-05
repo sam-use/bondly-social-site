@@ -14,7 +14,7 @@
   min-width: 320px;
   max-width: 350px;
   height: 100vh;
-  padding: 32px 20px;
+  padding: 32px 16px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -101,7 +101,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 12px;
+  gap: 8px;
   padding: 8px 0;
   min-width: 0;
 }
@@ -109,9 +109,9 @@
 .suggested-link {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   text-decoration: none;
-  padding: 7px 10px;
+  padding: 7px 8px;
   border-radius: 8px;
   transition: background 0.18s;
   flex: 1;
@@ -124,15 +124,16 @@
 }
 
 .suggested-avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  flex-shrink: 0;
 }
 
 .suggested-username {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: #333;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -141,6 +142,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
 }
 
 .rightsidebar-section {
@@ -292,18 +295,19 @@
   background: #000000 !important;
   color: white !important;
   border: none !important;
-  border-radius: 8px !important;
+  border-radius: 6px !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
-  font-size: 0.9rem !important;
+  font-size: 0.8rem !important;
   font-weight: 600 !important;
-  padding: 8px 16px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  padding: 6px 12px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
+  letter-spacing: 0.3px !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
-  min-width: 80px !important;
+  min-width: 70px !important;
+  max-width: 90px !important;
   text-align: center !important;
 }
 
