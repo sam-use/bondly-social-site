@@ -37,6 +37,21 @@ const ErrorBoundary = () => {
   );
 };
 
+// Simple test components
+const SimpleLogin = () => (
+  <div style={{ padding: '20px', textAlign: 'center' }}>
+    <h1>Login Page</h1>
+    <p>This is a simple login page for testing.</p>
+  </div>
+);
+
+const SimpleSignup = () => (
+  <div style={{ padding: '20px', textAlign: 'center' }}>
+    <h1>Signup Page</h1>
+    <p>This is a simple signup page for testing.</p>
+  </div>
+);
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,8 +65,8 @@ const router = createBrowserRouter([
       { path: "/explore", element: <Explore /> },
     ],
   },
-  { path: "/login", element: <Login /> },
-  { path: "/signup", element: <Signup /> },
+  { path: "/login", element: <SimpleLogin /> },
+  { path: "/signup", element: <SimpleSignup /> },
   { path: "/test", element: <div>Test page works!</div> },
   { path: "*", element: <ErrorBoundary /> },
 ]);
