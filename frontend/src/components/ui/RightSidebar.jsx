@@ -40,7 +40,7 @@ const RightSidebar = () => {
 
   const handleFollow = async (userId) => {
     try {
-      await axios.post(`/user/followunfollow/${userId}`, {}, { withCredentials: true });
+      await axios.post(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/followunfollow/${userId}`, {}, { withCredentials: true });
       setFollowingMap((prev) => ({ ...prev, [userId]: !prev[userId] }));
       if (location.pathname.includes("/profile")) {
         const profileId = location.pathname.split("/")[2];
