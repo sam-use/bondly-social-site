@@ -368,6 +368,7 @@
     width: 100%;
     max-width: none;
     overflow-x: hidden;
+    box-sizing: border-box;
   }
   
   .feed-full-width {
