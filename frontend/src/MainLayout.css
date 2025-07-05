@@ -240,14 +240,9 @@
   }
   
   .feed {
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin-bottom: 80px; /* Space for mobile nav */
-    border-right: none;
-    border-left: none;
-    border-top: none;
-    border-bottom: none;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
   }
   
   .mobile-nav {
