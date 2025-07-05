@@ -57,10 +57,7 @@ const MainLayout = () => {
 
   // Check if current route should be full-width (no sidebars)
   const isFullWidthRoute = () => {
-    return location.pathname.includes('/user/') && location.pathname.includes('/profile') || 
-           location.pathname === '/chat' ||
-           location.pathname === '/explore' ||
-           location.pathname.includes('/post/');
+    return false; // Revert to original layout with sidebars
   };
 
   return (

@@ -157,11 +157,13 @@
     box-shadow: none;
     width: 100%;
     min-width: 0;
+    max-width: 100%;
   }
   
   .chatpage-sidebar {
     width: 320px;
     min-width: 320px;
+    flex-shrink: 0;
   }
   
   .chatpage-main {
