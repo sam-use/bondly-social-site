@@ -95,6 +95,7 @@
   padding-top: 32px;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 .feed-container {
   width: 100%;
@@ -186,11 +187,15 @@
   }
   
   .feed-bg {
-    padding-top: 16px;
+    padding-top: 0;
+    width: 100%;
+    max-width: 100%;
   }
   
   .feed-container {
-    gap: 16px;
+    gap: 0;
+    max-width: 100%;
+    width: 100%;
   }
   
   .insta-post {
@@ -233,7 +238,9 @@
   }
   
   .feed-container {
-    gap: 12px;
+    gap: 0;
+    max-width: 100%;
+    width: 100%;
   }
   
   .insta-post-header {
