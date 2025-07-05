@@ -59,6 +59,7 @@ const MainLayout = () => {
   const isFullWidthRoute = () => {
     return location.pathname.includes('/user/') && location.pathname.includes('/profile') || 
            location.pathname === '/chat' ||
+           location.pathname === '/explore' ||
            location.pathname.includes('/post/');
   };
 
