@@ -15,6 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import toast from "react-hot-toast";
 import "./Auth.css";
+import { Link } from "react-router-dom";
 
 const Post = ({ post, onDelete }) => {
   const dispatch = useDispatch();
@@ -148,14 +149,16 @@ const Post = ({ post, onDelete }) => {
     <div className="insta-post">
       <div className="insta-post-header">
         <div className="insta-post-user">
-          <Avatar>
-            <AvatarImage src={post.author?.profilePicture || "https://via.placeholder.com/150"} />
-            <AvatarFallback>{post.author?.username?.[0] || "U"}</AvatarFallback>
-          </Avatar>
-          <div>
-            <strong>{post.author?.username}</strong>
-            {String(user._id) === String(post.author?._id) && <Badge>Author</Badge>}
-          </div>
+          <Link to={`/user/${post.author?._id}/profile`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+            <Avatar>
+              <AvatarImage src={post.author?.profilePicture || "https://via.placeholder.com/150"} />
+              <AvatarFallback>{post.author?.username?.[0] || "U"}</AvatarFallback>
+            </Avatar>
+            <div style={{ marginLeft: 8 }}>
+              <strong>{post.author?.username}</strong>
+              {String(user._id) === String(post.author?._id) && <Badge>Author</Badge>}
+            </div>
+          </Link>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -167,8 +170,9 @@ const Post = ({ post, onDelete }) => {
             {String(user._id) === String(post.author?._id) && (
               <DropdownMenuItem onClick={deletePostHandler}>Delete</DropdownMenuItem>
             )}
-            <DropdownMenuItem>Unfollow</DropdownMenuItem>
-            <DropdownMenuItem>Add to Favorites</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleBookmark}>
+              {bookmarked ? "Remove Bookmark" : "Bookmark"}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
