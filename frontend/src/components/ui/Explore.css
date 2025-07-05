@@ -22,6 +22,7 @@
   width: 100%;
   max-width: 900px;
   padding: 0 20px;
+  margin: 0 auto;
 }
 
 .explore-post {
@@ -32,6 +33,8 @@
   border: 1px solid #dbdbdb;
   aspect-ratio: 1;
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 /* Mobile Responsive Styles */
@@ -107,5 +110,17 @@
   
   .explore-post {
     border-radius: 4px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .explore-bg {
+    padding: 40px 0 100px 0;
+  }
+  
+  .explore-grid {
+    max-width: 1000px;
+    padding: 0 40px;
   }
 } 

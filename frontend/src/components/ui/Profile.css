@@ -5,6 +5,7 @@
   font-family: 'Segoe UI', Arial, sans-serif;
   width: 100%;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 
 .profile-loading {
@@ -393,5 +394,17 @@
   
   .post-item {
     height: 120px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .profile-container {
+    padding: 40px 20px 100px 20px;
+    max-width: 1000px;
+  }
+  
+  .posts-grid {
+    max-width: 100%;
   }
 }

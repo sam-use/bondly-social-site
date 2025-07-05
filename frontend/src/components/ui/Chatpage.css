@@ -5,6 +5,8 @@
   height: 100vh;
   background: #fff;
   font-family: 'Segoe UI', Arial, sans-serif;
+  max-width: 100vw;
+  overflow: hidden;
 }
 
 .chatpage-sidebar {
@@ -144,6 +146,25 @@
 
 .chatpage-input-area button:hover {
   background: #1877f2;
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .chatpage-container {
+    height: calc(100vh - 20px);
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .chatpage-sidebar {
+    width: 300px;
+  }
+  
+  .chatpage-main {
+    flex: 1;
+    max-width: calc(100vw - 320px);
+  }
 }
 
 /* Mobile Responsive Styles */
