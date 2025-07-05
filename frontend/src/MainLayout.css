@@ -3,7 +3,6 @@
   display: flex;
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
 }
 
 /* Mobile Top Navigation */
@@ -331,8 +330,7 @@
   
   .main-layout {
     display: flex;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
   }
   
   .sidebar {
@@ -352,7 +350,6 @@
   .feed {
     flex: 1;
     min-width: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    padding: 16px;
   }
 }
