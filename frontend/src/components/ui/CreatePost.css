@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 20px;
 }
 
 .modal {
@@ -23,6 +24,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .close-btn {
@@ -33,6 +36,13 @@
   background: none;
   font-size: 18px;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.close-btn:hover {
+  background: #f0f0f0;
 }
 
 .modal h2 {
@@ -49,10 +59,15 @@
   font-size: 1rem;
   background: #fafafa;
   margin-bottom: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
 }
 
 .modal input[type="file"] {
   margin-bottom: 14px;
+  width: 100%;
 }
 
 .createpost-img-preview {
@@ -83,4 +98,86 @@
 
 .modal button[type="submit"]:hover {
   background: #1877f2;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+  
+  .modal {
+    max-width: 100%;
+    padding: 24px 20px 20px 20px;
+    border-radius: 16px;
+    max-height: 85vh;
+  }
+  
+  .modal h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+  
+  .modal textarea {
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 100px;
+  }
+  
+  .modal button[type="submit"] {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+  
+  .createpost-img-preview {
+    max-width: 100%;
+    max-height: 280px;
+  }
+  
+  .close-btn {
+    top: 12px;
+    right: 16px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 12px;
+    padding-top: 40px;
+  }
+  
+  .modal {
+    padding: 20px 16px 16px 16px;
+    border-radius: 12px;
+    max-height: 80vh;
+  }
+  
+  .modal h2 {
+    font-size: 1.6rem;
+    margin-bottom: 14px;
+  }
+  
+  .modal textarea {
+    padding: 10px;
+    font-size: 16px;
+    min-height: 80px;
+  }
+  
+  .modal button[type="submit"] {
+    padding: 10px 0;
+    font-size: 16px;
+  }
+  
+  .createpost-img-preview {
+    max-height: 240px;
+  }
+  
+  .close-btn {
+    top: 10px;
+    right: 12px;
+    font-size: 18px;
+  }
 }

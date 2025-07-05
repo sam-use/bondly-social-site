@@ -144,4 +144,157 @@
 
 .chatpage-input-area button:hover {
   background: #1877f2;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .chatpage-container {
+    flex-direction: column;
+    height: calc(100vh - 80px); /* Account for mobile nav */
+  }
+  
+  .chatpage-sidebar {
+    width: 100%;
+    height: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 16px 0;
+  }
+  
+  .chatpage-sidebar h2 {
+    padding-left: 16px;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+  
+  .chatpage-user {
+    padding: 8px 16px;
+    gap: 12px;
+  }
+  
+  .chatpage-user .avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .chatpage-main {
+    flex: 1;
+    min-height: 0;
+  }
+  
+  .chatpage-header {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  
+  .chatpage-header .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .chatpage-header .username {
+    font-size: 1rem;
+  }
+  
+  .chatpage-messages {
+    padding: 16px;
+    gap: 8px;
+  }
+  
+  .chat-bubble {
+    max-width: 85%;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+  
+  .chatpage-input-area {
+    padding: 12px 16px;
+  }
+  
+  .chatpage-input-area input {
+    padding: 12px 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .chatpage-input-area button {
+    padding: 0 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatpage-container {
+    height: calc(100vh - 80px);
+  }
+  
+  .chatpage-sidebar {
+    padding: 12px 0;
+  }
+  
+  .chatpage-sidebar h2 {
+    padding-left: 12px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+  
+  .chatpage-user {
+    padding: 6px 12px;
+    gap: 10px;
+  }
+  
+  .chatpage-user .avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .chatpage-user .username {
+    font-size: 0.9rem;
+  }
+  
+  .chatpage-user .status {
+    font-size: 0.8rem;
+  }
+  
+  .chatpage-header {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  .chatpage-header .avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .chatpage-header .username {
+    font-size: 0.95rem;
+  }
+  
+  .chatpage-header .status {
+    font-size: 0.85rem;
+  }
+  
+  .chatpage-messages {
+    padding: 12px;
+    gap: 6px;
+  }
+  
+  .chat-bubble {
+    max-width: 90%;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+  
+  .chatpage-input-area {
+    padding: 10px 12px;
+  }
+  
+  .chatpage-input-area input {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+  
+  .chatpage-input-area button {
+    padding: 0 16px;
+    font-size: 0.9rem;
+  }
 } 

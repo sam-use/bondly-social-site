@@ -100,3 +100,133 @@
   margin-top: 4px;
   color: #aaa;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar-container {
+    padding: 16px;
+    height: auto;
+    border-right: none;
+    background-color: #fff;
+  }
+  
+  .sidebar-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .sidebar-items {
+    gap: 8px;
+  }
+  
+  .sidebar-item {
+    padding: 8px 12px;
+    gap: 12px;
+    font-size: 16px;
+  }
+  
+  .sidebar-user {
+    margin-top: 16px;
+    font-size: 15px;
+  }
+  
+  .sidebar-user-profile {
+    gap: 14px;
+    padding: 8px 0;
+  }
+  
+  .user-avatar {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .delete-account-btn {
+    margin-top: 12px;
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+  
+  .user-name {
+    font-size: 16px;
+  }
+  
+  .user-email {
+    font-size: 13px;
+  }
+  
+  .user-bio {
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  
+  .user-follow {
+    font-size: 13px;
+  }
+  
+  .user-id {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-container {
+    padding: 12px;
+  }
+  
+  .sidebar-title {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .sidebar-items {
+    gap: 6px;
+  }
+  
+  .sidebar-item {
+    padding: 6px 10px;
+    gap: 10px;
+    font-size: 15px;
+  }
+  
+  .sidebar-user {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+  
+  .sidebar-user-profile {
+    gap: 12px;
+    padding: 6px 0;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .delete-account-btn {
+    margin-top: 10px;
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+  
+  .user-name {
+    font-size: 15px;
+  }
+  
+  .user-email {
+    font-size: 12px;
+  }
+  
+  .user-bio {
+    font-size: 12px;
+  }
+  
+  .user-follow {
+    font-size: 12px;
+  }
+  
+  .user-id {
+    font-size: 11px;
+  }
+}
