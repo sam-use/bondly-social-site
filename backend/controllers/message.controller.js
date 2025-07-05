@@ -4,19 +4,19 @@ import { Message } from "../models/message.model.js";
 export const sendMessage = async(req,res)=>{
     try{
         const senderId =req.id;
-        const receiverId =req.params.id;
+        const recevierId =req.params.id;
         const {message}=req.body;
         let foundConversation = await Conversation.findOne({
-            participants:{$all:[senderId,receiverId]}
+            participants:{$all:[senderId,recevierId]}
         });
         if(!foundConversation){
             foundConversation = await Conversation.create({
-                participants:[senderId,receiverId]
+                participants:[senderId,recevierId]
             })
         };
         const newMessage = await Message.create({
             senderId,
-            receiverId,
+            recevierId,
             message
         });
         if(newMessage) foundConversation.messages.push(newMessage._id);
@@ -43,9 +43,9 @@ return res.status(201).json({
 export const getMessage = async(req,res)=>{
     try{
         const senderId = req.id;
-        const receiverId = req.params.id;   
+        const recevierId = req.params.id;   
         const foundConversation = await Conversation.findOne({
-            participants: { $all: [senderId, receiverId] }
+            participants: { $all: [senderId, recevierId] }
         }).populate('messages');
         if (!foundConversation) {
             return res.status(404).json({

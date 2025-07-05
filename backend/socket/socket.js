@@ -42,7 +42,7 @@ export const setupSocket = (server) => {
         }
         const newMessage = await Message.create({
           senderId,
-          receiverId: receiverId,
+          recevierId: receiverId,
           message: text,
         });
         conversation.messages.push(newMessage._id);
