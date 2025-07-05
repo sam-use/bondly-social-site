@@ -9,7 +9,11 @@ const userSocketMap = {};
 export const setupSocket = (server) => {
   ioInstance = new Server(server, {
     cors: {
-      origin: ["http://localhost:5173", "http://localhost:3000"],
+      origin: [
+        "http://localhost:5173", 
+        "http://localhost:3000",
+        "https://instagram-clone-frontend-mamm.onrender.com"
+      ],
       methods: ["GET", "POST"],
       credentials: true,
     },
@@ -38,7 +42,7 @@ export const setupSocket = (server) => {
         }
         const newMessage = await Message.create({
           senderId,
-          recevierId: receiverId,
+          receiverId: receiverId,
           message: text,
         });
         conversation.messages.push(newMessage._id);
