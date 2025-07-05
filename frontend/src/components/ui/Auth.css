@@ -156,6 +156,25 @@
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  .feed-bg, .feed-container, .insta-post {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .feed-bg {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    display: block !important;
+  }
   .auth-bg {
     padding: 16px;
     align-items: flex-start;
@@ -179,17 +198,6 @@
   .auth-btn {
     padding: 14px 0;
     font-size: 16px;
-  }
-  .feed-bg,
-  .feed-container,
-  .insta-post {
-    width: 100vw;
-    max-width: 100vw;
-    padding: 0;
-    gap: 0;
-  }
-  .feed-container {
-    padding: 0;
   }
   .insta-post {
     border-radius: 0;
