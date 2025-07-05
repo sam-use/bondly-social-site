@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./MainLayout";
 import Home from "./components/ui/Home";
 import Login from "@/components/ui/Login";
-import Signup from "@/components/ui/Signup";
+import Signup from "./components/ui/Signup";
 import Profile from "@/components/ui/Profile";
 import PostPage from "@/components/ui/PostPage";
 import ChatPage from "@/components/ui/ChatPage";
@@ -65,8 +65,8 @@ const router = createBrowserRouter([
       { path: "/explore", element: <Explore /> },
     ],
   },
-  { path: "/login", element: <SimpleLogin /> },
-  { path: "/signup", element: <SimpleSignup /> },
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <Signup /> },
   { path: "/test", element: <div>Test page works!</div> },
   { path: "*", element: <ErrorBoundary /> },
 ]);
