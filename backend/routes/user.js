@@ -4,7 +4,7 @@ import isAuthenticated from "../middlewares/isAuthentication.js";
 import {
   register, login, logout, getUserProfile,
   getSuggestUsers, followUnfollow, editProfile, deleteUser,
-  getUsersByIds
+  getUsersByIds, getAllUsers
 } from "../controllers/user.controller.js";
 
 const router = express.Router();
@@ -22,5 +22,6 @@ router.get("/:id/profile", isAuthenticated, getUserProfile);
 router.delete("/delete", isAuthenticated, deleteUser);
 
 router.post("/list", isAuthenticated, getUsersByIds);
+router.get("/all", isAuthenticated, getAllUsers);
 
 export default router;

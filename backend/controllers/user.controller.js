@@ -273,3 +273,18 @@ export const getUsersByIds = async (req, res) => {
   }
 };
 
+// GET ALL USERS (for chat)
+export const getAllUsers = async (req, res) => {
+  try {
+    const currentUserId = req.id;
+    const users = await User.find({ _id: { $ne: currentUserId } })
+      .select("_id username profilePicture bio")
+      .limit(50);
+    
+    return res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error("Get All Users Error:", error);
+    return res.status(500).json({ message: "Internal Server Error", success: false });
+  }
+};
+
