@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import { Loader2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "@/lib/axiosInstance";
 import "./Auth.css";
 
@@ -96,7 +96,7 @@ const Login = () => {
         </Button>
         <p className="auth-footer">
           Don't have an account?{' '}
-          <a href="/signup" className="auth-link">Sign up</a>
+          <Link to="/signup" className="auth-link">Sign up</Link>
         </p>
       </form>
     </div>

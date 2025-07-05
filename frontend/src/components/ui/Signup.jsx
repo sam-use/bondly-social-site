@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 import "./Auth.css";
 
 const Signup = () => {
@@ -96,7 +97,7 @@ const Signup = () => {
         </Button>
         <p className="auth-footer">
           Already have an account?{' '}
-          <a href="/login" className="auth-link">Login</a>
+          <Link to="/login" className="auth-link">Login</Link>
         </p>
       </form>
     </div>

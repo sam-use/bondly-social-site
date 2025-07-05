@@ -2,11 +2,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./MainLayout";
 import Home from "./components/ui/Home";
-import Login from "@/components/ui/Login";
+import Login from "./components/ui/Login";
 import Signup from "./components/ui/Signup";
-import Profile from "@/components/ui/Profile";
-import PostPage from "@/components/ui/PostPage";
-import ChatPage from "@/components/ui/ChatPage";
+import Profile from "./components/ui/Profile";
+import PostPage from "./components/ui/PostPage";
+import ChatPage from "./components/ui/ChatPage";
 import Explore from "./components/ui/Explore";
 import { io } from "socket.io-client";
 
