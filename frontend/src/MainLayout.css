@@ -54,30 +54,37 @@
 
 /* Sidebar - Hidden on mobile, visible on desktop */
 .sidebar {
-  width: 20%;
-  border-right: 1px solid #ccc;
+  width: 280px;
+  min-width: 280px;
+  border-right: 1px solid #e6e6e6;
   background-color: #fdfdfd;
   transition: transform 0.3s ease;
   padding-top: 0;
+  overflow-y: auto;
 }
 
-/* Feed - Full width on mobile, 60% on desktop */
+/* Feed - Full width on mobile, flexible on desktop */
 .feed {
   width: 100%;
   padding: 16px;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #e6e6e6;
   flex: 1;
+  min-width: 0;
 }
 
 /* Right Sidebar - Hidden on mobile, visible on desktop */
 .right-sidebar {
-  width: 20%;
-  padding: 16px;
-  background-color: #f9f9f9;
-  border-left: 1px solid #ccc;
+  width: 320px;
+  min-width: 320px;
+  max-width: 350px;
+  padding: 0;
+  background-color: #fafafa;
+  border-left: 1px solid #e6e6e6;
   overflow-y: auto;
-  padding-top: 0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Mobile Navigation */
@@ -307,5 +314,27 @@
   .mobile-sidebar,
   .mobile-rightsidebar {
     display: none !important;
+  }
+  
+  .main-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    display: block;
+    width: 280px;
+    min-width: 280px;
+  }
+  
+  .right-sidebar {
+    display: block;
+    width: 320px;
+    min-width: 320px;
+  }
+  
+  .feed {
+    flex: 1;
+    min-width: 0;
   }
 }
