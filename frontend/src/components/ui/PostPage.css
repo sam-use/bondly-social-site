@@ -141,6 +141,10 @@
   color: #888;
 }
 
+.postpage-mobile-spacer {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .postpage-container {
     max-width: 100% !important;
@@ -161,6 +165,11 @@
   }
   .postpage-info {
     padding: 12px 6px 10px 6px !important;
+  }
+  .postpage-mobile-spacer {
+    display: block;
+    height: 60px;
+    width: 100%;
   }
 }
 
@@ -184,5 +193,8 @@
   }
   .postpage-info {
     padding: 10px 4px 8px 4px !important;
+  }
+  .postpage-mobile-spacer {
+    height: 56px;
   }
 }

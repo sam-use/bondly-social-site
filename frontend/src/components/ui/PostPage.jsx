@@ -123,6 +123,8 @@ const PostPage = () => {
 
   return (
     <div className="postpage-container">
+      {/* Spacer for mobile nav bar */}
+      <div className="postpage-mobile-spacer" />
       <img src={post.image} alt="Post" className="postpage-image" />
 
       <div className="postpage-info">
