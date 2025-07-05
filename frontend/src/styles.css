@@ -1,49 +1,27 @@
-/* Sidebar */
+/* Sidebar - Overridden by MainLayout.css for responsive design */
 .sidebar {
-  width: 240px;
-  min-height: 100vh;
-  padding: 1rem;
-  border-right: 1px solid #ddd;
-  background-color: #fff;
-  position: fixed;
-  left: 0;
-  top: 0;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
 .sidebar h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
 .sidebar-item {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background 0.2s ease;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
 .sidebar-item:hover {
-  background-color: #f5f5f5;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
 .sidebar-item span {
-  margin-left: 0.75rem;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: capitalize;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
-/* Feed */
+/* Feed - Overridden by MainLayout.css for responsive design */
 .feed {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding-left: 260px;
-  padding-top: 2rem;
-  padding-right: 1rem;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
 /* Post */
@@ -164,16 +142,9 @@
   cursor: pointer;
 }
 
-/* Right Sidebar */
+/* Right Sidebar - Overridden by MainLayout.css for responsive design */
 .right-sidebar {
-  width: 240px;
-  padding: 1rem;
-  background-color: #fff;
-  border-left: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
-  position: sticky;
-  top: 1rem;
+  /* Styles moved to MainLayout.css for responsive design */
 }
 
 /* Login / Signup */
