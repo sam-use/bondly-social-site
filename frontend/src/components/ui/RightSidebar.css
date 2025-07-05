@@ -14,10 +14,11 @@
   min-width: 320px;
   max-width: 350px;
   height: 100vh;
-  padding: 32px 24px;
+  padding: 32px 20px;
   display: flex;
   flex-direction: column;
   gap: 32px;
+  overflow-x: hidden;
 }
 
 .profile {
@@ -100,8 +101,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 8px;
+  gap: 12px;
   padding: 8px 0;
+  min-width: 0;
 }
 
 .suggested-link {
@@ -114,6 +116,7 @@
   transition: background 0.18s;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
 }
 
 .suggested-link:hover {
@@ -286,26 +289,28 @@
 
 /* Follow Button Styles */
 .follow-btn {
-  background: #000000;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
-  white-space: nowrap;
+  background: #000000 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  padding: 8px 16px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  min-width: 80px !important;
+  text-align: center !important;
 }
 
 .follow-btn:hover {
-  background: #333333;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #333333 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 
 .follow-btn:active {

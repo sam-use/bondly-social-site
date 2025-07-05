@@ -109,7 +109,6 @@ const RightSidebar = () => {
                 </Link>
                 <button
                   className="follow-btn"
-                  style={{ marginLeft: 8, padding: '4px 12px', fontSize: '0.95rem' }}
                   onClick={() => handleFollow(u._id)}
                 >
                   {followingMap[u._id] ? "Unfollow" : "Follow"}
