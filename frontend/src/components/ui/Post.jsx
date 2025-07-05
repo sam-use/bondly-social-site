@@ -168,9 +168,9 @@ const Post = ({ post, onDelete }) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             {String(user._id) === String(post.author?._id) && (
-              <DropdownMenuItem onClick={deletePostHandler}>Delete</DropdownMenuItem>
+              <DropdownMenuItem onClick={deletePostHandler} style={{ color: '#e53935', fontWeight: 'bold' }}>Delete</DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={handleBookmark}>
+            <DropdownMenuItem onClick={handleBookmark} style={{ color: '#2563eb', fontWeight: 'bold' }}>
               {bookmarked ? "Remove Bookmark" : "Bookmark"}
             </DropdownMenuItem>
           </DropdownMenuContent>

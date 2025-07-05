@@ -235,6 +235,14 @@
   .bio {
     font-size: 1rem;
   }
+  
+  .posts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .post-item {
+    height: 200px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -302,12 +310,10 @@
   
   .posts-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    margin-top: 16px;
   }
   
   .post-item {
-    height: 180px;
+    height: 150px;
   }
   
   .user-list-modal {
@@ -369,10 +375,9 @@
   
   .posts-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
   }
   
   .post-item {
-    height: 150px;
+    height: 120px;
   }
 }
