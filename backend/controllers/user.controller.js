@@ -21,11 +21,9 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await User.create({ username, email, password: hashedPassword });
-
-    // Generate token and set cookie (same as login)
-    const user = await User.findOne({ email });
+    const user = await User.create({ username, email, password: hashedPassword });
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
+    
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
@@ -34,7 +32,21 @@ export const register = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    return res.status(201).json({ message: "User registered successfully", success: true });
+    return res.status(201).json({ 
+      message: "User registered successfully", 
+      success: true,
+      token,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        avatar: user.profilePicture,
+        bio: user.bio,
+        followers: user.followers,
+        following: user.following,
+        posts: []
+      }
+    });
   } catch (error) {
     console.error("Register Error:", error);
     return res.status(500).json({ message: "Internal Server Error", success: false });

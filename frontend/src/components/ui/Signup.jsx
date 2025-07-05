@@ -2,9 +2,12 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
+import axios from "@/lib/axiosInstance";
+import { useDispatch } from "react-redux";
+import { setAuthUser } from "@/redux/authSlice";
 import "./Auth.css";
 
 const Signup = () => {
@@ -13,6 +16,9 @@ const Signup = () => {
     email: "",
     password: ""
   });
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const changeEventHandler = (e) => {
     setInput({
@@ -23,30 +29,32 @@ const Signup = () => {
 
   const signupHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      const res = await axios.post(
-        "https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/register",
-        input,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          },
-          withCredentials: true
-        }
-      );
+      const res = await axios.post("/user/register", input);
 
       if (res.data.success) {
-        toast.success(res.data.message);
+        toast.success(res.data.message || "Account created successfully!");
+        
+        // Store user data in Redux (auto-login)
+        dispatch(setAuthUser(res.data));
+        
+        // Clear form
         setInput({
-           username: "",
-    email: "",
-    password: ""
+          username: "",
+          email: "",
+          password: ""
         });
+        
+        // Redirect to home page
+        navigate("/");
       }
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,8 +100,15 @@ const Signup = () => {
             className="auth-input"
           />
         </div>
-        <Button type="submit" className="auth-btn">
-          Sign Up
+        <Button type="submit" className="auth-btn" disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className="animate-spin h-5 w-5 mr-2" />
+              Creating Account...
+            </>
+          ) : (
+            "Sign Up"
+          )}
         </Button>
         <p className="auth-footer">
           Already have an account?{' '}
