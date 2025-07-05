@@ -16,10 +16,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { setOnlineUsers } from "./redux/socketslice";
 import { setSocketInstance } from "./lib/socketInstance";
 
+// Error Boundary Component
+const ErrorBoundary = () => {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      height: '100vh',
+      textAlign: 'center',
+      padding: '20px'
+    }}>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you're looking for doesn't exist.</p>
+      <a href="/" style={{ color: '#0095f6', textDecoration: 'none' }}>
+        Go to Home
+      </a>
+    </div>
+  );
+};
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       { path: "/", element: <Home /> },
       { path: "/user/:id/profile", element: <Profile /> },
@@ -31,6 +53,7 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
   { path: "/test", element: <div>Test page works!</div> },
+  { path: "*", element: <ErrorBoundary /> },
 ]);
 
 function App() {
