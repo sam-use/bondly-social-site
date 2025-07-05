@@ -166,7 +166,6 @@
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 0 !important;
     border-radius: 0 !important;
     box-sizing: border-box !important;
   }
@@ -174,6 +173,12 @@
     display: block !important;
     justify-content: flex-start !important;
     align-items: flex-start !important;
+    padding-top: 0 !important;
+    padding-bottom: 80px !important;
+  }
+  .feed-container {
+    padding: 0 !important;
+    gap: 12px !important;
   }
   .auth-bg {
     padding: 16px;
@@ -231,6 +236,12 @@
   }
   .auth-logo {
     font-size: 2rem;
+  }
+  .feed-bg {
+    padding-bottom: 60px !important;
+  }
+  .feed-container {
+    gap: 8px !important;
   }
   .insta-post-header {
     padding: 10px 12px;

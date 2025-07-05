@@ -79,9 +79,9 @@
   }
   
   .explore-grid {
-    grid-template-columns: 1fr;
-    gap: 6px;
-    padding: 0 8px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    padding: 0 4px;
   }
   
   .explore-post {
@@ -100,7 +100,9 @@
   }
   
   .explore-grid {
-    padding: 0 4px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    padding: 0 2px;
   }
   
   .explore-post {
