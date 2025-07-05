@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import Sidebar from "./components/ui/Sidebar";
 import RightSidebar from "./components/ui/RightSidebar";
 import CreatePost from "./components/ui/Createpost";
-import { Home, Search, PlusSquare, Heart, User, Menu, X } from "lucide-react";
+import { Home, Search, PlusSquare, Heart, User, Menu, X, Users } from "lucide-react";
 import "./MainLayout.css";
 
 const MainLayout = () => {
   const [isPostOpen, setIsPostOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isMobileRightSidebarOpen, setIsMobileRightSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useSelector((state) => state.auth);
@@ -21,9 +22,10 @@ const MainLayout = () => {
     }
   }, [user, navigate]);
 
-  // Close mobile sidebar when route changes
+  // Close mobile sidebars when route changes
   useEffect(() => {
     setIsMobileSidebarOpen(false);
+    setIsMobileRightSidebarOpen(false);
   }, [location.pathname]);
 
   // Don't render anything if user is not authenticated
@@ -33,10 +35,20 @@ const MainLayout = () => {
 
   const toggleMobileSidebar = () => {
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
+    setIsMobileRightSidebarOpen(false);
+  };
+
+  const toggleMobileRightSidebar = () => {
+    setIsMobileRightSidebarOpen(!isMobileRightSidebarOpen);
+    setIsMobileSidebarOpen(false);
   };
 
   const closeMobileSidebar = () => {
     setIsMobileSidebarOpen(false);
+  };
+
+  const closeMobileRightSidebar = () => {
+    setIsMobileRightSidebarOpen(false);
   };
 
   const isActiveRoute = (path) => {
@@ -45,11 +57,27 @@ const MainLayout = () => {
 
   return (
     <div className="main-layout">
-      {/* Hamburger Menu */}
-      <div className="hamburger-menu" onClick={toggleMobileSidebar}>
-        <div className="hamburger-icon"></div>
-        <div className="hamburger-icon"></div>
-        <div className="hamburger-icon"></div>
+      {/* Mobile Top Navigation */}
+      <div className="mobile-top-nav">
+        <button 
+          className="mobile-nav-btn sidebar-btn"
+          onClick={toggleMobileSidebar}
+        >
+          <Menu size={20} />
+          <span>Menu</span>
+        </button>
+        
+        <div className="mobile-nav-center">
+          <h1 className="mobile-app-title">Instagram</h1>
+        </div>
+        
+        <button 
+          className="mobile-nav-btn rightsidebar-btn"
+          onClick={toggleMobileRightSidebar}
+        >
+          <Users size={20} />
+          <span>Suggestions</span>
+        </button>
       </div>
 
       {/* Mobile Sidebar Overlay */}
@@ -58,11 +86,17 @@ const MainLayout = () => {
         onClick={closeMobileSidebar}
       ></div>
 
+      {/* Mobile Right Sidebar Overlay */}
+      <div 
+        className={`mobile-rightsidebar-overlay ${isMobileRightSidebarOpen ? 'open' : ''}`}
+        onClick={closeMobileRightSidebar}
+      ></div>
+
       {/* Mobile Sidebar */}
       <div className={`mobile-sidebar ${isMobileSidebarOpen ? 'open' : ''}`}>
         <div style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Instagram</h2>
+            <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Menu</h2>
             <button 
               onClick={closeMobileSidebar}
               style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
@@ -75,6 +109,22 @@ const MainLayout = () => {
           setIsPostOpen(true);
           closeMobileSidebar();
         }} />
+      </div>
+
+      {/* Mobile Right Sidebar */}
+      <div className={`mobile-rightsidebar ${isMobileRightSidebarOpen ? 'open' : ''}`}>
+        <div style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Suggestions</h2>
+            <button 
+              onClick={closeMobileRightSidebar}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </div>
+        <RightSidebar />
       </div>
 
       {/* Desktop Sidebar */}
@@ -92,7 +142,7 @@ const MainLayout = () => {
         <RightSidebar />
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Bottom Navigation */}
       <nav className="mobile-nav">
         <div className="mobile-nav-items">
           <div 

@@ -277,6 +277,22 @@
   padding-left: 24px;
 }
 
+/* Follow Button Styles */
+.follow-btn {
+  background: #0095f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.follow-btn:hover {
+  background: #1877f2;
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .rightsidebar-container {
@@ -346,6 +362,16 @@
     padding: 6px 12px !important;
     font-size: 12px !important;
     margin-left: 4px !important;
+    background: #0095f6 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+  }
+  
+  .follow-btn:hover {
+    background: #1877f2 !important;
   }
   
   .no-suggestions {
@@ -412,6 +438,16 @@
     padding: 4px 10px !important;
     font-size: 11px !important;
     margin-left: 2px !important;
+    background: #0095f6 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+  }
+  
+  .follow-btn:hover {
+    background: #1877f2 !important;
   }
   
   .no-suggestions {
