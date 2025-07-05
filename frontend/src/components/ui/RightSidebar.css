@@ -98,7 +98,10 @@
 .suggested-user {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
+  gap: 8px;
+  padding: 8px 0;
 }
 
 .suggested-link {
@@ -109,7 +112,8 @@
   padding: 7px 10px;
   border-radius: 8px;
   transition: background 0.18s;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .suggested-link:hover {
@@ -131,6 +135,9 @@
   letter-spacing: 0.01em;
   font-style: normal;
   text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rightsidebar-section {
@@ -279,7 +286,7 @@
 
 /* Follow Button Styles */
 .follow-btn {
-  background: linear-gradient(45deg, #0095f6, #1877f2);
+  background: #000000;
   color: white;
   border: none;
   border-radius: 8px;
@@ -288,15 +295,17 @@
   font-size: 0.9rem;
   font-weight: 600;
   padding: 8px 16px;
-  box-shadow: 0 2px 8px rgba(0, 149, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .follow-btn:hover {
-  background: linear-gradient(45deg, #1877f2, #0095f6);
+  background: #333333;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 149, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .follow-btn:active {
@@ -352,12 +361,14 @@
   }
   
   .suggested-user {
-    padding: 8px 0;
+    padding: 6px 0;
+    gap: 6px;
   }
   
   .suggested-link {
-    gap: 10px;
-    padding: 6px 8px;
+    gap: 8px;
+    padding: 4px 6px;
+    flex: 1;
   }
   
   .suggested-avatar {
@@ -370,25 +381,26 @@
   }
   
   .follow-btn {
-    padding: 6px 12px !important;
-    font-size: 11px !important;
-    margin-left: 4px !important;
-    background: linear-gradient(45deg, #0095f6, #1877f2) !important;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
+    margin-left: 0 !important;
+    flex-shrink: 0 !important;
+    background: #000000 !important;
     color: white !important;
     border: none !important;
     border-radius: 6px !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     font-weight: 600 !important;
-    box-shadow: 0 2px 6px rgba(0, 149, 246, 0.3) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.3px !important;
   }
   
   .follow-btn:hover {
-    background: linear-gradient(45deg, #1877f2, #0095f6) !important;
+    background: #333333 !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 3px 8px rgba(0, 149, 246, 0.4) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3) !important;
   }
   
   .no-suggestions {
@@ -434,7 +446,8 @@
   }
   
   .suggested-user {
-    padding: 6px 0;
+    padding: 4px 0;
+    gap: 4px;
   }
   
   .suggested-link {
@@ -452,25 +465,26 @@
   }
   
   .follow-btn {
-    padding: 4px 10px !important;
-    font-size: 10px !important;
-    margin-left: 2px !important;
-    background: linear-gradient(45deg, #0095f6, #1877f2) !important;
+    padding: 4px 8px !important;
+    font-size: 9px !important;
+    margin-left: 0 !important;
+    flex-shrink: 0 !important;
+    background: #000000 !important;
     color: white !important;
     border: none !important;
     border-radius: 4px !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     font-weight: 600 !important;
-    box-shadow: 0 1px 4px rgba(0, 149, 246, 0.3) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.2px !important;
   }
   
   .follow-btn:hover {
-    background: linear-gradient(45deg, #1877f2, #0095f6) !important;
+    background: #333333 !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 2px 6px rgba(0, 149, 246, 0.4) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
   }
   
   .no-suggestions {
