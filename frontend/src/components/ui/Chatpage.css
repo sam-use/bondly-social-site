@@ -155,15 +155,20 @@
     margin: 0;
     border-radius: 0;
     box-shadow: none;
+    width: 100%;
+    min-width: 0;
   }
   
   .chatpage-sidebar {
     width: 320px;
+    min-width: 320px;
   }
   
   .chatpage-main {
     flex: 1;
     max-width: none;
+    min-width: 0;
+    width: 100%;
   }
 }
 
