@@ -17,22 +17,29 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
 
-  // Fetch suggested users
+  // Fetch all users for chat
   useEffect(() => {
-    const fetchSuggestions = async () => {
+    const fetchAllUsers = async () => {
       try {
-        const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/suggested", {
+        const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/all", {
           withCredentials: true,
         });
         if (res.data.success) {
-          setSuggestedUsers(res.data.users);
+          // Filter out current user and add online status
+          const filteredUsers = res.data.users
+            .filter(u => u._id !== user?._id)
+            .map(u => ({
+              ...u,
+              isOnline: Math.random() > 0.5 // Temporary random online status
+            }));
+          setSuggestedUsers(filteredUsers);
         }
       } catch (err) {
-        console.error("Failed to fetch suggested users", err);
+        console.error("Failed to fetch users for chat", err);
       }
     };
-    fetchSuggestions();
-  }, []);
+    fetchAllUsers();
+  }, [user?._id]);
 
   // Fetch message history when user selected
   useEffect(() => {

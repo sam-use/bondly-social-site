@@ -279,18 +279,29 @@
 
 /* Follow Button Styles */
 .follow-btn {
-  background: #0095f6;
+  background: linear-gradient(45deg, #0095f6, #1877f2);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(0, 149, 246, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .follow-btn:hover {
-  background: #1877f2;
+  background: linear-gradient(45deg, #1877f2, #0095f6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 149, 246, 0.4);
+}
+
+.follow-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 149, 246, 0.3);
 }
 
 /* Mobile Responsive Styles */
@@ -360,18 +371,24 @@
   
   .follow-btn {
     padding: 6px 12px !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
     margin-left: 4px !important;
-    background: #0095f6 !important;
+    background: linear-gradient(45deg, #0095f6, #1877f2) !important;
     color: white !important;
     border: none !important;
     border-radius: 6px !important;
     cursor: pointer !important;
-    transition: background 0.2s !important;
+    transition: all 0.3s ease !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 6px rgba(0, 149, 246, 0.3) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
   }
   
   .follow-btn:hover {
-    background: #1877f2 !important;
+    background: linear-gradient(45deg, #1877f2, #0095f6) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 3px 8px rgba(0, 149, 246, 0.4) !important;
   }
   
   .no-suggestions {
@@ -436,18 +453,24 @@
   
   .follow-btn {
     padding: 4px 10px !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
     margin-left: 2px !important;
-    background: #0095f6 !important;
+    background: linear-gradient(45deg, #0095f6, #1877f2) !important;
     color: white !important;
     border: none !important;
     border-radius: 4px !important;
     cursor: pointer !important;
-    transition: background 0.2s !important;
+    transition: all 0.3s ease !important;
+    font-weight: 600 !important;
+    box-shadow: 0 1px 4px rgba(0, 149, 246, 0.3) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2px !important;
   }
   
   .follow-btn:hover {
-    background: #1877f2 !important;
+    background: linear-gradient(45deg, #1877f2, #0095f6) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 6px rgba(0, 149, 246, 0.4) !important;
   }
   
   .no-suggestions {
