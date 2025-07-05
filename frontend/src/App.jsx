@@ -82,9 +82,24 @@ function App() {
       socket = io("https://instagram-clone-backend-nqcw.onrender.com", {
         query: { userId: user._id },
         withCredentials: true,
+        transports: ["websocket", "polling"],
+        timeout: 20000,
+        forceNew: true,
       });
 
       setSocketInstance(socket);
+
+      socket.on("connect", () => {
+        console.log("✅ Socket connected successfully");
+      });
+
+      socket.on("connect_error", (error) => {
+        console.error("❌ Socket connection error:", error);
+      });
+
+      socket.on("disconnect", (reason) => {
+        console.log("🔌 Socket disconnected:", reason);
+      });
 
       socket.on("getOnlineUsers", (users) => {
         dispatch(setOnlineUsers(users));
