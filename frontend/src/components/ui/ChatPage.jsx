@@ -121,166 +121,166 @@ const ChatPage = () => {
   return (
     <div className="chatpage-container">
       {/* Mobile Chat View */}
-      <div className={`mobile-chat-view ${isMobileChatOpen ? 'open' : ''}`}>
-        {selectedUser && (
-          <>
-            {/* Mobile Header */}
-            <div className="mobile-chat-header">
-              <button onClick={handleBackToUsers} className="back-btn">
-                <ArrowLeft size={20} />
-              </button>
-              <div className="mobile-chat-user-info">
-                <Avatar className="avatar">
-                  <AvatarImage
-                    src={
-                      selectedUser.profilePicture?.startsWith("http")
-                        ? selectedUser.profilePicture
-                        : fallbackAvatar(selectedUser.username)
-                    }
-                    onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
-                  />
-                  <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h2 className="username">{selectedUser.username}</h2>
-                  <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile Chat messages */}
-            <div className="mobile-chat-messages">
-              {messages.length === 0 ? (
-                <div className="text-center text-gray-400 mt-8">
-                  No messages yet. Start the conversation!
-                </div>
-              ) : (
-                messages.map((msg, index) => {
-                  const isOwn = msg.senderId === user?._id || msg.senderId?._id === user?._id;
-                  return (
-                    <div
-                      key={index}
-                      className={`chat-bubble ${isOwn ? "own" : "other"}`}
-                    >
-                      {msg.text || msg.message}
-                    </div>
-                  );
-                })
-              )}
-              <div ref={messagesEndRef}></div>
-            </div>
-
-            {/* Mobile Input */}
-            <div className="mobile-chat-input-area">
-              <input
-                type="text"
-                placeholder="Type a message..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                className="mobile-chat-input"
-              />
-              <button onClick={sendMessage} className="mobile-send-btn">
-                <Send size={18} />
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Users List View */}
-      <div className={`users-list-view ${isMobileChatOpen ? 'hidden' : ''}`}>
-        <div className="chatpage-sidebar">
-          <h2>Suggested Users</h2>
-          {suggestedUsers.map((sUser) => (
-            <div
-              key={sUser._id}
-              onClick={() => handleUserSelect(sUser)}
-              className="chatpage-user"
-            >
+      {isMobileChatOpen && selectedUser && (
+        <div className="mobile-chat-view">
+          {/* Mobile Header */}
+          <div className="mobile-chat-header">
+            <button onClick={handleBackToUsers} className="back-btn">
+              <ArrowLeft size={20} />
+            </button>
+            <div className="mobile-chat-user-info">
               <Avatar className="avatar">
                 <AvatarImage
                   src={
-                    sUser.profilePicture?.startsWith("http")
-                      ? sUser.profilePicture
-                      : fallbackAvatar(sUser.username)
+                    selectedUser.profilePicture?.startsWith("http")
+                      ? selectedUser.profilePicture
+                      : fallbackAvatar(selectedUser.username)
                   }
-                  onError={(e) => (e.target.src = fallbackAvatar(sUser.username))}
+                  onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
                 />
-                <AvatarFallback>{sUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
               </Avatar>
               <div>
-                <p className="username">{sUser.username}</p>
-                <p className="status">{sUser.isOnline ? "Online" : "Offline"}</p>
+                <h2 className="username">{selectedUser.username}</h2>
+                <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* Desktop Chat Section */}
-        <div className="chatpage-main">
-          {selectedUser ? (
-            <>
-              {/* Header */}
-              <div className="chatpage-header">
+          {/* Mobile Chat messages */}
+          <div className="mobile-chat-messages">
+            {messages.length === 0 ? (
+              <div className="text-center text-gray-400 mt-8">
+                No messages yet. Start the conversation!
+              </div>
+            ) : (
+              messages.map((msg, index) => {
+                const isOwn = msg.senderId === user?._id || msg.senderId?._id === user?._id;
+                return (
+                  <div
+                    key={index}
+                    className={`chat-bubble ${isOwn ? "own" : "other"}`}
+                  >
+                    {msg.text || msg.message}
+                  </div>
+                );
+              })
+            )}
+            <div ref={messagesEndRef}></div>
+          </div>
+
+          {/* Mobile Input */}
+          <div className="mobile-chat-input-area">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              className="mobile-chat-input"
+            />
+            <button onClick={sendMessage} className="mobile-send-btn">
+              <Send size={18} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Users List View */}
+      {!isMobileChatOpen && (
+        <div className="users-list-view">
+          <div className="chatpage-sidebar">
+            <h2>Suggested Users</h2>
+            {suggestedUsers.map((sUser) => (
+              <div
+                key={sUser._id}
+                onClick={() => handleUserSelect(sUser)}
+                className="chatpage-user"
+              >
                 <Avatar className="avatar">
                   <AvatarImage
                     src={
-                      selectedUser.profilePicture?.startsWith("http")
-                        ? selectedUser.profilePicture
-                        : fallbackAvatar(selectedUser.username)
+                      sUser.profilePicture?.startsWith("http")
+                        ? sUser.profilePicture
+                        : fallbackAvatar(sUser.username)
                     }
-                    onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
+                    onError={(e) => (e.target.src = fallbackAvatar(sUser.username))}
                   />
-                  <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                  <AvatarFallback>{sUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h2 className="username">{selectedUser.username}</h2>
-                  <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
+                  <p className="username">{sUser.username}</p>
+                  <p className="status">{sUser.isOnline ? "Online" : "Offline"}</p>
                 </div>
               </div>
+            ))}
+          </div>
 
-              {/* Chat messages */}
-              <div className="chatpage-messages">
-                {messages.length === 0 ? (
-                  <div className="text-center text-gray-400 mt-8">
-                    No messages yet. Start the conversation!
+          {/* Desktop Chat Section */}
+          <div className="chatpage-main">
+            {selectedUser ? (
+              <>
+                {/* Header */}
+                <div className="chatpage-header">
+                  <Avatar className="avatar">
+                    <AvatarImage
+                      src={
+                        selectedUser.profilePicture?.startsWith("http")
+                          ? selectedUser.profilePicture
+                          : fallbackAvatar(selectedUser.username)
+                      }
+                      onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
+                    />
+                    <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h2 className="username">{selectedUser.username}</h2>
+                    <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
                   </div>
-                ) : (
-                  messages.map((msg, index) => {
-                    const isOwn = msg.senderId === user?._id || msg.senderId?._id === user?._id;
-                    return (
-                      <div
-                        key={index}
-                        className={`chat-bubble ${isOwn ? "own" : "other"}`}
-                      >
-                        {msg.text || msg.message}
-                      </div>
-                    );
-                  })
-                )}
-                <div ref={messagesEndRef}></div>
-              </div>
+                </div>
 
-              {/* Input */}
-              <div className="chatpage-input-area">
-                <input
-                  type="text"
-                  placeholder="Type a message..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                />
-                <button onClick={sendMessage}>Send</button>
+                {/* Chat messages */}
+                <div className="chatpage-messages">
+                  {messages.length === 0 ? (
+                    <div className="text-center text-gray-400 mt-8">
+                      No messages yet. Start the conversation!
+                    </div>
+                  ) : (
+                    messages.map((msg, index) => {
+                      const isOwn = msg.senderId === user?._id || msg.senderId?._id === user?._id;
+                      return (
+                        <div
+                          key={index}
+                          className={`chat-bubble ${isOwn ? "own" : "other"}`}
+                        >
+                          {msg.text || msg.message}
+                        </div>
+                      );
+                    })
+                  )}
+                  <div ref={messagesEndRef}></div>
+                </div>
+
+                {/* Input */}
+                <div className="chatpage-input-area">
+                  <input
+                    type="text"
+                    placeholder="Type a message..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                  />
+                  <button onClick={sendMessage}>Send</button>
+                </div>
+              </>
+            ) : (
+              <div className="flex justify-center items-center h-full text-gray-500">
+                Select a user to start chatting
               </div>
-            </>
-          ) : (
-            <div className="flex justify-center items-center h-full text-gray-500">
-              Select a user to start chatting
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

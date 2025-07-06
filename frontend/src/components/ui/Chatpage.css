@@ -162,12 +162,6 @@
   background: #fff;
   z-index: 1000;
   flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-}
-
-.mobile-chat-view.open {
-  transform: translateX(0);
 }
 
 .mobile-chat-header {
@@ -336,11 +330,7 @@
   }
 
   .mobile-chat-view {
-    display: flex;
-  }
-
-  .users-list-view.hidden {
-    display: none;
+    display: flex !important;
   }
 
   .chatpage-sidebar h2 {
