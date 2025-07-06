@@ -325,12 +325,25 @@
   }
   
   .chatpage-header {
-    padding: 20px 24px !important;
-    min-height: 80px !important;
+    padding: 24px !important;
+    min-height: 90px !important;
     flex-shrink: 0 !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 10 !important;
+    overflow: visible !important;
+  }
+
+  .chatpage-header .username {
+    line-height: 1.4 !important;
+    padding: 4px 0 !important;
+    overflow: visible !important;
+  }
+
+  .chatpage-header .status {
+    line-height: 1.4 !important;
+    padding: 2px 0 !important;
+    overflow: visible !important;
   }
 
   .chatpage-messages {
