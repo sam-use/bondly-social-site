@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { setSelectedUser } from "@/redux/authSlice";
 import axios from "axios";
 import { getSocketInstance } from "@/lib/socketInstance";
+import { ArrowLeft, X } from "lucide-react";
 import "./Chatpage.css";
 
 const fallbackAvatar = (name) =>
@@ -15,6 +16,7 @@ const ChatPage = () => {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [isMobileChatOpen, setIsMobileChatOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
   // Fetch all users for chat
@@ -103,64 +105,51 @@ const ChatPage = () => {
     }
   };
 
+  // Handle user selection on mobile
+  const handleUserSelect = (sUser) => {
+    dispatch(setSelectedUser(sUser));
+    setMessages([]); // Clear old messages before new load
+    setIsMobileChatOpen(true); // Open chat on mobile
+  };
+
+  // Handle back button on mobile
+  const handleBackToUsers = () => {
+    setIsMobileChatOpen(false);
+    dispatch(setSelectedUser(null));
+  };
+
   return (
     <div className="chatpage-container">
-      {/* Left Sidebar */}
-      <div className="chatpage-sidebar">
-        <h2>Suggested Users</h2>
-        {suggestedUsers.map((sUser) => (
-          <div
-            key={sUser._id}
-            onClick={() => {
-              dispatch(setSelectedUser(sUser));
-              setMessages([]); // Clear old messages before new load
-            }}
-            className="chatpage-user"
-          >
-            <Avatar className="avatar">
-              <AvatarImage
-                src={
-                  sUser.profilePicture?.startsWith("http")
-                    ? sUser.profilePicture
-                    : fallbackAvatar(sUser.username)
-                }
-                onError={(e) => (e.target.src = fallbackAvatar(sUser.username))}
-              />
-              <AvatarFallback>{sUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="username">{sUser.username}</p>
-              <p className="status">{sUser.isOnline ? "Online" : "Offline"}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Chat Section */}
-      <div className="chatpage-main">
-        {selectedUser ? (
+      {/* Mobile Chat View */}
+      <div className={`mobile-chat-view ${isMobileChatOpen ? 'open' : ''}`}>
+        {selectedUser && (
           <>
-            {/* Header */}
-            <div className="chatpage-header">
-              <Avatar className="avatar">
-                <AvatarImage
-                  src={
-                    selectedUser.profilePicture?.startsWith("http")
-                      ? selectedUser.profilePicture
-                      : fallbackAvatar(selectedUser.username)
-                  }
-                  onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
-                />
-                <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
-              </Avatar>
-              <div>
-                <h2 className="username">{selectedUser.username}</h2>
-                <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
+            {/* Mobile Header */}
+            <div className="mobile-chat-header">
+              <button onClick={handleBackToUsers} className="back-btn">
+                <ArrowLeft size={20} />
+              </button>
+              <div className="mobile-chat-user-info">
+                <Avatar className="avatar">
+                  <AvatarImage
+                    src={
+                      selectedUser.profilePicture?.startsWith("http")
+                        ? selectedUser.profilePicture
+                        : fallbackAvatar(selectedUser.username)
+                    }
+                    onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
+                  />
+                  <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h2 className="username">{selectedUser.username}</h2>
+                  <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
+                </div>
               </div>
             </div>
 
-            {/* Chat messages */}
-            <div className="chatpage-messages">
+            {/* Mobile Chat messages */}
+            <div className="mobile-chat-messages">
               {messages.length === 0 ? (
                 <div className="text-center text-gray-400 mt-8">
                   No messages yet. Start the conversation!
@@ -181,8 +170,8 @@ const ChatPage = () => {
               <div ref={messagesEndRef}></div>
             </div>
 
-            {/* Input */}
-            <div className="chatpage-input-area">
+            {/* Mobile Input */}
+            <div className="mobile-chat-input-area">
               <input
                 type="text"
                 placeholder="Type a message"
@@ -193,11 +182,101 @@ const ChatPage = () => {
               <button onClick={sendMessage}>Send</button>
             </div>
           </>
-        ) : (
-          <div className="flex justify-center items-center h-full text-gray-500">
-            Select a user to start chatting
-          </div>
         )}
+      </div>
+
+      {/* Users List View */}
+      <div className={`users-list-view ${isMobileChatOpen ? 'hidden' : ''}`}>
+        <div className="chatpage-sidebar">
+          <h2>Suggested Users</h2>
+          {suggestedUsers.map((sUser) => (
+            <div
+              key={sUser._id}
+              onClick={() => handleUserSelect(sUser)}
+              className="chatpage-user"
+            >
+              <Avatar className="avatar">
+                <AvatarImage
+                  src={
+                    sUser.profilePicture?.startsWith("http")
+                      ? sUser.profilePicture
+                      : fallbackAvatar(sUser.username)
+                  }
+                  onError={(e) => (e.target.src = fallbackAvatar(sUser.username))}
+                />
+                <AvatarFallback>{sUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="username">{sUser.username}</p>
+                <p className="status">{sUser.isOnline ? "Online" : "Offline"}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Chat Section */}
+        <div className="chatpage-main">
+          {selectedUser ? (
+            <>
+              {/* Header */}
+              <div className="chatpage-header">
+                <Avatar className="avatar">
+                  <AvatarImage
+                    src={
+                      selectedUser.profilePicture?.startsWith("http")
+                        ? selectedUser.profilePicture
+                        : fallbackAvatar(selectedUser.username)
+                    }
+                    onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
+                  />
+                  <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h2 className="username">{selectedUser.username}</h2>
+                  <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
+                </div>
+              </div>
+
+              {/* Chat messages */}
+              <div className="chatpage-messages">
+                {messages.length === 0 ? (
+                  <div className="text-center text-gray-400 mt-8">
+                    No messages yet. Start the conversation!
+                  </div>
+                ) : (
+                  messages.map((msg, index) => {
+                    const isOwn = msg.senderId === user?._id || msg.senderId?._id === user?._id;
+                    return (
+                      <div
+                        key={index}
+                        className={`chat-bubble ${isOwn ? "own" : "other"}`}
+                      >
+                        {msg.text || msg.message}
+                      </div>
+                    );
+                  })
+                )}
+                <div ref={messagesEndRef}></div>
+              </div>
+
+              {/* Input */}
+              <div className="chatpage-input-area">
+                <input
+                  type="text"
+                  placeholder="Type a message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                />
+                <button onClick={sendMessage}>Send</button>
+              </div>
+            </>
+          ) : (
+            <div className="flex justify-center items-center h-full text-gray-500">
+              Select a user to start chatting
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
