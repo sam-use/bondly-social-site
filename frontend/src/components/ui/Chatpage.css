@@ -192,6 +192,7 @@
   align-items: center;
   justify-content: center;
   transition: background 0.2s;
+  color: #333;
 }
 
 .back-btn:hover {
@@ -234,6 +235,8 @@
 
 .mobile-chat-input-area {
   display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 12px 16px;
   border-top: 1px solid #e6e6e6;
   background: #fff;
@@ -241,27 +244,32 @@
   bottom: 0;
 }
 
-.mobile-chat-input-area input {
+.mobile-chat-input {
   flex: 1;
   border: 1px solid #e6e6e6;
-  border-radius: 20px 0 0 20px;
+  border-radius: 20px;
   padding: 10px 16px;
   font-size: 1rem;
   outline: none;
+  background: #fafafa;
 }
 
-.mobile-chat-input-area button {
+.mobile-send-btn {
   background: #3797f0;
   color: #fff;
   border: none;
-  border-radius: 0 20px 20px 0;
-  padding: 0 20px;
-  font-size: 1rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: background 0.2s;
+  flex-shrink: 0;
 }
 
-.mobile-chat-input-area button:hover {
+.mobile-send-btn:hover {
   background: #1877f2;
 }
 
@@ -414,13 +422,13 @@
     padding: 10px 12px;
   }
 
-  .mobile-chat-input-area input {
+  .mobile-chat-input {
     padding: 8px 12px;
     font-size: 0.95rem;
   }
 
-  .mobile-chat-input-area button {
-    padding: 0 16px;
-    font-size: 0.95rem;
+  .mobile-send-btn {
+    width: 36px;
+    height: 36px;
   }
 } 

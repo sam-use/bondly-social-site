@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { setSelectedUser } from "@/redux/authSlice";
 import axios from "axios";
 import { getSocketInstance } from "@/lib/socketInstance";
-import { ArrowLeft, X } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import "./Chatpage.css";
 
 const fallbackAvatar = (name) =>
@@ -174,12 +174,15 @@ const ChatPage = () => {
             <div className="mobile-chat-input-area">
               <input
                 type="text"
-                placeholder="Type a message"
+                placeholder="Type a message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                className="mobile-chat-input"
               />
-              <button onClick={sendMessage}>Send</button>
+              <button onClick={sendMessage} className="mobile-send-btn">
+                <Send size={18} />
+              </button>
             </div>
           </>
         )}
@@ -263,7 +266,7 @@ const ChatPage = () => {
               <div className="chatpage-input-area">
                 <input
                   type="text"
-                  placeholder="Type a message"
+                  placeholder="Type a message..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && sendMessage()}
