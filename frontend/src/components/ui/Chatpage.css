@@ -237,7 +237,6 @@
   background: #fff;
 }
 
-/* Mobile Input Container - Fixed positioning */
 .mobile-chat-input-container {
   display: flex;
   align-items: center;
@@ -246,8 +245,6 @@
   border-top: 1px solid #e6e6e6;
   background: #fff;
   flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
   width: 100%;
   box-sizing: border-box;
 }
