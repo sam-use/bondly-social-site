@@ -169,17 +169,55 @@ const ChatPage = () => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          {/* Mobile Input - Fixed positioning */}
-          <div className="mobile-chat-input-container">
+          {/* Mobile Input - Using inline styles to ensure visibility */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '12px 16px',
+            borderTop: '1px solid #e6e6e6',
+            backgroundColor: '#fff',
+            position: 'sticky',
+            bottom: 0,
+            width: '100%',
+            boxSizing: 'border-box'
+          }}>
             <input
               type="text"
               placeholder="Type a message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              className="mobile-chat-input"
+              style={{
+                flex: 1,
+                border: '1px solid #e6e6e6',
+                borderRadius: '20px',
+                padding: '10px 16px',
+                fontSize: '1rem',
+                outline: 'none',
+                backgroundColor: '#fafafa',
+                minHeight: '40px'
+              }}
             />
-            <button onClick={sendMessage} className="mobile-send-btn">
+            <button 
+              onClick={sendMessage}
+              style={{
+                background: '#3797f0',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+                flexShrink: 0
+              }}
+              onMouseEnter={(e) => e.target.style.background = '#1877f2'}
+              onMouseLeave={(e) => e.target.style.background = '#3797f0'}
+            >
               <Send size={18} />
             </button>
           </div>
