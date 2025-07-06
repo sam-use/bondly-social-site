@@ -122,13 +122,41 @@ const ChatPage = () => {
     <div className="chatpage-container">
       {/* Mobile Chat View */}
       {isMobileChatOpen && selectedUser && (
-        <div className="mobile-chat-view">
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: '#fff',
+          zIndex: 1000,
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           {/* Mobile Header */}
-          <div className="mobile-chat-header">
-            <button onClick={handleBackToUsers} className="back-btn">
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '16px',
+            borderBottom: '1px solid #e6e6e6',
+            background: '#fff',
+            flexShrink: 0
+          }}>
+            <button onClick={handleBackToUsers} style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#333'
+            }}>
               <ArrowLeft size={20} />
             </button>
-            <div className="mobile-chat-user-info">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
               <Avatar className="avatar">
                 <AvatarImage
                   src={
@@ -141,16 +169,24 @@ const ChatPage = () => {
                 <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="username">{selectedUser.username}</h2>
-                <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
+                <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{selectedUser.username}</h2>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: '#888' }}>{selectedUser.isOnline ? "Online" : "Offline"}</p>
               </div>
             </div>
           </div>
 
           {/* Mobile Chat messages */}
-          <div className="mobile-chat-messages">
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            background: '#fff'
+          }}>
             {messages.length === 0 ? (
-              <div className="text-center text-gray-400 mt-8">
+              <div style={{ textAlign: 'center', color: '#888', marginTop: '32px' }}>
                 No messages yet. Start the conversation!
               </div>
             ) : (
@@ -159,7 +195,19 @@ const ChatPage = () => {
                 return (
                   <div
                     key={index}
-                    className={`chat-bubble ${isOwn ? "own" : "other"}`}
+                    style={{
+                      maxWidth: '70%',
+                      padding: '12px 18px',
+                      borderRadius: '22px',
+                      fontSize: '1rem',
+                      wordBreak: 'break-word',
+                      marginBottom: '2px',
+                      alignSelf: isOwn ? 'flex-end' : 'flex-start',
+                      background: isOwn ? '#3797f0' : '#f0f0f0',
+                      color: isOwn ? '#fff' : '#222',
+                      borderBottomRightRadius: isOwn ? '6px' : '22px',
+                      borderBottomLeftRadius: isOwn ? '22px' : '6px'
+                    }}
                   >
                     {msg.text || msg.message}
                   </div>
@@ -169,17 +217,52 @@ const ChatPage = () => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          {/* Mobile Input */}
-          <div className="mobile-chat-input-container">
+          {/* Mobile Input - This MUST be visible */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '12px 16px',
+            borderTop: '1px solid #e6e6e6',
+            backgroundColor: '#fff',
+            width: '100%',
+            boxSizing: 'border-box',
+            position: 'sticky',
+            bottom: 0
+          }}>
             <input
               type="text"
               placeholder="Type a message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              className="mobile-chat-input"
+              style={{
+                flex: 1,
+                border: '1px solid #e6e6e6',
+                borderRadius: '20px',
+                padding: '10px 16px',
+                fontSize: '1rem',
+                outline: 'none',
+                backgroundColor: '#fafafa',
+                minHeight: '40px'
+              }}
             />
-            <button onClick={sendMessage} className="mobile-send-btn">
+            <button 
+              onClick={sendMessage}
+              style={{
+                background: '#3797f0',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                flexShrink: 0
+              }}
+            >
               <Send size={18} />
             </button>
           </div>
