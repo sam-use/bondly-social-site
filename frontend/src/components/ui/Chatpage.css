@@ -58,6 +58,8 @@
   display: flex;
   flex-direction: column;
   padding: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .chatpage-header {
@@ -69,6 +71,10 @@
   background: #fff;
   min-height: 80px;
   box-sizing: border-box;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .chatpage-header .avatar {
@@ -79,11 +85,15 @@
 .chatpage-header .username {
   font-size: 1.1rem;
   font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .chatpage-header .status {
   font-size: 0.95rem;
   color: #888;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .chatpage-messages {
@@ -94,6 +104,7 @@
   flex-direction: column;
   gap: 12px;
   background: #fff;
+  min-height: 0;
 }
 
 .chat-bubble {
@@ -125,6 +136,7 @@
   padding: 16px 24px;
   border-top: 1px solid #e6e6e6;
   background: #fff;
+  flex-shrink: 0;
 }
 
 .chatpage-input-area input {
@@ -171,9 +183,7 @@
   padding: 16px;
   border-bottom: 1px solid #e6e6e6;
   background: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  flex-shrink: 0;
 }
 
 .back-btn {
@@ -227,15 +237,19 @@
   background: #fff;
 }
 
-.mobile-chat-input-area {
+/* Mobile Input Container - Fixed positioning */
+.mobile-chat-input-container {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
   border-top: 1px solid #e6e6e6;
   background: #fff;
+  flex-shrink: 0;
   position: sticky;
   bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .mobile-chat-input {
@@ -246,6 +260,7 @@
   font-size: 1rem;
   outline: none;
   background: #fafafa;
+  min-height: 40px;
 }
 
 .mobile-send-btn {
@@ -298,11 +313,27 @@
     max-width: none !important;
     min-width: 0 !important;
     width: 100% !important;
+    height: 100vh !important;
+    overflow: hidden !important;
   }
   
   .chatpage-header {
     padding: 20px 24px !important;
     min-height: 80px !important;
+    flex-shrink: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+  }
+
+  .chatpage-messages {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    min-height: 0 !important;
+  }
+
+  .chatpage-input-area {
+    flex-shrink: 0 !important;
   }
 
   .mobile-chat-view {
@@ -356,6 +387,13 @@
   .chatpage-user .status {
     font-size: 0.85rem;
   }
+
+  /* Ensure mobile input is visible */
+  .mobile-chat-input-container {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -408,7 +446,7 @@
     padding: 12px;
   }
 
-  .mobile-chat-input-area {
+  .mobile-chat-input-container {
     padding: 10px 12px;
   }
 

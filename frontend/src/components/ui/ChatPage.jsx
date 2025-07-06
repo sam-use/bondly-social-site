@@ -169,8 +169,8 @@ const ChatPage = () => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          {/* Mobile Input */}
-          <div className="mobile-chat-input-area">
+          {/* Mobile Input - Fixed positioning */}
+          <div className="mobile-chat-input-container">
             <input
               type="text"
               placeholder="Type a message..."
