@@ -245,8 +245,8 @@
   flex-direction: column;
   gap: 12px;
   background: #fff;
-  height: calc(100vh - 140px); /* Account for header + input + nav */
-  max-height: calc(100vh - 140px);
+  height: calc(100vh - 200px); /* Shorter height to end before input */
+  max-height: calc(100vh - 200px);
   padding-bottom: 20px;
 }
 
@@ -408,8 +408,8 @@
     flex-direction: column;
     gap: 12px;
     background: #fff;
-    height: calc(100vh - 140px); /* Account for header + input + nav */
-    max-height: calc(100vh - 140px);
+    height: calc(100vh - 200px); /* Shorter height to end before input */
+    max-height: calc(100vh - 200px);
     padding-bottom: 20px;
   }
 
