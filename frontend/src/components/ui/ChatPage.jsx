@@ -110,25 +110,63 @@ const ChatPage = () => {
     dispatch(setSelectedUser(sUser));
     setMessages([]); // Clear old messages before new load
     setIsMobileChatOpen(true); // Open chat on mobile
+    console.log("Mobile chat opened for:", sUser.username); // Debug log
   };
 
   // Handle back button on mobile
   const handleBackToUsers = () => {
     setIsMobileChatOpen(false);
     dispatch(setSelectedUser(null));
+    console.log("Back to users clicked"); // Debug log
   };
+
+  // Check if we're on mobile
+  const isMobile = window.innerWidth <= 768;
 
   return (
     <div className="chatpage-container">
+      {/* Debug info */}
+      <div style={{ position: 'fixed', top: '10px', right: '10px', background: 'red', color: 'white', padding: '5px', zIndex: 9999 }}>
+        Mobile: {isMobile ? 'Yes' : 'No'} | Chat Open: {isMobileChatOpen ? 'Yes' : 'No'} | Selected: {selectedUser?.username || 'None'}
+      </div>
+
       {/* Mobile Chat View */}
-      {isMobileChatOpen && selectedUser && (
-        <div className="mobile-chat-view">
+      {isMobile && isMobileChatOpen && selectedUser && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: '#fff',
+          zIndex: 1000,
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           {/* Mobile Header */}
-          <div className="mobile-chat-header">
-            <button onClick={handleBackToUsers} className="back-btn">
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            padding: '16px',
+            borderBottom: '1px solid #e6e6e6',
+            background: '#fff',
+            flexShrink: 0
+          }}>
+            <button onClick={handleBackToUsers} style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#333'
+            }}>
               <ArrowLeft size={20} />
             </button>
-            <div className="mobile-chat-user-info">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
               <Avatar className="avatar">
                 <AvatarImage
                   src={
@@ -141,16 +179,24 @@ const ChatPage = () => {
                 <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="username">{selectedUser.username}</h2>
-                <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
+                <h2 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{selectedUser.username}</h2>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: '#888' }}>{selectedUser.isOnline ? "Online" : "Offline"}</p>
               </div>
             </div>
           </div>
 
           {/* Mobile Chat messages */}
-          <div className="mobile-chat-messages">
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            background: '#fff'
+          }}>
             {messages.length === 0 ? (
-              <div className="text-center text-gray-400 mt-8">
+              <div style={{ textAlign: 'center', color: '#888', marginTop: '32px' }}>
                 No messages yet. Start the conversation!
               </div>
             ) : (
@@ -159,7 +205,19 @@ const ChatPage = () => {
                 return (
                   <div
                     key={index}
-                    className={`chat-bubble ${isOwn ? "own" : "other"}`}
+                    style={{
+                      maxWidth: '70%',
+                      padding: '12px 18px',
+                      borderRadius: '22px',
+                      fontSize: '1rem',
+                      wordBreak: 'break-word',
+                      marginBottom: '2px',
+                      alignSelf: isOwn ? 'flex-end' : 'flex-start',
+                      background: isOwn ? '#3797f0' : '#f0f0f0',
+                      color: isOwn ? '#fff' : '#222',
+                      borderBottomRightRadius: isOwn ? '6px' : '22px',
+                      borderBottomLeftRadius: isOwn ? '22px' : '6px'
+                    }}
                   >
                     {msg.text || msg.message}
                   </div>
@@ -169,7 +227,7 @@ const ChatPage = () => {
             <div ref={messagesEndRef}></div>
           </div>
 
-          {/* Mobile Input - Using inline styles to ensure visibility */}
+          {/* Mobile Input - Using inline styles */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -177,8 +235,6 @@ const ChatPage = () => {
             padding: '12px 16px',
             borderTop: '1px solid #e6e6e6',
             backgroundColor: '#fff',
-            position: 'sticky',
-            bottom: 0,
             width: '100%',
             boxSizing: 'border-box'
           }}>
@@ -212,11 +268,8 @@ const ChatPage = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                transition: 'background 0.2s',
                 flexShrink: 0
               }}
-              onMouseEnter={(e) => e.target.style.background = '#1877f2'}
-              onMouseLeave={(e) => e.target.style.background = '#3797f0'}
             >
               <Send size={18} />
             </button>
@@ -225,7 +278,7 @@ const ChatPage = () => {
       )}
 
       {/* Users List View */}
-      {!isMobileChatOpen && (
+      {(!isMobile || !isMobileChatOpen) && (
         <div className="users-list-view">
           <div className="chatpage-sidebar">
             <h2>Suggested Users</h2>
