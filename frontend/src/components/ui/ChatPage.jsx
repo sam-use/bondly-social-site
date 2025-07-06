@@ -109,7 +109,9 @@ const ChatPage = () => {
   const handleUserSelect = (sUser) => {
     dispatch(setSelectedUser(sUser));
     setMessages([]); // Clear old messages before new load
-    setIsMobileChatOpen(true); // Open chat on mobile
+    if (window.innerWidth <= 768) {
+      setIsMobileChatOpen(true); // Only open mobile chat on mobile
+    }
   };
 
   // Handle back button on mobile
