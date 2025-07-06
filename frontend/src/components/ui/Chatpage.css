@@ -245,19 +245,26 @@
   flex-direction: column;
   gap: 12px;
   background: #fff;
-  padding-bottom: 120px; /* Increased padding to account for input + nav + extra space */
+  height: calc(100vh - 140px); /* Account for header + input + nav */
+  max-height: calc(100vh - 140px);
+  padding-bottom: 20px;
 }
 
 .mobile-chat-input-container {
-  display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 60px; /* height of mobile nav */
+  z-index: 1100;
+  display: flex !important;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
   border-top: 1px solid #e6e6e6;
   background: #fff;
-  flex-shrink: 0;
   width: 100%;
   box-sizing: border-box;
+  height: 60px; /* Fixed height for input container */
 }
 
 .mobile-chat-input {
@@ -401,7 +408,9 @@
     flex-direction: column;
     gap: 12px;
     background: #fff;
-    padding-bottom: 120px; /* Increased padding to account for input + nav + extra space */
+    height: calc(100vh - 140px); /* Account for header + input + nav */
+    max-height: calc(100vh - 140px);
+    padding-bottom: 20px;
   }
 
   .mobile-chat-input-container {
@@ -418,6 +427,7 @@
     background: #fff;
     width: 100%;
     box-sizing: border-box;
+    height: 60px; /* Fixed height for input container */
   }
 
   .chatpage-sidebar h2 {
