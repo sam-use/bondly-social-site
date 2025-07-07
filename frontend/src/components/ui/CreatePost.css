@@ -181,3 +181,67 @@
     font-size: 18px;
   }
 }
+
+.createpost-form.bondly-card {
+  background: var(--bondly-card-gradient);
+  border-radius: var(--bondly-radius);
+  box-shadow: var(--bondly-shadow);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-family: var(--bondly-font);
+}
+
+.createpost-close-btn {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 2rem;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s;
+}
+.createpost-close-btn:hover {
+  color: var(--bondly-primary);
+}
+
+.createpost-form input,
+.createpost-form textarea {
+  border-radius: var(--bondly-radius);
+  border: 1.5px solid #e0e7ff;
+  padding: 0.7em 1em;
+  font-family: var(--bondly-font);
+  font-size: 1rem;
+  background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-bottom: 0.5em;
+}
+.createpost-form input:focus,
+.createpost-form textarea:focus {
+  border: 1.5px solid var(--bondly-primary);
+  outline: none;
+  box-shadow: 0 2px 8px 0 rgba(124,58,237,0.10);
+}
+
+.createpost-form button[type="submit"] {
+  background: var(--bondly-primary);
+  color: var(--bondly-text-light);
+  border: none;
+  border-radius: var(--bondly-radius);
+  padding: 0.7em 1.5em;
+  font-size: 1rem;
+  font-family: var(--bondly-font);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(124,58,237,0.10);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.createpost-form button[type="submit"]:hover {
+  background: var(--bondly-accent);
+  box-shadow: 0 4px 16px 0 rgba(244,114,182,0.15);
+  transform: translateY(-1px) scale(1.03);
+}

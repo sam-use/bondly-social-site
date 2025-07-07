@@ -48,8 +48,8 @@ const CreatePost = ({ open, setOpen }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <button className="close-btn" onClick={() => setOpen(false)}>X</button>
-        <form onSubmit={handleSubmit}>
+        <button onClick={() => setOpen(false)} className="createpost-close-btn" style={{ color: '#000' }} aria-label="Close">&times;</button>
+        <form onSubmit={handleSubmit} className="createpost-form bondly-card">
           <h2>Create Post</h2>
           {imagePreview && (
             <img src={imagePreview} alt="Preview" className="createpost-img-preview" />
