@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ const Login = () => {
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch(); // ✅ dispatch to update Redux
+  const [emailError, setEmailError] = useState("");
 
   const changeEventHandler = (e) => {
     setInput({
@@ -28,8 +29,18 @@ const Login = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   const loginHandler = async (e) => {
     e.preventDefault();
+    if (!validateEmail(input.email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    } else {
+      setEmailError("");
+    }
     setLoading(true);
 
     try {
@@ -55,13 +66,14 @@ const Login = () => {
 
   return (
     <div className="auth-bg">
-      <form className="auth-card" onSubmit={loginHandler}>
+      <form className="auth-card bondly-card" onSubmit={loginHandler}>
         <div className="text-center">
-          <h1 className="auth-logo">Instagram</h1>
+          <h1 className="auth-logo">Bondly</h1>
           <p className="auth-title">Login to your account</p>
         </div>
         <div style={{ width: '100%' }}>
           <Label htmlFor="email">Email</Label>
+          {emailError && <div className="bondly-error">{emailError}</div>}
           <Input
             id="email"
             type="email"
@@ -70,7 +82,7 @@ const Login = () => {
             onChange={changeEventHandler}
             placeholder="Enter your email"
             required
-            className="auth-input"
+            className="auth-input bondly-input"
           />
           <Label htmlFor="password">Password</Label>
           <Input

@@ -157,29 +157,33 @@
   padding: 1rem;
 }
 
-.auth-form {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.auth-card {
   max-width: 400px;
-  width: 100%;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: var(--bondly-radius);
+  background: var(--bondly-card-gradient);
+  box-shadow: var(--bondly-shadow);
+  font-family: var(--bondly-font);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-.auth-form h1 {
+.auth-card h1 {
   font-size: 28px;
   font-weight: bold;
   text-align: center;
   color: #333;
 }
 
-.auth-form p {
+.auth-card p {
   text-align: center;
   font-size: 14px;
   color: #777;
 }
 
-.auth-form label {
+.auth-card label {
   display: block;
   margin-top: 1rem;
   font-size: 14px;
@@ -187,16 +191,34 @@
   color: #444;
 }
 
-.auth-form input {
-  margin-top: 0.25rem;
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.bondly-input {
+  border-radius: var(--bondly-radius);
+  border: 1.5px solid #e0e7ff;
+  padding: 0.7em 1em;
+  font-family: var(--bondly-font);
+  font-size: 1rem;
+  background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-bottom: 0.5em;
+}
+.bondly-input:focus {
+  border: 1.5px solid var(--bondly-primary);
   outline: none;
+  box-shadow: 0 2px 8px 0 rgba(124,58,237,0.10);
 }
 
-.auth-form button {
+.bondly-error {
+  color: #e53935;
+  background: #fff0f0;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  font-size: 0.98em;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  box-shadow: 0 2px 8px 0 rgba(229,57,53,0.05);
+}
+
+.auth-card button {
   margin-top: 1.5rem;
   width: 100%;
   padding: 0.75rem;
@@ -208,7 +230,7 @@
   cursor: pointer;
 }
 
-.auth-form a {
+.auth-card a {
   color: #3BADF8;
   font-weight: 500;
   text-decoration: none;

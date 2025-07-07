@@ -21,8 +21,9 @@
 .chatpage-sidebar h2 {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   padding-left: 24px;
+  padding-top: 12px;
 }
 
 .chatpage-user {

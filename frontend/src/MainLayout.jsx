@@ -73,7 +73,7 @@ const MainLayout = () => {
         </button>
         
         <div className="mobile-nav-center">
-          <h1 className="mobile-app-title">Instagram</h1>
+          <h1 className="mobile-app-title">Bondly</h1>
         </div>
         
         <button 

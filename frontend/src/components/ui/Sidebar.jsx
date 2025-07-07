@@ -114,7 +114,7 @@ const Sidebar = ({ onCreatePostClick }) => {
 
   return (
     <div className="sidebar bondly-card">
-      <h1 className="sidebar-title auth-logo">Instagram</h1>
+      <h1 className="sidebar-title auth-logo">Bondly</h1>
       <div className="sidebar-items">
         {sidebarItems.map((item, index) => (
           <div
