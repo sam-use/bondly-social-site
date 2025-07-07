@@ -128,7 +128,7 @@ const PostPage = () => {
       <img src={post.image} alt="Post" className="postpage-image" />
 
       <div className="postpage-info">
-        <div className="postpage-user">
+        <div className="postpage-user" style={{ cursor: "pointer" }} onClick={() => navigate(`/user/${post.author?._id}/profile`)}>
           <Avatar className="postpage-avatar">
             <AvatarImage src={post.author?.profilePicture} />
             <AvatarFallback>{post.author?.username?.[0]?.toUpperCase()}</AvatarFallback>

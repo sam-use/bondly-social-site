@@ -179,8 +179,10 @@ const Profile = () => {
             <div className="user-list">
               {followersList.length === 0 ? <p>No followers yet.</p> : followersList.map(u => (
                 <div key={u._id} className="user-row">
-                  <Avatar className="avatar"><AvatarImage src={u.profilePicture} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
-                  <span className="username">{u.username}</span>
+                  <Link to={`/user/${u._id}/profile`} onClick={() => setFollowersModal(false)} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flex: 1 }}>
+                    <Avatar className="avatar"><AvatarImage src={u.profilePicture} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
+                    <span className="username" style={{ marginLeft: 8 }}>{u.username}</span>
+                  </Link>
                   {u._id !== authUser._id && (
                     <button
                       className="follow-btn"
@@ -205,8 +207,10 @@ const Profile = () => {
             <div className="user-list">
               {followingList.length === 0 ? <p>Not following anyone yet.</p> : followingList.map(u => (
                 <div key={u._id} className="user-row">
-                  <Avatar className="avatar"><AvatarImage src={u.profilePicture} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
-                  <span className="username">{u.username}</span>
+                  <Link to={`/user/${u._id}/profile`} onClick={() => setFollowingModal(false)} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flex: 1 }}>
+                    <Avatar className="avatar"><AvatarImage src={u.profilePicture} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
+                    <span className="username" style={{ marginLeft: 8 }}>{u.username}</span>
+                  </Link>
                   {u._id !== authUser._id && (
                     <button
                       className="follow-btn"
