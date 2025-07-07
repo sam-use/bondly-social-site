@@ -162,7 +162,7 @@ const Post = ({ post, onDelete }) => {
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button style={{ background: "none", border: "none", cursor: "pointer" }}>
+            <button style={{ background: "none", border: "none", cursor: "pointer", color: '#000' }}>
               <MoreVertical />
             </button>
           </DropdownMenuTrigger>
