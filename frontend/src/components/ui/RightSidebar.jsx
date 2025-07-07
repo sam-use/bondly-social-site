@@ -57,7 +57,7 @@ const RightSidebar = () => {
   };
 
   return (
-    <div className="rightsidebar-container space-y-8 p-6">
+    <div className="right-sidebar bondly-card space-y-8 p-6">
       {/* Current User Profile */}
       <div className="profile items-center gap-4 mb-8">
         <Link to={`/user/${user?._id}/profile`} className="avatar-link">
