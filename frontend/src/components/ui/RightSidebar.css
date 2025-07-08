@@ -326,12 +326,14 @@
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .rightsidebar-container {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 100vh !important;
     padding: 16px;
     width: 100%;
     max-width: 100%;
     border-left: none;
     background: #fff;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     border: 2px solid #2196f3; /* debug border */
