@@ -118,6 +118,7 @@ const Sidebar = ({ onCreatePostClick }) => {
   return (
     <div className="sidebar-container sidebar bondly-card" style={{background: '#fff', minHeight: '100vh'}}>
       <div style={{background: 'yellow', color: 'black', padding: 16, fontWeight: 'bold'}}>SIDEBAR TEST</div>
+      <div style={{background: 'orange', color: 'black', padding: 16, fontWeight: 'bold'}}>SIDEBAR CONTAINER TEST</div>
       <h1 className="sidebar-title auth-logo">Bondly</h1>
       <div className="sidebar-items">
         {sidebarItems.map((item, index) => (
