@@ -13,6 +13,10 @@ const RightSidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { user } = useSelector((store) => store.auth);
+  console.log("RightSidebar user:", user);
+
+  if (!user) return <div style={{color: 'red', padding: 16}}>User not loaded (RightSidebar)</div>;
+
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [followingMap, setFollowingMap] = useState({});
 

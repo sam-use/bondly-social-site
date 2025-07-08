@@ -23,6 +23,9 @@ const Sidebar = ({ onCreatePostClick }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
+  console.log("Sidebar user:", user);
+
+  if (!user) return <div style={{color: 'red', padding: 16}}>User not loaded (Sidebar)</div>;
 
   const logoutHandler = async () => {
     try {
