@@ -99,6 +99,7 @@ const MainLayout = () => {
 
       {/* Mobile Sidebar */}
       <div className={`mobile-sidebar ${isMobileSidebarOpen ? 'open' : ''}`}>
+        <div style={{background: 'lime', color: 'black', padding: 16, fontWeight: 'bold'}}>MOBILE SIDEBAR CONTAINER TEST</div>
         <div style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Menu</h2>
@@ -118,6 +119,7 @@ const MainLayout = () => {
 
       {/* Mobile Right Sidebar */}
       <div className={`mobile-rightsidebar ${isMobileRightSidebarOpen ? 'open' : ''}`}>
+        <div style={{background: 'lime', color: 'black', padding: 16, fontWeight: 'bold'}}>MOBILE RIGHTSIDEBAR CONTAINER TEST</div>
         <div style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Suggestions</h2>
