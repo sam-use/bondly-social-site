@@ -69,22 +69,21 @@ const Post = ({ post, onDelete }) => {
     }
   };
 
-  const fetchComments = async () => {
-    try {
-      const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/comments`, {
-        withCredentials: true,
-      });
-      if (res.data.success) {
-        setComments(res.data.comments);
-      }
-    } catch (err) {
-      console.error("Failed to fetch comments", err);
-    }
-  };
-
   useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/comments`, {
+          withCredentials: true,
+        });
+        if (res.data.success) {
+          setComments(res.data.comments);
+        }
+      } catch (err) {
+        console.error("Failed to fetch comments", err);
+      }
+    };
     if (openComments) fetchComments();
-  }, [openComments]);
+  }, [openComments, post._id]);
 
   useEffect(() => {
     if (user && user.bookmarks && Array.isArray(user.bookmarks)) {

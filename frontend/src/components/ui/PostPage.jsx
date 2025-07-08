@@ -28,7 +28,7 @@ const PostPage = () => {
         setPost(res.data.post);
         setLiked(res.data.post.likes.includes(user._id));
       }
-    } catch (err) {
+    } catch {
       toast.error("Post not found");
       navigate("/");
     }
@@ -40,18 +40,18 @@ const PostPage = () => {
         withCredentials: true,
       });
       if (res.data.success) setComments(res.data.comments);
-    } catch (err) {
+    } catch {
       toast.error("Failed to load comments");
     }
   };
 
   useEffect(() => {
     fetchPost();
-  }, [id]);
+  }, [id, user._id, navigate]);
 
   useEffect(() => {
     if (openComments) fetchComments();
-  }, [openComments]);
+  }, [openComments, id]);
 
   const handleLike = async () => {
     const action = liked ? "dislike" : "like";
@@ -69,7 +69,7 @@ const PostPage = () => {
         }));
         toast.success(res.data.message);
       }
-    } catch (err) {
+    } catch {
       toast.error("Like action failed");
     }
   };

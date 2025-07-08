@@ -6,7 +6,7 @@ import useGetUserProfile from "@/hooks/useGetUserProfile";
 import EditProfileModal from "@/components/ui/EditProfileModal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import "./Profile.css";
-import { setUserProfile, setAuthUser } from "@/redux/authSlice";
+import { setAuthUser } from "@/redux/authSlice";
 
 const Profile = () => {
   const { id: userId } = useParams();
@@ -51,7 +51,9 @@ const Profile = () => {
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
       // Refetch the viewed profile to update followers/following counts
       refetchProfile();
-    } catch (err) {}
+    } catch {
+      // Error handled silently
+    }
   };
 
   const followHandler = async () => {
@@ -63,8 +65,8 @@ const Profile = () => {
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
       // Refetch the viewed profile to update followers/following counts
       refetchProfile();
-    } catch (err) {
-      console.error("Follow/Unfollow failed:", err);
+    } catch {
+      // Error handled silently
     }
   };
 
@@ -74,7 +76,7 @@ const Profile = () => {
       if (!userIds || userIds.length === 0) return setList([]);
       const res = await axios.post("/user/list", { ids: userIds }, { withCredentials: true });
       if (res.data.success) setList(res.data.users);
-    } catch (err) {
+    } catch {
       setList([]);
     }
   };
