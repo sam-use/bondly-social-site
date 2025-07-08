@@ -1,12 +1,13 @@
 .sidebar-container {
   padding: 20px;
-  height: 100vh;
+  min-height: 100vh;
   border-right: 1px solid #ddd;
   background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
+  border: 2px solid #ff9800; /* debug border */
 }
 
 .sidebar-title {
@@ -105,9 +106,12 @@
 @media (max-width: 768px) {
   .sidebar-container {
     padding: 16px;
-    height: auto;
+    min-height: 100vh;
     border-right: none;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ff9800; /* debug border */
   }
   
   .sidebar-title {
