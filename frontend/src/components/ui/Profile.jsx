@@ -110,7 +110,7 @@ const Profile = () => {
             <h2 className="username">{userProfile.username}</h2>
             {isOwnProfile ? (
               <button onClick={() => setEditModal(true)} className="edit-btn" aria-label="Edit Profile">
-                {/* Optionally add an icon here, but leave text blank */}
+                Edit Profile
               </button>
             ) : (
               <>

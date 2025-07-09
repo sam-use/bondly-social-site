@@ -65,6 +65,35 @@
   transition: background 0.2s, border 0.2s;
   white-space: nowrap;
 }
+
+.edit-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  margin-right: 8px !important;
+  transition: all 0.3s ease !important;
+  white-space: nowrap !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+  min-width: 120px !important;
+  text-align: center !important;
+}
+
+.edit-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+}
+
+.edit-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3) !important;
+}
+
 .edit-btn:hover, .follow-btn:hover, .msg-btn:hover {
   background: #efefef;
   border: 1px solid #bdbdbd;

@@ -351,6 +351,32 @@
   min-width: 70px !important;
   max-width: 90px !important;
   text-align: center !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Desktop specific styles */
+@media (min-width: 769px) {
+  .follow-btn {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 0.75rem !important;
+    padding: 5px 10px !important;
+    min-width: 65px !important;
+    max-width: 85px !important;
+  }
+  
+  .suggested-user {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding: 8px 0 !important;
+    min-width: 0 !important;
+  }
 }
 
 .follow-btn:hover {
