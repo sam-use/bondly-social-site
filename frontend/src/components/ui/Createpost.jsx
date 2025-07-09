@@ -8,6 +8,7 @@ const CreatePost = ({ open, setOpen }) => {
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const CreatePost = ({ open, setOpen }) => {
     formData.append("caption", caption);
     formData.append("image", image);
 
+    setLoading(true);
     try {
       await dispatch(addPost(formData)).unwrap(); // ✅ dispatch thunk directly
       setCaption("");
@@ -26,6 +28,8 @@ const CreatePost = ({ open, setOpen }) => {
     } catch (error) {
       console.error("Error creating post", error);
       alert(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,14 +64,16 @@ const CreatePost = ({ open, setOpen }) => {
             placeholder="Write a caption..."
             rows="3"
             required
+            disabled={loading}
           />
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
             required
+            disabled={loading}
           />
-          <button type="submit">Post</button>
+          <button type="submit" disabled={loading}>{loading ? "Posting..." : "Post"}</button>
         </form>
       </div>
     </div>

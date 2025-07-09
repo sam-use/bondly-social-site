@@ -18,6 +18,7 @@ const PostPage = () => {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
   const [openComments, setOpenComments] = useState(false);
+  const [commentLoading, setCommentLoading] = useState(false);
 
   const fetchPost = async () => {
     try {
@@ -88,6 +89,7 @@ const PostPage = () => {
 
   const handleComment = async () => {
     if (!text.trim()) return;
+    setCommentLoading(true);
     try {
       const res = await axios.post(`https://bondly-social-site.onrender.com/api/v1/posts/${id}/addcomment`, {
         text,
@@ -102,6 +104,8 @@ const PostPage = () => {
       }
     } catch {
       toast.error("Error posting comment");
+    } finally {
+      setCommentLoading(false);
     }
   };
 
@@ -188,8 +192,9 @@ const PostPage = () => {
             onChange={(e) => setText(e.target.value)}
             placeholder="Add a comment..."
             className="comment-input"
+            disabled={commentLoading}
           />
-          <button onClick={handleComment} className="comment-post-btn">Post</button>
+          <button onClick={handleComment} className="comment-post-btn" disabled={commentLoading || !text.trim()}>{commentLoading ? "Posting..." : "Post"}</button>
         </div>
       </div>
     </div>
