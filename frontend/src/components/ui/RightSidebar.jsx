@@ -61,9 +61,9 @@ const RightSidebar = () => {
   };
 
   return (
-    <div className="rightsidebar-container right-sidebar bondly-card space-y-8 p-6" style={{background: '#fff', minHeight: '100vh'}}>
+    <div className="rightsidebar-container right-sidebar bondly-card space-y-8 p-6" style={{background: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
       {/* Current User Profile */}
-      <div className="profile items-center gap-4 mb-8">
+      <div className="profile items-center gap-4 mb-8" style={{flexShrink: 0}}>
         <Link to={`/user/${user?._id}/profile`} className="avatar-link">
           <Avatar className="avatar">
             <AvatarImage
@@ -89,7 +89,7 @@ const RightSidebar = () => {
       </div>
 
       {/* Suggested Users */}
-      <div className="suggestions">
+      <div className="suggestions" style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
         <h2 className="suggested-heading">Suggested for you</h2>
         <div className="suggested-list">
           {suggestedUsers.length === 0 ? (
