@@ -27,6 +27,7 @@ const Post = ({ post, onDelete }) => {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
   const [openComments, setOpenComments] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const handleLike = async () => {
     const action = liked ? "dislike" : "like";
@@ -129,6 +130,7 @@ const Post = ({ post, onDelete }) => {
   };
 
   const deletePostHandler = async () => {
+    setDeleting(true);
     try {
       const res = await axios.delete(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/delete`, {
         withCredentials: true,
@@ -141,6 +143,8 @@ const Post = ({ post, onDelete }) => {
     } catch (err) {
       console.error("Failed to delete post", err);
       toast.error("Error deleting post");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -167,7 +171,9 @@ const Post = ({ post, onDelete }) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             {String(user._id) === String(post.author?._id) && (
-              <DropdownMenuItem onClick={deletePostHandler} style={{ color: '#000', fontWeight: 'bold' }}>Delete</DropdownMenuItem>
+              <DropdownMenuItem onClick={deleting ? undefined : deletePostHandler} style={{ color: '#000', fontWeight: 'bold', opacity: deleting ? 0.6 : 1 }} disabled={deleting}>
+                {deleting ? "Deleting..." : "Delete"}
+              </DropdownMenuItem>
             )}
             <DropdownMenuItem onClick={handleBookmark} style={{ color: '#2563eb', fontWeight: 'bold' }}>
               {bookmarked ? "Remove Bookmark" : "Bookmark"}
