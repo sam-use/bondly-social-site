@@ -25,6 +25,12 @@
   margin: 0 !important;
 }
 
+@media (min-width: 769px) {
+  .sidebar-container, .chatpage-sidebar, .rightsidebar-container {
+    width: 380px;
+  }
+}
+
 @media (max-width: 768px) {
   .rightsidebar-container {
     position: fixed;
