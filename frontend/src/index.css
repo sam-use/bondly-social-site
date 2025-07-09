@@ -18,15 +18,14 @@
     --ring: 212.7 26.8% 83.9%;
   }
   
-  html, body {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  
-  #root {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: hidden !important;
+  html, body, #root {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 }

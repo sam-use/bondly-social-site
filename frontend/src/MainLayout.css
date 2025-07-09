@@ -1,7 +1,14 @@
 /* Mobile-first responsive layout */
 .main-layout {
+  height: 100vh !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  min-width: 100vw !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   display: flex;
-  min-height: 100vh;
   position: relative;
   background: var(--bondly-bg-gradient);
   font-family: var(--bondly-font);
