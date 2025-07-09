@@ -185,18 +185,19 @@ const Post = ({ post, onDelete }) => {
       <div>
         <div className="insta-post-actions">
           {liked ? (
-            <FaHeart onClick={handleLike} style={{ color: "#f87171", fontSize: 24, cursor: "pointer" }} />
+            <FaHeart onClick={handleLike} style={{ color: "#f87171", fontSize: "32px !important", cursor: "pointer" }} />
           ) : (
-            <FaRegHeart onClick={handleLike} style={{ color: "#6b7280", fontSize: 24, cursor: "pointer" }} />
+            <FaRegHeart onClick={handleLike} style={{ color: "#6b7280", fontSize: "32px !important", cursor: "pointer" }} />
           )}
-          <MessageCircle onClick={() => setOpenComments(!openComments)} style={{ cursor: "pointer" }} />
-          <Send style={{ cursor: "pointer" }} />
+          <MessageCircle onClick={() => setOpenComments(!openComments)} style={{ cursor: "pointer", fontSize: "32px !important" }} />
+          <Send style={{ cursor: "pointer", fontSize: "32px !important" }} />
           <Bookmark
             onClick={handleBookmark}
             style={{
               marginLeft: "auto",
               color: bookmarked ? "#2563eb" : "#6b7280",
               cursor: "pointer",
+              fontSize: "32px !important"
             }}
           />
         </div>
