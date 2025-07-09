@@ -504,3 +504,25 @@
     z-index: 9999 !important;
   }
 }
+
+@media (max-width: 768px) {
+  .mobile-rightsidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    background: #fff !important;
+    z-index: 1000;
+    display: flex !important;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
