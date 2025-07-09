@@ -229,6 +229,7 @@
   border-radius: 0 var(--bondly-radius) var(--bondly-radius) 0;
   transform: translateX(-100%);
   transition: transform 0.3s;
+  z-index: 9999 !important;
 }
 
 .mobile-rightsidebar {
@@ -495,5 +496,11 @@
     overflow-y: auto;
     padding: 0 !important;
     margin: 0 !important;
+  }
+  .mobile-sidebar {
+    background: #ff0000 !important; /* bright red for debug */
+  }
+  .mobile-sidebar {
+    z-index: 9999 !important;
   }
 }
