@@ -157,7 +157,7 @@ const ChatPage = () => {
               </div>
             ) : (
               messages.map((msg, index) => {
-                const isOwn = msg.senderId === user?._id || msg.senderId?._id === user?._id;
+                const isOwn = msg.senderId === user?._id || (msg.senderId && msg.senderId._id === user?._id);
                 return (
                   <div
                     key={index}
