@@ -31,7 +31,7 @@ const Post = ({ post, onDelete }) => {
   const handleLike = async () => {
     const action = liked ? "dislike" : "like";
     try {
-      const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/${action}`, {
+      const res = await axios.get(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/${action}`, {
         withCredentials: true,
       });
 
@@ -58,7 +58,7 @@ const Post = ({ post, onDelete }) => {
 
   const handleBookmark = async () => {
     try {
-      const res = await axios.post(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/bookmark`, {}, {
+      const res = await axios.post(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/bookmark`, {}, {
         withCredentials: true,
       });
       setBookmarked(res.data.type === "saved");
@@ -72,7 +72,7 @@ const Post = ({ post, onDelete }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/comments`, {
+        const res = await axios.get(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/comments`, {
           withCredentials: true,
         });
         if (res.data.success) {
@@ -94,7 +94,7 @@ const Post = ({ post, onDelete }) => {
   const handleComment = async () => {
     try {
       const res = await axios.post(
-        `https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/addcomment`,
+        `https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/addcomment`,
         { text },
         {
           headers: { "Content-Type": "application/json" },
@@ -115,7 +115,7 @@ const Post = ({ post, onDelete }) => {
 
   const deleteComment = async (commentId) => {
     try {
-      const res = await axios.delete(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/comment/${commentId}`, {
+      const res = await axios.delete(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/comment/${commentId}`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -130,7 +130,7 @@ const Post = ({ post, onDelete }) => {
 
   const deletePostHandler = async () => {
     try {
-      const res = await axios.delete(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts/${post._id}/delete`, {
+      const res = await axios.delete(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/delete`, {
         withCredentials: true,
       });
 

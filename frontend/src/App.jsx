@@ -79,7 +79,7 @@ function App() {
     let socket;
 
     if (user) {
-      socket = io("https://instagram-clone-backend-nqcw.onrender.com", {
+      socket = io("https://bondly-social-site.onrender.com", {
         query: { userId: user._id },
         withCredentials: true,
         transports: ["websocket", "polling"],

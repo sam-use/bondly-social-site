@@ -9,7 +9,7 @@ const useGetAllPosts = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/posts", {
+        const res = await axios.get("https://bondly-social-site.onrender.com/api/v1/posts", {
           withCredentials: true,
         });
         if (res.data.success) {

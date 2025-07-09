@@ -12,7 +12,7 @@ const useGetSuggestedUser = () => {
       if (!user?._id) return;
       
       try {
-        const response = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/suggested`, {
+        const response = await axios.get(`https://bondly-social-site.onrender.com/api/v1/user/suggested`, {
           withCredentials: true
         });
         if(response.data.success) {

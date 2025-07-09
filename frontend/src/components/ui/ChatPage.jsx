@@ -23,7 +23,7 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const res = await axios.get("https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/all", {
+        const res = await axios.get("https://bondly-social-site.onrender.com/api/v1/user/all", {
           withCredentials: true,
         });
         if (res.data.success) {
@@ -48,7 +48,7 @@ const ChatPage = () => {
     const fetchMessages = async () => {
       if (!selectedUser) return;
       try {
-        const res = await axios.get(`https://instagram-clone-backend-nqcw.onrender.com/api/v1/message/get/${selectedUser._id}`, {
+        const res = await axios.get(`https://bondly-social-site.onrender.com/api/v1/message/get/${selectedUser._id}`, {
           withCredentials: true,
         });
         if (res.data.success) {

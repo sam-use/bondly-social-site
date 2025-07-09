@@ -25,10 +25,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/socket.io': {
-        target: 'https://instagram-clone-backend-nqcw.onrender.com',
+        target: 'https://bondly-social-site.onrender.com',
         ws: true,
       },
-      '/api': 'https://instagram-clone-backend-nqcw.onrender.com',
+      '/api': 'https://bondly-social-site.onrender.com',
     },
   },
 });

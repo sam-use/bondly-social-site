@@ -49,7 +49,7 @@ const Sidebar = ({ onCreatePostClick }) => {
   const deleteAccountHandler = async () => {
     if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) return;
     try {
-      const { data } = await axios.delete("https://instagram-clone-backend-nqcw.onrender.com/api/v1/user/delete", {
+      const { data } = await axios.delete("https://bondly-social-site.onrender.com/api/v1/user/delete", {
         withCredentials: true,
       });
       if (data.success) {
