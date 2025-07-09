@@ -72,9 +72,12 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 15px;
-  width: 100%;
+  width: calc(100% - 36px);
+  margin-left: 18px;
+  margin-right: 18px;
   transition: background 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-sizing: border-box;
 }
 .delete-account-btn:hover {
   background: #b91c1c;
