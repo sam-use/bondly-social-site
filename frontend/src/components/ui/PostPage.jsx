@@ -142,19 +142,19 @@ const PostPage = () => {
 
         <div className="post-actions">
           {liked ? (
-            <FaHeart onClick={handleLike} style={{ color: "red", cursor: "pointer", fontSize: 28 }} />
+            <FaHeart onClick={handleLike} style={{ color: "red", cursor: "pointer", fontSize: "32px !important" }} />
           ) : (
-            <FaRegHeart onClick={handleLike} style={{ cursor: "pointer", fontSize: 28 }} />
+            <FaRegHeart onClick={handleLike} style={{ cursor: "pointer", fontSize: "32px !important" }} />
           )}
-          <MessageCircle onClick={() => setOpenComments(!openComments)} style={{ cursor: "pointer", fontSize: 28 }} />
-          <Send style={{ cursor: "pointer", fontSize: 28 }} />
+          <MessageCircle onClick={() => setOpenComments(!openComments)} style={{ cursor: "pointer", fontSize: "32px !important" }} />
+          <Send style={{ cursor: "pointer", fontSize: "32px !important" }} />
           <Bookmark
             onClick={handleBookmark}
             style={{
               marginLeft: "auto",
               cursor: "pointer",
               color: bookmarked ? "#2563eb" : "#6b7280",
-              fontSize: 28
+              fontSize: "32px !important"
             }}
           />
         </div>
