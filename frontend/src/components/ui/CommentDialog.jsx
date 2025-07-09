@@ -8,9 +8,30 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import axiosInstance from "@/lib/axiosInstance";
 
-const CommentDialog = ({ open, setOpen }) => {
+const CommentDialog = ({ open, setOpen, postId }) => {
   const [text, setText] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  const handleSubmit = async () => {
+    if (!text.trim()) return;
+    setLoading(true);
+    try {
+      const res = await axiosInstance.post(`/posts/${postId}/addcomment`, { text });
+      if (res.data.success) {
+        alert("Comment submitted!");
+        setText("");
+        // Optionally: trigger a refresh of comments in parent
+      } else {
+        alert("Failed to submit comment");
+      }
+    } catch (err) {
+      alert("Error submitting comment");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -28,14 +49,13 @@ const CommentDialog = ({ open, setOpen }) => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Write a comment..."
+            disabled={loading}
           />
           <Button
-            onClick={() => {
-              console.log("Comment submitted:", text);
-              setText("");
-            }}
+            onClick={handleSubmit}
+            disabled={loading || !text.trim()}
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </Button>
         </div>
       </DialogContent>
