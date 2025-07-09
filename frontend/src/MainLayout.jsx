@@ -114,7 +114,7 @@ const MainLayout = () => {
         <Sidebar onCreatePostClick={() => {
           setIsPostOpen(true);
           closeMobileSidebar();
-        }} />
+        }} onBack={closeMobileSidebar} />
       </div>
 
       {/* Mobile Right Sidebar */}

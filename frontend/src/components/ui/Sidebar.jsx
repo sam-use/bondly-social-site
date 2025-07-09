@@ -6,6 +6,8 @@ import {
   Home,
   Flame,
   LogOut,
+  X,
+  ArrowLeft,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '@/lib/axiosInstance';
@@ -19,7 +21,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "./avatar";
 const fallbackAvatar = (name = "User") =>
   `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`;
 
-const Sidebar = ({ onCreatePostClick }) => {
+const Sidebar = ({ onCreatePostClick, onBack }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
@@ -116,7 +118,26 @@ const Sidebar = ({ onCreatePostClick }) => {
   ];
 
   return (
-    <div className="sidebar-container sidebar bondly-card" style={{background: '#00ff00', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+    <div className="sidebar-container sidebar bondly-card" style={{background: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+      {/* Back Button for Mobile */}
+      <button
+        className="sidebar-back-btn"
+        style={{
+          display: 'block',
+          background: 'none',
+          border: 'none',
+          position: 'absolute',
+          top: 16,
+          left: 16,
+          zIndex: 10,
+          padding: 8,
+          borderRadius: 8,
+          cursor: 'pointer',
+        }}
+        onClick={onBack}
+      >
+        <ArrowLeft size={24} />
+      </button>
       <h1 className="sidebar-title auth-logo">Bondly</h1>
       <div className="sidebar-items" style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
         {sidebarItems.map((item, index) => (
