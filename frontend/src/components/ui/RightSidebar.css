@@ -8,18 +8,59 @@
 }
 
 .rightsidebar-container {
-  border-left: 1px solid #e6e6e6;
-  border-right: none;
-  background: #fafafa;
-  min-width: 320px;
-  max-width: 350px;
-  min-height: 100vh;
-  padding: 32px 16px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  overflow-x: hidden;
-  border: 2px solid #2196f3; /* debug border */
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: 100vw !important;
+  box-sizing: border-box;
+  background: #fff;
+  overflow-y: auto;
+  border: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .rightsidebar-container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    background: #fff;
+    z-index: 100;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow-y: auto;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .rightsidebar-container {
+    width: 100vw !important;
+    height: 100vh !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 .profile {
@@ -325,20 +366,6 @@
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
-  .rightsidebar-container {
-    overflow: visible !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    padding: 16px;
-    width: 100%;
-    max-width: 100%;
-    border-left: none;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid #2196f3; /* debug border */
-  }
-  
   .profile {
     gap: 12px;
     margin-bottom: 20px;
@@ -426,10 +453,6 @@
 }
 
 @media (max-width: 480px) {
-  .rightsidebar-container {
-    padding: 12px;
-  }
-  
   .profile {
     gap: 10px;
     margin-bottom: 16px;
