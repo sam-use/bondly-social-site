@@ -122,18 +122,6 @@ const Sidebar = ({ onCreatePostClick, onBack }) => {
       {/* Back Button for Mobile */}
       <button
         className="sidebar-back-btn"
-        style={{
-          display: 'block',
-          background: 'none',
-          border: 'none',
-          position: 'absolute',
-          top: 16,
-          left: 16,
-          zIndex: 10,
-          padding: 8,
-          borderRadius: 8,
-          cursor: 'pointer',
-        }}
         onClick={onBack}
       >
         <ArrowLeft size={24} />

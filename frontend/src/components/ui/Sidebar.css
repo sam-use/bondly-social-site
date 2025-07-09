@@ -108,6 +108,25 @@
   color: #aaa;
 }
 
+.sidebar-back-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-back-btn {
+    display: block;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
   .sidebar-container {
