@@ -139,6 +139,13 @@ const Sidebar = ({ onCreatePostClick, onBack }) => {
           </div>
         ))}
       </div>
+      {/* Delete Account Button - Mobile First */}
+      {user && (
+        <button className="delete-account-btn" onClick={deleteAccountHandler}>
+          Delete Account
+        </button>
+      )}
+      
       {user && (
         <div className="sidebar-user" style={{flexShrink: 0}}>
           <div
@@ -166,9 +173,6 @@ const Sidebar = ({ onCreatePostClick, onBack }) => {
             Followers: {user.followers?.length || 0} | Following: {user.following?.length || 0}
           </div>
           <div className="user-id">ID: {user._id}</div>
-          <button className="delete-account-btn" onClick={deleteAccountHandler}>
-            Delete Account
-          </button>
         </div>
       )}
     </div>

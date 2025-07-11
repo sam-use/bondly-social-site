@@ -209,13 +209,11 @@
     height: 40px;
   }
   .delete-account-btn {
-    margin-top: 20px;
+    margin-top: 0;
     margin-bottom: 20px;
     padding: 12px 0;
     font-size: 15px;
     border-radius: 6px;
-    position: sticky;
-    bottom: 20px;
     background: #ef4444;
     color: #fff;
     border: none;
@@ -228,6 +226,10 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     box-sizing: border-box;
     text-align: left;
+    order: -1;
+    position: sticky;
+    top: 80px;
+    z-index: 5;
   }
   .user-name {
     font-size: 15px;
