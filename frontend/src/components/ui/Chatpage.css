@@ -107,6 +107,17 @@
   text-decoration: underline;
 }
 
+.avatar-link {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+  display: block;
+}
+
+.avatar-link:hover {
+  opacity: 0.8;
+}
+
 .chatpage-header .status {
   font-size: 0.95rem;
   color: #888;

@@ -132,17 +132,19 @@ const ChatPage = () => {
               <ArrowLeft size={20} />
             </button>
             <div className="mobile-chat-user-info">
-              <Avatar className="avatar">
-                <AvatarImage
-                  src={
-                    selectedUser.profilePicture?.startsWith("http")
-                      ? selectedUser.profilePicture
-                      : fallbackAvatar(selectedUser.username)
-                  }
-                  onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
-                />
-                <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
-              </Avatar>
+              <Link to={`/user/${selectedUser._id}/profile`} className="avatar-link">
+                <Avatar className="avatar">
+                  <AvatarImage
+                    src={
+                      selectedUser.profilePicture?.startsWith("http")
+                        ? selectedUser.profilePicture
+                        : fallbackAvatar(selectedUser.username)
+                    }
+                    onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
+                  />
+                  <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                </Avatar>
+              </Link>
               <div>
                 <Link to={`/user/${selectedUser._id}/profile`} className="username-link">
                   <h2 className="username">{selectedUser.username}</h2>
@@ -227,17 +229,19 @@ const ChatPage = () => {
               <>
                 {/* Header */}
                 <div className="chatpage-header">
-                  <Avatar className="avatar">
-                    <AvatarImage
-                      src={
-                        selectedUser.profilePicture?.startsWith("http")
-                          ? selectedUser.profilePicture
-                          : fallbackAvatar(selectedUser.username)
-                      }
-                      onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
-                    />
-                    <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
-                  </Avatar>
+                  <Link to={`/user/${selectedUser._id}/profile`} className="avatar-link">
+                    <Avatar className="avatar">
+                      <AvatarImage
+                        src={
+                          selectedUser.profilePicture?.startsWith("http")
+                            ? selectedUser.profilePicture
+                            : fallbackAvatar(selectedUser.username)
+                        }
+                        onError={(e) => (e.target.src = fallbackAvatar(selectedUser.username))}
+                      />
+                      <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+                    </Avatar>
+                  </Link>
                   <div>
                     <Link to={`/user/${selectedUser._id}/profile`} className="username-link">
                       <h2 className="username">{selectedUser.username}</h2>
