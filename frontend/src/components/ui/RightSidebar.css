@@ -392,7 +392,15 @@
   .suggested-link {
     flex: 1 !important;
     min-width: 0 !important;
+    max-width: 170px !important;
     overflow: hidden !important;
+  }
+  .suggested-username {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    display: block !important;
+    max-width: 100% !important;
   }
 }
 
