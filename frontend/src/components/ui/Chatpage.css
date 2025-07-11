@@ -96,6 +96,17 @@
   text-overflow: ellipsis;
 }
 
+.username-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+
+.username-link:hover {
+  color: #3797f0;
+  text-decoration: underline;
+}
+
 .chatpage-header .status {
   font-size: 0.95rem;
   color: #888;

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { setSelectedUser } from "@/redux/authSlice";
 import axios from "axios";
@@ -143,7 +144,9 @@ const ChatPage = () => {
                 <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="username">{selectedUser.username}</h2>
+                <Link to={`/user/${selectedUser._id}/profile`} className="username-link">
+                  <h2 className="username">{selectedUser.username}</h2>
+                </Link>
                 <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
               </div>
             </div>
@@ -236,7 +239,9 @@ const ChatPage = () => {
                     <AvatarFallback>{selectedUser.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <h2 className="username">{selectedUser.username}</h2>
+                    <Link to={`/user/${selectedUser._id}/profile`} className="username-link">
+                      <h2 className="username">{selectedUser.username}</h2>
+                    </Link>
                     <p className="status">{selectedUser.isOnline ? "Online" : "Offline"}</p>
                   </div>
                 </div>
