@@ -41,7 +41,7 @@ const RightSidebar = () => {
 
     fetchSuggestions();
   }, [user]);
-
+ 
   const handleFollow = async (userId) => {
     try {
       await axios.post(`https://bondly-social-site.onrender.com/api/v1/user/followunfollow/${userId}`, {}, { withCredentials: true });

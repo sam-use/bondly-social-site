@@ -10,9 +10,10 @@ export const setupSocket = (server) => {
   ioInstance = new Server(server, {
     cors: {
       origin: [
-        "https://bondly-social-site-1.onrender.com"
+        "https://bondly-social-site-1.onrender.com",
+        "http://localhost:5173"
       ],
-      methods: ["GET", "POST"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       credentials: true,
     },
   });
