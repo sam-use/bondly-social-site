@@ -78,6 +78,7 @@
   transition: background 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   box-sizing: border-box;
+  text-align: left;
 }
 .delete-account-btn:hover {
   background: #b91c1c;
