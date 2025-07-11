@@ -402,6 +402,17 @@
     display: block !important;
     max-width: 100% !important;
   }
+  .suggested-user {
+    flex-direction: row-reverse !important;
+  }
+  .follow-btn {
+    margin-right: 0 !important;
+    margin-left: 8px !important;
+    order: 1;
+  }
+  .suggested-link {
+    order: 2;
+  }
 }
 
 .follow-btn:hover {
