@@ -4,22 +4,24 @@
   flex-direction: column;
   max-width: 470px;
   margin: 20px auto;
-  background: #fff;
-  border: 1px solid #dbdbdb;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.22);
+  backdrop-filter: blur(var(--blur-glass));
   overflow: hidden;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: var(--font-family);
   width: 100%;
   box-sizing: border-box;
+  animation: bondlyPageIn 420ms var(--ease-out) both;
 }
 
 .postpage-image {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  background: #fafafa;
-  border-bottom: 1px solid #dbdbdb;
+  background: rgba(2, 6, 23, 0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
   display: block;
   max-width: 470px;
   max-height: 470px;
@@ -32,7 +34,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background: #fff;
+  background: rgba(255,255,255,0.02);
 }
 
 .postpage-user {
@@ -46,14 +48,14 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1.5px solid #dbdbdb;
+  border: 1px solid rgba(255,255,255,0.14);
   object-fit: cover;
 }
 
 .username {
-  font-weight: bold;
+  font-weight: 850;
   font-size: 1.1rem;
-  color: #262626;
+  color: rgba(226,232,240,0.96);
 }
 
 .post-actions {
@@ -63,15 +65,29 @@
   margin-bottom: 10px;
 }
 
+.post-actions :where(svg) {
+  transition: transform var(--t-med) var(--ease-out), filter var(--t-med) var(--ease-out), opacity var(--t-fast);
+  will-change: transform;
+}
+
+.post-actions :where(svg):hover {
+  transform: translateY(-1px) scale(1.05);
+  filter: drop-shadow(0 0 16px rgba(59,130,246,0.22));
+}
+
+.post-actions :where(svg):active {
+  transform: translateY(0) scale(0.92);
+}
+
 .likes-count {
   font-weight: 500;
   margin-bottom: 8px;
-  color: #262626;
+  color: rgba(226,232,240,0.92);
 }
 
 .caption {
   margin-bottom: 16px;
-  color: #333;
+  color: rgba(226,232,240,0.90);
   font-size: 1rem;
 }
 
@@ -88,16 +104,21 @@
   align-items: center;
   font-size: 15px;
   margin-bottom: 8px;
-  color: #262626;
+  color: rgba(226,232,240,0.90);
 }
 
 .comment-delete-btn {
   background: none;
   border: none;
-  color: #f87171;
+  color: #fb7185;
   font-size: 13px;
   cursor: pointer;
   margin-left: 8px;
+  transition: opacity var(--t-fast);
+}
+
+.comment-delete-btn:hover {
+  opacity: 0.85;
 }
 
 .add-comment {
@@ -105,40 +126,50 @@
   align-items: center;
   gap: 8px;
   margin-top: auto;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgba(255,255,255,0.10);
   padding-top: 12px;
 }
 
 .comment-input {
   flex: 1;
-  border: 1px solid #dbdbdb;
-  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
   padding: 8px 10px;
   font-size: 1rem;
-  background: #fafafa;
+  background: rgba(2,6,23,0.40);
   outline: none;
+  color: rgba(226,232,240,0.94);
+  transition: border-color var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out), background var(--t-med) var(--ease-out);
+}
+
+.comment-input:focus {
+  border-color: rgba(59,130,246,0.55);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.16);
+  background: rgba(2,6,23,0.55);
 }
 
 .comment-post-btn {
-  background: #0095f6;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 18px;
-  font-weight: 600;
+  background: var(--accent-gradient);
+  color: #f8fafc;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 850;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out), opacity var(--t-fast);
+  box-shadow: 0 14px 40px rgba(59,130,246,0.14), 0 10px 26px rgba(147,51,234,0.12);
 }
 .comment-post-btn:hover {
-  background: #1877f2;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 18px 60px rgba(59,130,246,0.18), 0 14px 40px rgba(147,51,234,0.14);
 }
 
 .post-loading {
   padding: 40px;
   text-align: center;
   font-size: 18px;
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .postpage-mobile-spacer {
@@ -156,6 +187,7 @@
     overflow-x: hidden !important;
     min-height: 100vh;
     padding-top: 0 !important;
+    backdrop-filter: none;
   }
   
   .postpage-mobile-spacer {

@@ -4,149 +4,57 @@ import { useSelector } from "react-redux";
 import Sidebar from "./components/ui/Sidebar";
 import RightSidebar from "./components/ui/RightSidebar";
 import CreatePost from "./components/ui/Createpost";
-import { Home, Search, PlusSquare, Heart, User, Menu, X, Users } from "lucide-react";
+import { Home, Search, PlusSquare, MessageCircle, User, BarChart3 } from "lucide-react";
 import "./MainLayout.css";
 
 const MainLayout = () => {
   const [isPostOpen, setIsPostOpen] = useState(false);
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isMobileRightSidebarOpen, setIsMobileRightSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    // Only redirect if user is not authenticated
     if (!user) {
       navigate('/login');
     }
   }, [user, navigate]);
 
-  // Close mobile sidebars when route changes
-  useEffect(() => {
-    setIsMobileSidebarOpen(false);
-    setIsMobileRightSidebarOpen(false);
-  }, [location.pathname]);
-
-  // Don't render anything if user is not authenticated
   if (!user) {
     return null;
   }
-
-  const toggleMobileSidebar = () => {
-    setIsMobileSidebarOpen(!isMobileSidebarOpen);
-    setIsMobileRightSidebarOpen(false);
-  };
-
-  const toggleMobileRightSidebar = () => {
-    setIsMobileRightSidebarOpen(!isMobileRightSidebarOpen);
-    setIsMobileSidebarOpen(false);
-  };
-
-  const closeMobileSidebar = () => {
-    setIsMobileSidebarOpen(false);
-  };
-
-  const closeMobileRightSidebar = () => {
-    setIsMobileRightSidebarOpen(false);
-  };
 
   const isActiveRoute = (path) => {
     return location.pathname === path;
   };
 
-  // Check if current route should be full-width (no sidebars)
   const isFullWidthRoute = () => {
-    return false; // Revert to original layout with sidebars
+    // Return true if you want certain routes (like messaging) to hide sidebars
+    if (location.pathname.startsWith('/chat')) return true;
+    return false;
   };
 
   return (
     <div className="main-layout">
       {/* Mobile Top Navigation */}
-      <div className="mobile-top-nav">
-        <button 
-          className="mobile-nav-btn sidebar-btn"
-          onClick={toggleMobileSidebar}
-        >
-          <Menu size={20} />
-          <span>Menu</span>
-        </button>
-        
-        <div className="mobile-nav-center">
+      {!isFullWidthRoute() && (
+        <div className="mobile-top-nav">
           <h1 className="mobile-app-title">Bondly</h1>
         </div>
-        
-        <button 
-          className="mobile-nav-btn rightsidebar-btn"
-          onClick={toggleMobileRightSidebar}
-        >
-          <Users size={20} />
-          <span>Suggestions</span>
-        </button>
-      </div>
+      )}
 
-      {/* Mobile Sidebar Overlay */}
-      <div 
-        className={`mobile-sidebar-overlay ${isMobileSidebarOpen ? 'open' : ''}`}
-        onClick={closeMobileSidebar}
-      ></div>
-
-      {/* Mobile Right Sidebar Overlay */}
-      <div 
-        className={`mobile-rightsidebar-overlay ${isMobileRightSidebarOpen ? 'open' : ''}`}
-        onClick={closeMobileRightSidebar}
-      ></div>
-
-      {/* Mobile Sidebar */}
-      <div className={`mobile-sidebar ${isMobileSidebarOpen ? 'open' : ''}`}>
-        <div style={{background: 'lime', color: 'black', padding: 16, fontWeight: 'bold'}}>MOBILE SIDEBAR CONTAINER TEST</div>
-        <div style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Menu</h2>
-            <button 
-              onClick={closeMobileSidebar}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
-            >
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-        <Sidebar onCreatePostClick={() => {
-          setIsPostOpen(true);
-          closeMobileSidebar();
-        }} onBack={closeMobileSidebar} />
-      </div>
-
-      {/* Mobile Right Sidebar */}
-      <div className={`mobile-rightsidebar ${isMobileRightSidebarOpen ? 'open' : ''}`}>
-        <div style={{background: 'lime', color: 'black', padding: 16, fontWeight: 'bold'}}>MOBILE RIGHTSIDEBAR CONTAINER TEST</div>
-        <div style={{ padding: '20px', borderBottom: '1px solid #eee' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>Suggestions</h2>
-            <button 
-              onClick={closeMobileRightSidebar}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}
-            >
-              <X size={20} />
-            </button>
-          </div>
-        </div>
-        <RightSidebar />
-      </div>
-
-      {/* Desktop Sidebar */}
+      {/* Desktop Navigation Sidebar */}
       {!isFullWidthRoute() && (
         <div className="sidebar">
           <Sidebar onCreatePostClick={() => setIsPostOpen(true)} />
         </div>
       )}
 
-      {/* Main Feed */}
+      {/* Main Content Area */}
       <div className={isFullWidthRoute() ? "feed-full-width" : "feed"}>
         <Outlet />
       </div>
 
-      {/* Desktop Right Sidebar */}
+      {/* Desktop Suggestions Sidebar */}
       {!isFullWidthRoute() && (
         <div className="right-sidebar">
           <RightSidebar />
@@ -154,51 +62,60 @@ const MainLayout = () => {
       )}
 
       {/* Mobile Bottom Navigation */}
-      <nav className="mobile-nav">
-        <div className="mobile-nav-items">
-          <div 
-            className={`mobile-nav-item ${isActiveRoute('/') ? 'active' : ''}`}
-            onClick={() => navigate('/')}
-          >
-            <Home className="mobile-nav-icon" />
-            <span>Home</span>
-          </div>
-          
-          <div 
-            className={`mobile-nav-item ${isActiveRoute('/explore') ? 'active' : ''}`}
-            onClick={() => navigate('/explore')}
-          >
-            <Search className="mobile-nav-icon" />
-            <span>Search</span>
-          </div>
-          
-          <div 
-            className="mobile-nav-item"
-            onClick={() => setIsPostOpen(true)}
-          >
-            <PlusSquare className="mobile-nav-icon" />
-            <span>Post</span>
-          </div>
-          
-          <div 
-            className={`mobile-nav-item ${isActiveRoute('/chat') ? 'active' : ''}`}
-            onClick={() => navigate('/chat')}
-          >
-            <Heart className="mobile-nav-icon" />
-            <span>Chat</span>
-          </div>
-          
-          <div 
-            className={`mobile-nav-item ${location.pathname.includes('/user/') && location.pathname.includes('/profile') ? 'active' : ''}`}
-            onClick={() => navigate(`/user/${user._id}/profile`)}
-          >
-            <User className="mobile-nav-icon" />
-            <span>Profile</span>
-          </div>
-        </div>
-      </nav>
+      {!isFullWidthRoute() && (
+        <nav className="mobile-nav">
+          <div className="mobile-nav-items">
+            <div 
+              className={`mobile-nav-item ${isActiveRoute('/') ? 'active' : ''}`}
+              onClick={() => navigate('/')}
+            >
+              <Home className="mobile-nav-icon" />
+              <span>Home</span>
+            </div>
+            
+            <div 
+              className={`mobile-nav-item ${isActiveRoute('/explore') ? 'active' : ''}`}
+              onClick={() => navigate('/explore')}
+            >
+              <Search className="mobile-nav-icon" />
+              <span>Search</span>
+            </div>
+            
+            <div 
+              className="mobile-nav-item"
+              onClick={() => setIsPostOpen(true)}
+            >
+              <PlusSquare className="mobile-nav-icon" />
+              <span>Post</span>
+            </div>
+            
+            <div 
+              className={`mobile-nav-item ${isActiveRoute('/chat') ? 'active' : ''}`}
+              onClick={() => navigate('/chat')}
+            >
+              <MessageCircle className="mobile-nav-icon" />
+              <span>Chat</span>
+            </div>
 
-      {/* Create Post Modal */}
+            <div
+              className={`mobile-nav-item ${isActiveRoute('/dashboard') ? 'active' : ''}`}
+              onClick={() => navigate('/dashboard')}
+            >
+              <BarChart3 className="mobile-nav-icon" />
+              <span>Insights</span>
+            </div>
+            
+            <div 
+              className={`mobile-nav-item ${location.pathname.includes('/user/') && location.pathname.includes('/profile') ? 'active' : ''}`}
+              onClick={() => navigate(`/user/${user._id}/profile`)}
+            >
+              <User className="mobile-nav-icon" />
+              <span>Profile</span>
+            </div>
+          </div>
+        </nav>
+      )}
+
       {isPostOpen && <CreatePost open={isPostOpen} setOpen={setIsPostOpen} />}
     </div>
   );

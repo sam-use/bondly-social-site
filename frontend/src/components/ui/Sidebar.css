@@ -1,282 +1,163 @@
 .sidebar-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  height: 100vh !important;
-  min-height: 100vh !important;
-  width: 100vw !important;
-  min-width: 100vw !important;
-  max-width: 100vw !important;
-  box-sizing: border-box;
-  background: #fff !important;
-  overflow-y: auto;
-  border: none;
-  padding: 0 !important;
-  margin: 0 !important;
+  height: 100vh;
+  padding: 14px 12px;
+  position: fixed;
+  width: inherit; /* adopts width from MainLayout's .sidebar */
 }
 
-.sidebar-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.auth-logo {
+  font-family: var(--font-family);
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+  padding: 18px 12px 18px;
+  margin: 0;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(59,130,246,0.20));
+  /* The logo doesn't disappear on smaller desktop screens in standard IG, but the text might */
+}
+
+@media (max-width: 1159px) { /* Tablet size where right sidebar disappears, maybe logo should shrink too if needed, but we keep it simple */
 }
 
 .sidebar-items {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
+  flex: 1;
 }
 
 .sidebar-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
+  padding: 12px 12px;
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 5px;
-  transition: background-color 0.2s;
+  border-radius: 14px;
+  transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out), background var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out), opacity var(--t-fast);
+  color: rgba(226,232,240,0.92);
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
 }
 
 .sidebar-item:hover {
-  background-color: #efefef;
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.10);
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.22);
+}
+
+.sidebar-item:active {
+  transform: translateY(0) scale(0.98);
+  opacity: 0.9;
+}
+
+.sidebar-item span {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.sidebar-item svg {
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar-item.active {
+  font-weight: 800;
+  background: rgba(59,130,246,0.10);
+  border-color: rgba(59,130,246,0.26);
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.12) inset, 0 18px 60px rgba(59,130,246,0.10);
+}
+
+.sidebar-item.active span {
+  font-weight: 800;
+}
+
+.sidebar-item.active svg {
+  stroke-width: 2.5; /* Emulate bold/filled icon */
+  filter: drop-shadow(0 0 12px rgba(59,130,246,0.35));
 }
 
 .sidebar-user {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #333;
-}
-
-.sidebar-user-profile {
+  margin-top: auto;
+  padding: 12px 12px 24px;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+.delete-account-btn, .logout-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform var(--t-med) var(--ease-out), box-shadow var(--t-med) var(--ease-out), background var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out), opacity var(--t-fast);
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(var(--blur-glass));
 }
 
 .delete-account-btn {
-  margin-top: 16px;
-  background: #ef4444;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 15px;
-  width: calc(100% - 36px);
-  margin-left: 18px;
-  margin-right: 18px;
-  transition: background 0.2s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  box-sizing: border-box;
-  text-align: left;
+  color: #fecdd3;
+  border-color: rgba(251,113,133,0.20);
+  background: rgba(251,113,133,0.08);
 }
+
 .delete-account-btn:hover {
-  background: #b91c1c;
+  background: rgba(251,113,133,0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 60px rgba(251,113,133,0.10);
 }
 
-.user-name {
-  font-weight: 600;
-  color: #222;
+.logout-btn {
+  color: rgba(226,232,240,0.92);
 }
 
-.user-email {
-  font-size: 12px;
-  color: #777;
+.logout-btn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.22);
 }
 
-.user-bio {
-  font-size: 12px;
-  margin-top: 6px;
-  color: #555;
-}
-
-.user-follow {
-  font-size: 12px;
-  margin-top: 4px;
-  color: #555;
-}
-
-.user-id {
-  font-size: 11px;
-  margin-top: 4px;
-  color: #aaa;
-}
-
-.sidebar-back-btn {
-  display: none;
-}
-
+/* Tablet (mini sidebar) overrides */
 @media (max-width: 768px) {
-  .sidebar-back-btn {
-    display: block;
-    background: #3797f0 !important;
-    color: white !important;
-    border: none !important;
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    z-index: 10;
-    padding: 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 2px 6px rgba(55, 151, 240, 0.3) !important;
+  .auth-logo {
+    display: none;
   }
   
-  .sidebar-back-btn:hover {
-    background: #1877f2 !important;
-    transform: scale(1.1) !important;
-    box-shadow: 0 4px 12px rgba(55, 151, 240, 0.4) !important;
-  }
-  
-  .sidebar-back-btn:active {
-    transform: scale(1.05) !important;
-    box-shadow: 0 2px 6px rgba(55, 151, 240, 0.3) !important;
-  }
-}
-
-/* Mobile Responsive Styles */
-@media (max-width: 768px) {
   .sidebar-container {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    background: #fff;
-    z-index: 100;
-    border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow-y: auto;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  .sidebar-title {
-    font-size: 22px;
-    margin-bottom: 18px;
-    text-align: center;
-    width: 100%;
-  }
-  .sidebar-items {
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    align-items: stretch;
-    margin: 0;
-    padding: 0;
-  }
-  .sidebar-item {
-    padding: 10px 18px;
-    font-size: 16px;
-    border-radius: 0;
-    border-bottom: 1px solid #eee;
-    background: none;
-    width: 100%;
-    justify-content: flex-start;
-    box-sizing: border-box;
-  }
-  .sidebar-item:hover {
-    background: #f5f5f5;
-  }
-  .sidebar-user {
-    margin-top: 18px;
-    font-size: 15px;
-    padding: 0 18px;
-  }
-  .sidebar-user-profile {
-    gap: 10px;
-    padding: 8px 0;
-  }
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-  }
-  .delete-account-btn {
-    margin-top: 0;
-    margin-bottom: 20px;
     padding: 12px 0;
-    font-size: 15px;
-    border-radius: 6px;
-    background: #ef4444;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    width: calc(100% - 36px);
-    margin-left: 18px;
-    margin-right: 18px;
-    transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    box-sizing: border-box;
-    text-align: left;
-    order: -1;
-    position: sticky;
-    top: 80px;
-    z-index: 5;
+    align-items: center;
   }
-  .user-name {
-    font-size: 15px;
-  }
-  .user-email {
-    font-size: 12px;
-  }
-  .user-bio {
-    font-size: 12px;
-    margin-top: 4px;
-  }
-  .user-follow {
-    font-size: 12px;
-  }
-  .user-id {
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar-container {
-    width: 100vw !important;
-    height: 100vh !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  .sidebar-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    width: 100%;
-  }
+  
   .sidebar-item {
-    font-size: 14px;
-    padding: 8px 12px;
-    width: 100%;
-    box-sizing: border-box;
+    justify-content: center;
+    padding: 12px;
+    width: 48px;
+    height: 48px;
   }
+  
+  .sidebar-item span {
+    display: none;
+  }
+  
   .sidebar-user {
-    font-size: 13px;
-    padding: 0 12px;
+    padding: 12px 0 24px;
+    align-items: center;
   }
-  .user-avatar {
-    width: 36px;
-    height: 36px;
+  
+  .logout-btn, .delete-account-btn {
+    text-align: center;
+    padding: 12px;
+    font-size: 12px; /* fallback if text shown */
   }
 }

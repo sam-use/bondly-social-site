@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "@/lib/axiosInstance";
+import axiosInstance from "@/lib/axiosInstance";
 import { useSelector, useDispatch } from "react-redux";
 import useGetUserProfile from "@/hooks/useGetUserProfile";
 import EditProfileModal from "@/components/ui/EditProfileModal";
@@ -8,9 +8,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import "./Profile.css";
 import { setAuthUser } from "@/redux/authSlice";
 
+const fallbackAvatar = (name) =>
+  `https://ui-avatars.com/api/?name=${encodeURIComponent(name || "User")}&background=random`;
+
 const Profile = () => {
   const { id: userId } = useParams();
-  const { userProfile, refetchProfile } = useGetUserProfile(userId); // ✅ updated
+  const { userProfile, refetchProfile } = useGetUserProfile(userId);
   const { user: authUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -30,51 +33,46 @@ const Profile = () => {
     }
   }, [authUser, userProfile]);
 
-  // Update maps when lists change
   useEffect(() => {
     const map = {};
     followersList.forEach(u => { map[u._id] = authUser.following?.includes(u._id); });
     setFollowersMap(map);
   }, [followersList, authUser]);
+  
   useEffect(() => {
     const map = {};
     followingList.forEach(u => { map[u._id] = authUser.following?.includes(u._id); });
     setFollowingMap(map);
   }, [followingList, authUser]);
 
-  const handleFollowModal = async (userId, mapSetter) => {
+  const handleFollowModal = async (uId, mapSetter) => {
     try {
-      await axios.post(`/user/followunfollow/${userId}`, {}, { withCredentials: true });
-      mapSetter(prev => ({ ...prev, [userId]: !prev[userId] }));
-      // Always refetch the logged-in user to update following list in Redux
-      const meRes = await axios.get(`https://bondly-social-site.onrender.com/api/v1/user/${authUser._id}/profile`, { withCredentials: true });
+      await axiosInstance.post(`/user/followunfollow/${uId}`);
+      mapSetter(prev => ({ ...prev, [uId]: !prev[uId] }));
+      const meRes = await axiosInstance.get(`/user/${authUser._id}/profile`);
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
-      // Refetch the viewed profile to update followers/following counts
       refetchProfile();
     } catch {
-      // Error handled silently
+      // ignore
     }
   };
 
   const followHandler = async () => {
     try {
-      const res = await axios.post(`/user/followunfollow/${userId}`, {}, { withCredentials: true });
+      const res = await axiosInstance.post(`/user/followunfollow/${userId}`);
       setIsFollowing(res.data.following);
-      // Always refetch the logged-in user to update following list in Redux
-      const meRes = await axios.get(`https://bondly-social-site.onrender.com/api/v1/user/${authUser._id}/profile`, { withCredentials: true });
+      const meRes = await axiosInstance.get(`/user/${authUser._id}/profile`);
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
-      // Refetch the viewed profile to update followers/following counts
       refetchProfile();
     } catch {
-      // Error handled silently
+      // ignore
     }
   };
 
-  // Fetch full user objects for followers/following
   const fetchUserList = async (userIds, setList) => {
     try {
       if (!userIds || userIds.length === 0) return setList([]);
-      const res = await axios.post("/user/list", { ids: userIds }, { withCredentials: true });
+      const res = await axiosInstance.post("/user/list", { ids: userIds });
       if (res.data.success) setList(res.data.users);
     } catch {
       setList([]);
@@ -90,7 +88,7 @@ const Profile = () => {
     setFollowingModal(true);
   };
 
-  if (!userProfile) return <p className="profile-loading">Loading profile...</p>;
+  if (!userProfile) return <div style={{padding: 40, textAlign: 'center'}}>Loading profile...</div>;
 
   const isOwnProfile = authUser?._id === userProfile._id;
   const posts = userProfile.posts || [];
@@ -99,57 +97,68 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      {/* Profile Header */}
       <div className="profile-header">
-        <Avatar className="profile-avatar">
-          <AvatarImage src={userProfile.profilePicture} />
-          <AvatarFallback>{userProfile.username[0]}</AvatarFallback>
-        </Avatar>
+        <div className="profile-avatar-wrapper">
+          <img 
+            src={userProfile.profilePicture || fallbackAvatar(userProfile.username)} 
+            alt="Profile Avatar" 
+            className="profile-avatar"
+            onError={(e) => { e.target.src = fallbackAvatar(userProfile.username) }}
+          />
+        </div>
         <div className="profile-details">
           <div className="profile-top-row">
             <h2 className="username">{userProfile.username}</h2>
-            {isOwnProfile ? (
-              <button onClick={() => setEditModal(true)} className="edit-btn" aria-label="Edit Profile">
-                Edit Profile
-              </button>
-            ) : (
-              <>
-                <button onClick={followHandler} className="follow-btn">
-                  {isFollowing ? "Unfollow" : "Follow"}
+            <div className="profile-actions">
+              {isOwnProfile ? (
+                <button onClick={() => setEditModal(true)} className="btn-secondary">
+                  Edit Profile
                 </button>
-                {isFollowing && <button className="msg-btn">Message</button>}
-              </>
-            )}
+              ) : (
+                <>
+                  <button onClick={followHandler} className={isFollowing ? "btn-secondary" : "btn-primary"}>
+                    {isFollowing ? "Following" : "Follow"}
+                  </button>
+                  <button className="btn-secondary">Message</button>
+                </>
+              )}
+            </div>
           </div>
           <div className="stats-row">
             <span><strong>{posts.length}</strong> posts</span>
-            <span className="clickable" onClick={openFollowersModal}><strong>{userProfile.followers?.length || 0}</strong> followers</span>
-            <span className="clickable" onClick={openFollowingModal}><strong>{userProfile.following?.length || 0}</strong> following</span>
+            <span style={{cursor: 'pointer'}} onClick={openFollowersModal}><strong>{userProfile.followers?.length || 0}</strong> followers</span>
+            <span style={{cursor: 'pointer'}} onClick={openFollowingModal}><strong>{userProfile.following?.length || 0}</strong> following</span>
           </div>
-          <p className="bio">{userProfile.bio || "No bio provided."}</p>
+          <div className="bio-section">
+            <div className="bio">{userProfile.bio || ""}</div>
+          </div>
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="profile-tabs">
-        <button
-          className={activeTab === "posts" ? "tab active" : "tab"}
+        <div
+          className={`tab ${activeTab === "posts" ? "active" : ""}`}
           onClick={() => setActiveTab("posts")}
+          style={{cursor: 'pointer'}}
         >
-          Posts
-        </button>
-        <button
-          className={activeTab === "saved" ? "tab active" : "tab"}
-          onClick={() => setActiveTab("saved")}
-        >
-          Saved
-        </button>
+          POSTS
+        </div>
+        {isOwnProfile && (
+          <div
+            className={`tab ${activeTab === "saved" ? "active" : ""}`}
+            onClick={() => setActiveTab("saved")}
+            style={{cursor: 'pointer'}}
+          >
+            SAVED
+          </div>
+        )}
       </div>
 
-      {/* Posts or Saved */}
       <div className="posts-grid">
         {displayedPosts.length === 0 ? (
-          <p className="no-posts">No {activeTab === "posts" ? "posts" : "saved posts"} to show.</p>
+          <div style={{gridColumn: '1 / -1', padding: 40, textAlign: 'center', color: 'var(--text-secondary)'}}>
+            No {activeTab} yet.
+          </div>
         ) : (
           displayedPosts.map((post) => (
             <Link key={post._id} to={`/post/${post._id}`}>
@@ -163,35 +172,34 @@ const Profile = () => {
         )}
       </div>
 
-      {/* Edit Modal */}
       {editModal && isOwnProfile && (
         <EditProfileModal
           user={userProfile}
           onClose={() => setEditModal(false)}
-          onProfileUpdate={refetchProfile} // ✅ trigger refresh
+          onProfileUpdate={refetchProfile}
         />
       )}
 
-      {/* Followers Modal */}
       {followersModal && (
-        <div className="modal-overlay" onClick={() => setFollowersModal(false)}>
-          <div className="modal user-list-modal" onClick={e => e.stopPropagation()}>
-            <h2>Followers</h2>
-            <button className="modal-close-btn" onClick={() => setFollowersModal(false)}>Close</button>
-            <div className="user-list">
-              {followersList.length === 0 ? <p>No followers yet.</p> : followersList.map(u => (
-                <div key={u._id} className="user-row">
-                  <Link to={`/user/${u._id}/profile`} onClick={() => setFollowersModal(false)} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flex: 1 }}>
-                    <Avatar className="avatar"><AvatarImage src={u.profilePicture} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
-                    <span className="username" style={{ marginLeft: 8 }}>{u.username}</span>
+        <div className="modal-overlay" onClick={() => setFollowersModal(false)} style={{position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <div onClick={e => e.stopPropagation()} style={{background: '#fff', borderRadius: 12, padding: 20, width: '100%', maxWidth: 400, maxHeight: '80vh', overflowY: 'auto'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20}}>
+              <h2 style={{fontSize: 16, fontWeight: 600}}>Followers</h2>
+              <button onClick={() => setFollowersModal(false)} style={{fontSize: 20}}>&times;</button>
+            </div>
+            <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+              {followersList.length === 0 ? <p style={{textAlign:'center'}}>No followers.</p> : followersList.map(u => (
+                <div key={u._id} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                  <Link to={`/user/${u._id}/profile`} onClick={() => setFollowersModal(false)} style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: 'inherit' }}>
+                    <Avatar style={{width: 44, height: 44}}><AvatarImage src={u.profilePicture || fallbackAvatar(u.username)} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
+                    <span style={{fontWeight: 600, fontSize: 14}}>{u.username}</span>
                   </Link>
                   {u._id !== authUser._id && (
                     <button
-                      className="follow-btn"
-                      style={{ marginLeft: 8, padding: '4px 12px', fontSize: '0.95rem' }}
+                      className={followersMap[u._id] ? "btn-secondary" : "btn-primary"}
                       onClick={() => handleFollowModal(u._id, setFollowersMap)}
                     >
-                      {followersMap[u._id] ? "Unfollow" : "Follow"}
+                      {followersMap[u._id] ? "Following" : "Follow"}
                     </button>
                   )}
                 </div>
@@ -200,26 +208,27 @@ const Profile = () => {
           </div>
         </div>
       )}
-      {/* Following Modal */}
+
       {followingModal && (
-        <div className="modal-overlay" onClick={() => setFollowingModal(false)}>
-          <div className="modal user-list-modal" onClick={e => e.stopPropagation()}>
-            <h2>Following</h2>
-            <button className="modal-close-btn" onClick={() => setFollowingModal(false)}>Close</button>
-            <div className="user-list">
-              {followingList.length === 0 ? <p>Not following anyone yet.</p> : followingList.map(u => (
-                <div key={u._id} className="user-row">
-                  <Link to={`/user/${u._id}/profile`} onClick={() => setFollowingModal(false)} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', flex: 1 }}>
-                    <Avatar className="avatar"><AvatarImage src={u.profilePicture} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
-                    <span className="username" style={{ marginLeft: 8 }}>{u.username}</span>
+        <div className="modal-overlay" onClick={() => setFollowingModal(false)} style={{position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <div onClick={e => e.stopPropagation()} style={{background: '#fff', borderRadius: 12, padding: 20, width: '100%', maxWidth: 400, maxHeight: '80vh', overflowY: 'auto'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20}}>
+              <h2 style={{fontSize: 16, fontWeight: 600}}>Following</h2>
+              <button onClick={() => setFollowingModal(false)} style={{fontSize: 20}}>&times;</button>
+            </div>
+            <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
+              {followingList.length === 0 ? <p style={{textAlign:'center'}}>Not following anyone.</p> : followingList.map(u => (
+                <div key={u._id} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                  <Link to={`/user/${u._id}/profile`} onClick={() => setFollowingModal(false)} style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: 'inherit' }}>
+                    <Avatar style={{width: 44, height: 44}}><AvatarImage src={u.profilePicture || fallbackAvatar(u.username)} /><AvatarFallback>{u.username[0]}</AvatarFallback></Avatar>
+                    <span style={{fontWeight: 600, fontSize: 14}}>{u.username}</span>
                   </Link>
                   {u._id !== authUser._id && (
                     <button
-                      className="follow-btn"
-                      style={{ marginLeft: 8, padding: '4px 12px', fontSize: '0.95rem' }}
+                      className={followingMap[u._id] ? "btn-secondary" : "btn-primary"}
                       onClick={() => handleFollowModal(u._id, setFollowingMap)}
                     >
-                      {followingMap[u._id] ? "Unfollow" : "Follow"}
+                      {followingMap[u._id] ? "Following" : "Follow"}
                     </button>
                   )}
                 </div>

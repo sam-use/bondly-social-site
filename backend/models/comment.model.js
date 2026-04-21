@@ -1,4 +1,3 @@
-import { text } from "express";
 import mongoose from "mongoose";
 const commentSchema = new mongoose.Schema({ 
     text: {
@@ -17,4 +16,6 @@ const commentSchema = new mongoose.Schema({
     },
 
 } );
+
+commentSchema.index({ post: 1 });
 export const Comment= mongoose.model("Comment", commentSchema);

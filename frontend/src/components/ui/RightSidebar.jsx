@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "@/lib/axiosInstance";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { setUserProfile, setAuthUser } from "@/redux/authSlice";
 import "./RightSidebar.css";
@@ -13,19 +13,15 @@ const RightSidebar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { user } = useSelector((store) => store.auth);
-  console.log("RightSidebar user:", user);
-
-  if (!user) return <div style={{color: 'red', padding: 16}}>User not loaded (RightSidebar)</div>;
 
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [followingMap, setFollowingMap] = useState({});
 
   useEffect(() => {
+    if (!user) return;
     const fetchSuggestions = async () => {
       try {
-        const res = await axios.get("https://bondly-social-site.onrender.com/api/v1/user/suggested", {
-          withCredentials: true,
-        });
+        const res = await axiosInstance.get("/user/suggested");
         if (res.data.success) {
           setSuggestedUsers(res.data.users);
           const map = {};
@@ -44,61 +40,60 @@ const RightSidebar = () => {
  
   const handleFollow = async (userId) => {
     try {
-      await axios.post(`https://bondly-social-site.onrender.com/api/v1/user/followunfollow/${userId}`, {}, { withCredentials: true });
+      await axiosInstance.post(`/user/followunfollow/${userId}`);
       setFollowingMap((prev) => ({ ...prev, [userId]: !prev[userId] }));
       if (location.pathname.includes("/profile")) {
         const profileId = location.pathname.split("/")[2];
         if (profileId) {
-          const res = await axios.get(`https://bondly-social-site.onrender.com/api/v1/user/${profileId}/profile`, { withCredentials: true });
+          const res = await axiosInstance.get(`/user/${profileId}/profile`);
           if (res.data.success) dispatch(setUserProfile(res.data.user));
         }
       }
-      const meRes = await axios.get(`https://bondly-social-site.onrender.com/api/v1/user/${user._id}/profile`, { withCredentials: true });
+      const meRes = await axiosInstance.get(`/user/${user._id}/profile`);
       if (meRes.data.success) dispatch(setAuthUser({ user: meRes.data.user }));
     } catch (err) {
       console.error("Follow/Unfollow failed:", err);
     }
   };
 
+  if (!user) return null;
+
   return (
-    <div className="rightsidebar-container right-sidebar bondly-card space-y-8 p-6" style={{background: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+    <div className="rightsidebar-container">
       {/* Current User Profile */}
-      <div className="profile items-center gap-4 mb-8" style={{flexShrink: 0}}>
-        <Link to={`/user/${user?._id}/profile`} className="avatar-link">
-          <Avatar className="avatar">
-            <AvatarImage
-              src={
-                user?.profilePicture?.startsWith("http")
-                  ? user.profilePicture
-                  : fallbackAvatar(user?.username)
-              }
-              onError={(e) => (e.target.src = fallbackAvatar(user?.username))}
-            />
-            <AvatarFallback>{user?.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
-          </Avatar>
-        </Link>
+      <Link to={`/user/${user?._id}/profile`} className="profile-link-wrapper">
+        <Avatar style={{ width: 44, height: 44 }}>
+          <AvatarImage
+            src={
+              user?.profilePicture?.startsWith("http")
+                ? user.profilePicture
+                : fallbackAvatar(user?.username)
+            }
+            onError={(e) => (e.target.src = fallbackAvatar(user?.username))}
+          />
+          <AvatarFallback>{user?.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
+        </Avatar>
         <div className="profile-info">
-          <Link
-            to={`/user/${user?._id}/profile`}
-            className="username-link"
-          >
-            {user?.username}
-          </Link>
-          <p className="bio-text">{user?.bio || "No bio"}</p>
+          <span className="username-link">{user?.username}</span>
+          <span className="bio-text">{user?.bio || "No bio"}</span>
         </div>
-      </div>
+      </Link>
 
       {/* Suggested Users */}
-      <div className="suggestions" style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
-        <h2 className="suggested-heading">Suggested for you</h2>
+      <div className="suggestions">
+        <div className="suggested-heading">
+          <span>Suggested for you</span>
+          <span style={{color: 'var(--text-main)', fontSize: 12, cursor: 'pointer'}}>See All</span>
+        </div>
+        
         <div className="suggested-list">
           {suggestedUsers.length === 0 ? (
-            <p className="no-suggestions">No suggestions available</p>
+            <p className="bio-text">No suggestions available</p>
           ) : (
             suggestedUsers.map((u) => (
               <div key={u._id} className="suggested-user">
                 <Link to={`/user/${u._id}/profile`} className="suggested-link">
-                  <Avatar className="suggested-avatar">
+                  <Avatar style={{ width: 32, height: 32 }}>
                     <AvatarImage
                       src={
                         u.profilePicture?.startsWith("http")
@@ -109,13 +104,15 @@ const RightSidebar = () => {
                     />
                     <AvatarFallback>{u.username?.[0]?.toUpperCase() || "U"}</AvatarFallback>
                   </Avatar>
-                  <span className="suggested-username">{u.username}</span>
+                  <div className="profile-info">
+                    <span className="suggested-username">{u.username}</span>
+                  </div>
                 </Link>
                 <button
-                  className="follow-btn"
+                  className={`follow-text-btn ${followingMap[u._id] ? 'following' : ''}`}
                   onClick={() => handleFollow(u._id)}
                 >
-                  {followingMap[u._id] ? "Unfollow" : "Follow"}
+                  {followingMap[u._id] ? "Following" : "Follow"}
                 </button>
               </div>
             ))

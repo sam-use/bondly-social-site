@@ -11,5 +11,5 @@ messages:[
     }
 ],
 
-});
+}, { timestamps: true });
 export const Conversation = mongoose.model('Conversation', conversationSchema);

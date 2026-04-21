@@ -21,14 +21,14 @@ const Posts = ({ gridMode }) => {
     dispatch(setPosts(posts.filter((post) => post._id !== postId)));
   };
 
-  if (loading) return <p className="text-center">Loading posts...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  if (loading) return <p style={{textAlign: 'center', padding: '40px 0'}}>Loading posts...</p>;
+  if (error) return <p style={{textAlign: 'center', padding: '40px 0', color: 'var(--error-color)'}}>{error}</p>;
 
   if (gridMode) {
     return (
       <>
         {posts.length === 0 ? (
-          <p className="text-center text-gray-500">No posts found.</p>
+          <p style={{textAlign: 'center', color: 'var(--text-secondary)', gridColumn: '1 / -1'}}>No posts found.</p>
         ) : (
           posts.map((post) => (
             <div
@@ -40,7 +40,7 @@ const Posts = ({ gridMode }) => {
               <img
                 src={post.image}
                 alt={post.caption}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: 'block' }}
               />
             </div>
           ))
@@ -52,7 +52,7 @@ const Posts = ({ gridMode }) => {
   return (
     <>
       {posts.length === 0 ? (
-        <p className="text-center text-gray-500">No posts found.</p>
+        <p style={{textAlign: 'center', color: 'var(--text-secondary)'}}>No posts found.</p>
       ) : (
         posts.map((post) => (
           <Post key={post._id} post={post} onDelete={handlePostDelete} />

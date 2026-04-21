@@ -24,10 +24,12 @@ export const register = async (req, res) => {
     const user = await User.create({ username, email, password: hashedPassword });
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
     
+    const isProduction = process.env.NODE_ENV === "production";
+    
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Strict",
       path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -40,11 +42,12 @@ export const register = async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        avatar: user.profilePicture,
+        profilePicture: user.profilePicture,
         bio: user.bio,
         followers: user.followers,
         following: user.following,
-        posts: []
+        posts: [],
+        bookmarks: []
       }
     });
   } catch (error) {
@@ -89,13 +92,14 @@ export const login = async (req, res) => {
     if (!valid)
       return res.status(401).json({ message: "Invalid credentials", success: false });
 
-  const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
 
-
+    const isProduction = process.env.NODE_ENV === "production";
+    
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // Set true for HTTPS
-      sameSite: "None",
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Strict",
       path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -108,11 +112,12 @@ export const login = async (req, res) => {
         _id: user._id,
         username: user.username,
         email: user.email,
-        avatar: user.profilePicture,
+        profilePicture: user.profilePicture,
         bio: user.bio,
         followers: user.followers,
         following: user.following,
-        posts: [] // You can populate later
+        posts: user.posts,
+        bookmarks: user.bookmarks
       }
     });
   } catch (err) {
@@ -124,19 +129,14 @@ export const login = async (req, res) => {
 // LOGOUT
 export const logout = async (req, res) => {
   try {
-    console.log("Logging out. Current cookies:", req.cookies);
+    const isProduction = process.env.NODE_ENV === "production";
 
     res.clearCookie("token", {
       httpOnly: true,
-      secure: true,
-      sameSite: "None",
+      secure: isProduction,
+      sameSite: isProduction ? "None" : "Strict",
       path: "/"
     });
-    // res.cookie("token", "", {
-    //   httpOnly: true,
-    //   expires: new Date(0), // Clear cookie
-    //   path: "/",
-    // });
 
     res.status(200).json({ success: true, message: "Logged out" });
   } catch (err) {

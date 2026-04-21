@@ -1,6 +1,5 @@
 // components/Post.jsx
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "@/redux/postSlice";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -14,10 +13,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import toast from "react-hot-toast";
-import "./Auth.css";
+import axiosInstance from "@/lib/axiosInstance";
 import { Link } from "react-router-dom";
 
+import "./Post.css";
+
 const Post = ({ post, onDelete }) => {
+// ... preserving logic ...
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
   const posts = useSelector((store) => store.post.posts);
@@ -32,9 +34,7 @@ const Post = ({ post, onDelete }) => {
   const handleLike = async () => {
     const action = liked ? "dislike" : "like";
     try {
-      const res = await axios.get(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/${action}`, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.get(`/posts/${post._id}/${action}`);
 
       if (res.data.success) {
         const updatedPosts = posts.map((p) =>
@@ -59,9 +59,7 @@ const Post = ({ post, onDelete }) => {
 
   const handleBookmark = async () => {
     try {
-      const res = await axios.post(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/bookmark`, {}, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.post(`/posts/${post._id}/bookmark`);
       setBookmarked(res.data.type === "saved");
       toast.success(res.data.message);
     } catch (err) {
@@ -73,9 +71,7 @@ const Post = ({ post, onDelete }) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/comments`, {
-          withCredentials: true,
-        });
+        const res = await axiosInstance.get(`/posts/${post._id}/comments`);
         if (res.data.success) {
           setComments(res.data.comments);
         }
@@ -94,14 +90,7 @@ const Post = ({ post, onDelete }) => {
 
   const handleComment = async () => {
     try {
-      const res = await axios.post(
-        `https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/addcomment`,
-        { text },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      const res = await axiosInstance.post(`/posts/${post._id}/addcomment`, { text });
 
       if (res.data.success) {
         setComments((prev) => [res.data.comment, ...prev]);
@@ -116,9 +105,7 @@ const Post = ({ post, onDelete }) => {
 
   const deleteComment = async (commentId) => {
     try {
-      const res = await axios.delete(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/comment/${commentId}`, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.delete(`/posts/${post._id}/comment/${commentId}`);
       if (res.data.success) {
         setComments((prev) => prev.filter((c) => c._id !== commentId));
         toast.success("Comment deleted");
@@ -132,9 +119,7 @@ const Post = ({ post, onDelete }) => {
   const deletePostHandler = async () => {
     setDeleting(true);
     try {
-      const res = await axios.delete(`https://bondly-social-site.onrender.com/api/v1/posts/${post._id}/delete`, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.delete(`/posts/${post._id}/delete`);
 
       if (res.data.success) {
         toast.success("Post deleted");
@@ -151,97 +136,100 @@ const Post = ({ post, onDelete }) => {
   return (
     <div className="insta-post">
       <div className="insta-post-header">
-        <div className="insta-post-user">
-          <Link to={`/user/${post.author?._id}/profile`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-            <Avatar>
-              <AvatarImage src={post.author?.profilePicture || "https://via.placeholder.com/150"} />
-              <AvatarFallback>{post.author?.username?.[0] || "U"}</AvatarFallback>
-            </Avatar>
-            <div style={{ marginLeft: 8 }}>
-              <strong>{post.author?.username}</strong>
-              {String(user._id) === String(post.author?._id) && <Badge>Author</Badge>}
-            </div>
-          </Link>
-        </div>
+        <Link to={`/user/${post.author?._id}/profile`} className="insta-post-user" style={{ textDecoration: 'none' }}>
+          <Avatar style={{ width: 32, height: 32 }}>
+            <AvatarImage src={post.author?.profilePicture || `https://ui-avatars.com/api/?name=${post.author?.username}&background=random`} />
+            <AvatarFallback>{post.author?.username?.[0] || "U"}</AvatarFallback>
+          </Avatar>
+          <strong>{post.author?.username}</strong>
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button style={{ background: "none", border: "none", cursor: "pointer", color: '#000' }}>
-              <MoreVertical />
+            <button style={{ background: "none", border: "none", cursor: "pointer", color: 'var(--text-main)' }}>
+              <MoreVertical size={20} />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             {String(user._id) === String(post.author?._id) && (
-              <DropdownMenuItem onClick={deleting ? undefined : deletePostHandler} style={{ color: '#000', fontWeight: 'bold', opacity: deleting ? 0.6 : 1 }} disabled={deleting}>
-                {deleting ? "Deleting..." : "Delete"}
+              <DropdownMenuItem onClick={deleting ? undefined : deletePostHandler} style={{ color: 'var(--error-color)', fontWeight: 'bold' }} disabled={deleting}>
+                {deleting ? "Deleting..." : "Delete Post"}
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={handleBookmark} style={{ color: '#2563eb', fontWeight: 'bold' }}>
-              {bookmarked ? "Remove Bookmark" : "Bookmark"}
+            <DropdownMenuItem onClick={handleBookmark} style={{ fontWeight: '500' }}>
+              {bookmarked ? "Remove Bookmark" : "Add to Bookmarks"}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
       <img src={post.image} alt="Post" className="insta-post-img" />
+
       <div>
         <div className="insta-post-actions">
           {liked ? (
-            <FaHeart onClick={handleLike} style={{ color: "#f87171", fontSize: "36px", width: "36px", height: "36px", cursor: "pointer" }} />
+            <FaHeart onClick={handleLike} style={{ color: "#ed4956", fontSize: "28px", cursor: "pointer" }} />
           ) : (
-            <FaRegHeart onClick={handleLike} style={{ color: "#6b7280", fontSize: "36px", width: "36px", height: "36px", cursor: "pointer" }} />
+            <FaRegHeart onClick={handleLike} style={{ color: "var(--text-main)", fontSize: "28px", cursor: "pointer" }} />
           )}
-          <MessageCircle onClick={() => setOpenComments(!openComments)} style={{ cursor: "pointer", fontSize: "36px", width: "36px", height: "36px" }} />
-          <Send style={{ cursor: "pointer", fontSize: "36px", width: "36px", height: "36px" }} />
+          <MessageCircle onClick={() => setOpenComments(!openComments)} size={28} style={{ cursor: "pointer" }} />
+          <Send size={28} style={{ cursor: "pointer" }} />
           <Bookmark
             onClick={handleBookmark}
+            size={28}
             style={{
               marginLeft: "auto",
-              color: bookmarked ? "#2563eb" : "#6b7280",
-              cursor: "pointer",
-              fontSize: "36px",
-              width: "36px",
-              height: "36px"
+              color: bookmarked ? "var(--text-main)" : "var(--text-main)",
+              fill: bookmarked ? "var(--text-main)" : "none",
+              cursor: "pointer"
             }}
           />
         </div>
-        <p className="insta-post-likes">{post.likes.length} likes</p>
-        <p className="insta-post-caption"><strong>{post.author?.username}</strong> {post.caption}</p>
-        <p
-          onClick={() => setOpenComments(!openComments)}
-          className="insta-post-comments-toggle"
-        >
-          {openComments ? "Hide comments" : "View all comments"}
-        </p>
+
+        <div className="insta-post-likes">{post.likes.length} likes</div>
+
+        <div className="insta-post-caption">
+          <strong>{post.author?.username}</strong> {post.caption}
+        </div>
+
+        {comments.length > 0 && !openComments && (
+          <div
+            onClick={() => setOpenComments(true)}
+            className="insta-post-comments-toggle"
+          >
+            View all {comments.length} comments
+          </div>
+        )}
+
         {openComments && (
-          <>
-            <div className="insta-post-comments">
-              {comments.map((c) => (
-                <div key={c._id} style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
-                  <span><strong>{c.author.username}:</strong> {c.text}</span>
-                  {user._id === c.author._id && (
-                    <button onClick={() => deleteComment(c._id)} style={{ color: "red", background: "none", border: "none", cursor: "pointer" }}>
-                      Delete
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="insta-comment-box" style={{ display: 'flex', marginTop: 8, gap: 8 }}>
-              <input
-                type="text"
-                value={text}
-                onChange={e => setText(e.target.value)}
-                placeholder="Add a comment..."
-                style={{ flex: 1, padding: 8, borderRadius: 4, border: '1px solid #d1d5db' }}
-              />
-              <button
-                onClick={handleComment}
-                disabled={!text.trim()}
-                style={{ color: '#3b82f6', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', opacity: text.trim() ? 1 : 0.5 }}
-              >
-                Post
-              </button>
-            </div>
-          </>
+          <div className="insta-post-comments">
+            {comments.map((c) => (
+              <div key={c._id} className="comment-row">
+                <span className="comment-row-text"><strong>{c.author.username}</strong> {c.text}</span>
+                {user._id === c.author._id && (
+                  <button onClick={() => deleteComment(c._id)} className="comment-row-delete">
+                    Delete
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {openComments && (
+          <div className="insta-comment-box">
+            <input
+              type="text"
+              value={text}
+              onChange={e => setText(e.target.value)}
+              placeholder="Add a comment..."
+            />
+            <button
+              onClick={handleComment}
+              disabled={!text.trim()}
+            >
+              Post
+            </button>
+          </div>
         )}
       </div>
     </div>

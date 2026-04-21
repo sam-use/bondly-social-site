@@ -7,25 +7,29 @@ import { Comment } from "../models/comment.model.js";
 // Add New Post
 export const addnewPost = async (req, res) => { 
   try {
-    const { caption } = req.body;
+    const { caption, finalImageUrl } = req.body;
     const image = req.file;
     const authorId = req.id;
 
-    if (!image) {
+    if (!image && !finalImageUrl) {
       return res.status(400).json({ message: "Image is required", success: false });
     }
 
-    const optimizedImageBuffer = await sharp(image.buffer)
-      .resize(800, 800, { fit: sharp.fit.cover, position: 'center' })
-      .toFormat('jpeg', { quality: 80 })
-      .toBuffer();
-
-    const fileUri = `data:image/jpeg;base64,${optimizedImageBuffer.toString('base64')}`;
-    const cloudResponse = await cloudinary.uploader.upload(fileUri);
+    let finalImage = finalImageUrl;
+    if (!finalImage && image) {
+      const optimizedImageBuffer = await sharp(image.buffer)
+        .resize(800, 800, { fit: sharp.fit.cover, position: 'center' })
+        .toFormat('jpeg', { quality: 80 })
+        .toBuffer();
+  
+      const fileUri = `data:image/jpeg;base64,${optimizedImageBuffer.toString('base64')}`;
+      const cloudResponse = await cloudinary.uploader.upload(fileUri);
+      finalImage = cloudResponse.secure_url;
+    }
 
     const post = await Post.create({
       caption: caption || "",
-      image: cloudResponse.secure_url,
+      image: finalImage,
       author: authorId
     });
 
@@ -92,13 +96,14 @@ export const likePost = async (req, res) => {
     const postId = req.params.id;
     const userId = req.id;
 
-    const post = await Post.findById(postId).populate("author", "-password");
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      { $addToSet: { likes: userId } },
+      { new: true }
+    );
     if (!post) {
       return res.status(404).json({ message: "Post not found", success: false });
     }
-
-    await post.updateOne({ $addToSet: { likes: userId } });
-    await post.save();
 
     return res.status(200).json({ message: 'Post liked', success: true });
 
@@ -114,13 +119,14 @@ export const dislikePost = async (req, res) => {
     const userId = req.id;
     const postId = req.params.id;
 
-    const post = await Post.findById(postId);
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      { $pull: { likes: userId } },
+      { new: true }
+    );
     if (!post) {
       return res.status(404).json({ message: "Post not found", success: false });
     }
-
-    await post.updateOne({ $pull: { likes: userId } });
-    await post.save();
 
     return res.status(200).json({ message: 'Post disliked', success: true });
 
@@ -179,32 +185,23 @@ export const addcomment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   try {
     const { postId, commentId } = req.params;
-    const userId = req.id; // ✅ Make sure you're using req.id from your auth middleware
+    const userId = req.id; 
 
     const post = await Post.findById(postId);
-    if (!post) {
-      return res.status(404).json({ success: false, message: "Post not found" });
-    }
+    if (!post) return res.status(404).json({ success: false, message: "Post not found" });
 
     const comment = await Comment.findById(commentId);
-    if (!comment) {
-      return res.status(404).json({ success: false, message: "Comment not found" });
+    if (!comment) return res.status(404).json({ success: false, message: "Comment not found" });
+
+    // FIX: Allow post author OR comment author to delete it
+    if (comment.author.toString() !== userId.toString() && post.author.toString() !== userId.toString()) {
+      return res.status(403).json({ success: false, message: "Unauthorized to delete comment" });
     }
 
-    if (comment.author.toString() !== userId.toString()) {
-      return res.status(403).json({ success: false, message: "You can only delete your own comment" });
-    }
-
-    // Delete comment from DB
     await Comment.findByIdAndDelete(commentId);
 
-    // Ensure post.comments exists and is an array
-    if (!Array.isArray(post.comments)) {
-      post.comments = [];
-    }
-
-    // Remove comment reference from post
-    post.comments = post.comments.filter((c) => c.toString() !== commentId);
+    // FIX: Map correctly to "comment" (singular) and remove reference properly
+    post.comment = post.comment.filter((c) => c.toString() !== commentId);
     await post.save();
 
     return res.status(200).json({ success: true, message: "Comment deleted" });
@@ -227,7 +224,7 @@ export const getCommentofpost = async (req, res) => {
       .sort({ createdAt: -1 });
 
     if (!comments.length) {
-      return res.status(404).json({ message: "No comments", success: false });
+      return res.status(200).json({ message: "No comments", success: true, comments: [] });
     }
 
     return res.status(200).json({
@@ -314,12 +311,10 @@ export const bookmarkPost = async (req, res) => {
     const user = await User.findById(authorId);
 
     if (user.bookmarks.includes(post._id)) {
-      await user.updateOne({ $pull: { bookmarks: post._id } });
-      await user.save();
+      await User.findByIdAndUpdate(authorId, { $pull: { bookmarks: post._id } });
       return res.status(200).json({ type: 'unsaved', message: 'Post removed from bookmarks', success: true });
     } else {
-      await user.updateOne({ $addToSet: { bookmarks: post._id } });
-      await user.save();
+      await User.findByIdAndUpdate(authorId, { $addToSet: { bookmarks: post._id } });
       return res.status(200).json({ type: 'saved', message: 'Post added to bookmarks', success: true });
     }
 

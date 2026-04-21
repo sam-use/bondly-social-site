@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import { Loader2 } from "lucide-react";
@@ -19,7 +17,7 @@ const Login = () => {
 
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // ✅ dispatch to update Redux
+  const dispatch = useDispatch();
   const [emailError, setEmailError] = useState("");
 
   const changeEventHandler = (e) => {
@@ -44,15 +42,13 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("/user/login", input); // ✅ centralized axios
+      const res = await axios.post("/user/login", input);
 
       if (res.data.success) {
         toast.success(res.data.message || "Login successful");
-
-        dispatch(setAuthUser(res.data)); // ✅ store { user, token } in Redux
-
+        dispatch(setAuthUser(res.data));
         setInput({ email: "", password: "" });
-        navigate("/"); // ✅ redirect after login
+        navigate("/");
       } else {
         toast.error("Login failed");
       }
@@ -66,51 +62,47 @@ const Login = () => {
 
   return (
     <div className="auth-bg">
-      <form className="auth-card bondly-card" onSubmit={loginHandler}>
-        <div className="text-center">
-          <h1 className="auth-logo">Bondly</h1>
-          <p className="auth-title">Login to your account</p>
-        </div>
-        <div style={{ width: '100%' }}>
-          <Label htmlFor="email">Email</Label>
+      <form className="auth-card" onSubmit={loginHandler}>
+        <h1 className="auth-logo">Bondly</h1>
+        <p className="auth-title">Log in to your account</p>
+        
+        <div className="auth-form-body">
           {emailError && <div className="bondly-error">{emailError}</div>}
-          <Input
-            id="email"
+          <input
             type="email"
             name="email"
             value={input.email}
             onChange={changeEventHandler}
-            placeholder="Enter your email"
+            placeholder="Email"
             required
-            className="auth-input bondly-input"
+            className="auth-input"
           />
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
+          <input
             type="password"
             name="password"
             value={input.password}
             onChange={changeEventHandler}
-            placeholder="Enter your password"
+            placeholder="Password"
             required
             className="auth-input"
           />
+          <Button type="submit" className="btn-primary auth-btn" disabled={loading}>
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin h-5 w-5 mr-2" />
+                Logging in...
+              </>
+            ) : (
+              "Log In"
+            )}
+          </Button>
         </div>
-        <Button type="submit" className="auth-btn" disabled={loading}>
-          {loading ? (
-            <>
-              <Loader2 className="animate-spin h-5 w-5 mr-2" />
-              Logging in...
-            </>
-          ) : (
-            "Log In"
-          )}
-        </Button>
-        <p className="auth-footer">
-          Don't have an account?{' '}
-          <Link to="/signup" className="auth-link">Sign up</Link>
-        </p>
       </form>
+      
+      <div className="auth-footer-card">
+        Don't have an account?{' '}
+        <Link to="/signup" className="auth-link">Sign up</Link>
+      </div>
     </div>
   );
 };

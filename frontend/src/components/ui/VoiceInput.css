@@ -1,0 +1,134 @@
+.voice-input-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.voice-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.voice-input-row .voice-grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.voice-mic-btn,
+.voice-stop-btn,
+.voice-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-main);
+  flex-shrink: 0;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.voice-mic-btn:hover:not(:disabled),
+.voice-stop-btn:hover:not(:disabled),
+.voice-clear-btn:hover:not(:disabled) {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.voice-mic-btn:disabled,
+.voice-stop-btn:disabled,
+.voice-clear-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.voice-mic-btn.listening {
+  border-color: #ef4444;
+  color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35);
+  animation: voice-mic-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes voice-mic-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0.15);
+  }
+}
+
+.voice-stop-btn {
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.voice-clear-btn {
+  width: auto;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.voice-listening-hint {
+  width: 100%;
+  font-size: 12px;
+  color: #b91c1c;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.voice-lang-select {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  max-width: 160px;
+}
+
+.voice-unsupported-msg {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.voice-error-msg {
+  font-size: 12px;
+  color: #dc2626;
+  margin: 0;
+  width: 100%;
+}
+
+.voice-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  display: inline-block;
+  animation: voice-dot-pulse 1s ease-in-out infinite;
+}
+
+@keyframes voice-dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}

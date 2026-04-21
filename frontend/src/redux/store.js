@@ -1,6 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import postReducer from "./postSlice";
+import aiReducer from "./aiSlice";
+import analyticsReducer from "./analyticsSlice";
 import {
   persistReducer,
   FLUSH,
@@ -16,6 +18,8 @@ import socketslice from "./socketslice";
 const rootReducer = combineReducers({
   auth: authReducer,
   post: postReducer,
+  ai: aiReducer,
+  analytics: analyticsReducer,
   socketio: socketslice, // Assuming you have a socket reducer
 });
 

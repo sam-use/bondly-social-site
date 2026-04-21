@@ -22,18 +22,12 @@ const authSlice = createSlice({
         state.error = null;
         state.suggestedUsers = [];
       } else {
-        let user = action.payload.user || null;
-        if (user && user.avatar && !user.profilePicture) {
-          user.profilePicture = user.avatar;
-        }
+        const user = action.payload.user || null;
         state.user = user;
         state.token = action.payload.token || null;
         state.isAuthenticated = true;
         state.loading = false;
         state.error = null;
-        if (user && user.following) {
-          state.user.following = user.following;
-        }
       }
     },
 

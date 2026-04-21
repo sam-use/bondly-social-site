@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import axios from "axios";
+import axiosInstance from "@/lib/axiosInstance";
 import { setPosts } from "@/redux/postSlice";
 
 const useGetAllPosts = () => {
@@ -9,9 +9,7 @@ const useGetAllPosts = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        const res = await axios.get("https://bondly-social-site.onrender.com/api/v1/posts", {
-          withCredentials: true,
-        });
+        const res = await axiosInstance.get("/posts");
         if (res.data.success) {
           dispatch(setPosts(res.data.posts));
         }

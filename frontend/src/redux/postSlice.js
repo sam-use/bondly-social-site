@@ -1,12 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "@/lib/axiosInstance";
 
 // Thunk to fetch all posts
 export const fetchAllPosts = createAsyncThunk("posts/fetchAll", async (_, { rejectWithValue }) => {
   try {
-    const res = await axios.get("https://bondly-social-site.onrender.com/api/v1/posts", {
-      withCredentials: true,
-    });
+    const res = await axiosInstance.get("/posts");
     return res.data.posts;
   } catch (err) {
     return rejectWithValue(err.response?.data?.message || "Failed to fetch posts");
@@ -16,20 +14,19 @@ export const fetchAllPosts = createAsyncThunk("posts/fetchAll", async (_, { reje
 // Thunk to fetch explore posts
 export const fetchExplorePosts = createAsyncThunk("posts/fetchExplore", async (_, { rejectWithValue }) => {
   try {
-    const res = await axios.get("https://bondly-social-site.onrender.com/api/v1/posts/explore");
+    const res = await axiosInstance.get("/posts/explore");
     return res.data.posts;
   } catch (err) {
     return rejectWithValue(err.response?.data?.message || "Failed to fetch explore posts");
   }
 });
 
-// ✅ Thunk to create a new post
+// Thunk to create a new post
 export const addPost = createAsyncThunk("posts/addPost", async (formData, { rejectWithValue }) => {
   try {
-    const res = await axios.post("https://bondly-social-site.onrender.com/api/v1/posts/addpost", formData, {
-      withCredentials: true,
+    const res = await axiosInstance.post("/posts/addpost", formData, {
       headers: {
-        "Content-Type": "multipart/form-data", // if you're uploading images
+        "Content-Type": "multipart/form-data",
       },
     });
     return res.data.post;

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -47,18 +45,8 @@ const Signup = () => {
 
       if (res.data.success) {
         toast.success(res.data.message || "Account created successfully!");
-        
-        // Store user data in Redux (auto-login)
         dispatch(setAuthUser(res.data));
-        
-        // Clear form
-        setInput({
-          username: "",
-          email: "",
-          password: ""
-        });
-        
-        // Redirect to home page
+        setInput({ username: "", email: "", password: "" });
         navigate("/");
       }
     } catch (error) {
@@ -71,62 +59,56 @@ const Signup = () => {
 
   return (
     <div className="auth-bg">
-      <form className="auth-card bondly-card" onSubmit={signupHandler}>
-        <div className="text-center">
-          <h1 className="auth-logo">Bondly</h1>
-          <p className="auth-title">Create your account</p>
-        </div>
-        <div style={{ width: '100%' }}>
-          <Label htmlFor="username">Username</Label>
-          <Input
-            id="username"
+      <form className="auth-card" onSubmit={signupHandler}>
+        <h1 className="auth-logo">Bondly</h1>
+        <p className="auth-title">Sign up to see photos and videos from your friends.</p>
+        
+        <div className="auth-form-body">
+          {emailError && <div className="bondly-error">{emailError}</div>}
+          <input
             type="text"
             name="username"
             value={input.username}
             onChange={changeEventHandler}
-            placeholder="Enter your username"
+            placeholder="Username"
             required
             className="auth-input"
           />
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
+          <input
             type="email"
             name="email"
             value={input.email}
             onChange={changeEventHandler}
-            placeholder="Enter your email"
+            placeholder="Email"
             required
             className="auth-input"
           />
-          {emailError && <div className="bondly-error">{emailError}</div>}
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
+          <input
             type="password"
             name="password"
             value={input.password}
             onChange={changeEventHandler}
-            placeholder="Enter a strong password"
+            placeholder="Password"
             required
             className="auth-input"
           />
+          <Button type="submit" className="btn-primary auth-btn" disabled={loading}>
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin h-5 w-5 mr-2" />
+                Signing up...
+              </>
+            ) : (
+              "Sign Up"
+            )}
+          </Button>
         </div>
-        <Button type="submit" className="auth-btn" disabled={loading}>
-          {loading ? (
-            <>
-              <Loader2 className="animate-spin h-5 w-5 mr-2" />
-              Creating Account...
-            </>
-          ) : (
-            "Sign Up"
-          )}
-        </Button>
-        <p className="auth-footer">
-          Already have an account?{' '}
-          <Link to="/login" className="auth-link">Login</Link>
-        </p>
       </form>
+      
+      <div className="auth-footer-card">
+        Already have an account?{' '}
+        <Link to="/login" className="auth-link">Log in</Link>
+      </div>
     </div>
   );
 };

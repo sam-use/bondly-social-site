@@ -10,6 +10,9 @@ import connectDB from "./utils/db.js";
 import userroute from "./routes/user.js";
 import postroute from "./routes/post.route.js";
 import messageroute from "./routes/message.route.js";
+import airoute from "./routes/ai.route.js";
+import analyticsRoute from "./routes/analytics.route.js";
+import imageRoute from "./routes/image.route.js";
 import { setupSocket } from "./socket/socket.js";
 
 dotenv.config();
@@ -35,6 +38,9 @@ app.get("/", (req, res) => {
 app.use("/api/v1/user", userroute);
 app.use("/api/v1/posts", postroute);
 app.use("/api/v1/message", messageroute);
+app.use("/api/v1/ai", airoute);
+app.use("/api/v1/analytics", analyticsRoute);
+app.use("/api/v1/image", imageRoute);
 
 // ✅ Create HTTP Server & Attach Socket.IO
 const server = http.createServer(app);

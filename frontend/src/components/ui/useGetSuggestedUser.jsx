@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import axios from "axios";
+import axiosInstance from "@/lib/axiosInstance";
 import {useDispatch, useSelector} from "react-redux";
 
 const useGetSuggestedUser = () => {
@@ -12,9 +12,7 @@ const useGetSuggestedUser = () => {
       if (!user?._id) return;
       
       try {
-        const response = await axios.get(`https://bondly-social-site.onrender.com/api/v1/user/suggested`, {
-          withCredentials: true
-        });
+        const response = await axiosInstance.get("/user/suggested");
         if(response.data.success) {
           setSuggestedUsers(response.data.users);
         }

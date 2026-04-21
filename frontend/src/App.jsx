@@ -8,10 +8,11 @@ import Profile from "./components/ui/Profile";
 import PostPage from "./components/ui/PostPage";
 import ChatPage from "./components/ui/ChatPage";
 import Explore from "./components/ui/Explore";
+import ProfileDashboard from "./components/ui/ProfileDashboard";
 import { io } from "socket.io-client";
 
 import './App.css';
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setOnlineUsers } from "./redux/socketslice";
 import { setSocketInstance } from "./lib/socketInstance";
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
       { path: "/post/:id", element: <PostPage /> },
       { path: "/chat", element: <ChatPage /> },
       { path: "/explore", element: <Explore /> },
+      { path: "/dashboard", element: <ProfileDashboard /> },
     ],
   },
   { path: "/login", element: <Login /> },
@@ -75,44 +77,49 @@ function App() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    let socket;
-
-    if (user) {
-      socket = io("https://bondly-social-site.onrender.com", {
-        query: { userId: user._id },
-        withCredentials: true,
-        transports: ["websocket", "polling"],
-        timeout: 20000,
-        forceNew: true,
-      });
-
-      setSocketInstance(socket);
-
-      socket.on("connect", () => {
-        console.log("✅ Socket connected successfully");
-      });
-
-      socket.on("connect_error", (error) => {
-        console.error("❌ Socket connection error:", error);
-      });
-
-      socket.on("disconnect", (reason) => {
-        console.log("🔌 Socket disconnected:", reason);
-      });
-
-      socket.on("getOnlineUsers", (users) => {
-        dispatch(setOnlineUsers(users));
-      });
-    }
-
-    return () => {
-      if (socket) {
-        socket.disconnect();
-        setSocketInstance(null);
+    const socketRef = useRef(null);
+  
+    useEffect(() => {
+      if (user && !socketRef.current) {
+        const SOCKET_URL = import.meta.env.MODE === "development" 
+          ? "http://localhost:3000" 
+          : "https://bondly-social-site.onrender.com";
+  
+        socketRef.current = io(SOCKET_URL, {
+          query: { userId: user._id },
+          withCredentials: true,
+          reconnection: true,
+          reconnectionAttempts: 5,
+          reconnectionDelay: 1000,
+        });
+  
+        setSocketInstance(socketRef.current);
+  
+        socketRef.current.on("connect", () => {
+          console.log("✅ Socket connected successfully");
+        });
+  
+        socketRef.current.on("connect_error", (error) => {
+          console.error("❌ Socket connection error:", error);
+        });
+  
+        socketRef.current.on("disconnect", (reason) => {
+          console.log("🔌 Socket disconnected:", reason);
+        });
+  
+        socketRef.current.on("getOnlineUsers", (users) => {
+          dispatch(setOnlineUsers(users));
+        });
       }
-    };
-  }, [user, dispatch]);
+  
+      return () => {
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+          socketRef.current = null;
+          setSocketInstance(null);
+        }
+      };
+    }, [user, dispatch]);
 
   return <RouterProvider router={router} />;
 }

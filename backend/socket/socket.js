@@ -49,23 +49,22 @@ export const setupSocket = (server) => {
           conversation.save(),
           newMessage.save()
         ]);
+
+        const messageData = {
+          _id: newMessage._id,
+          senderId,
+          receiverId,
+          message: text,
+          createdAt: newMessage.createdAt,
+        };
+
         // Emit to receiver if online
         const receiverSocketId = userSocketMap[receiverId];
         if (receiverSocketId) {
-          ioInstance.to(receiverSocketId).emit('receive-message', {
-            senderId,
-            receiverId,
-            text,
-            createdAt: newMessage.createdAt,
-          });
+          ioInstance.to(receiverSocketId).emit('receive-message', messageData);
         }
-        // Emit to sender for instant feedback
-        socket.emit('receive-message', {
-          senderId,
-          receiverId,
-          text,
-          createdAt: newMessage.createdAt,
-        });
+        // Emit back to sender for confirmation (sender needs it too)
+        socket.emit('message-sent', messageData);
       } catch (error) {
         console.error('Socket send-message error:', error);
       }
