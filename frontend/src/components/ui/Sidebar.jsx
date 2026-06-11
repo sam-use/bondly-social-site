@@ -32,7 +32,7 @@ const Sidebar = ({ onCreatePostClick }) => {
   const deleteAccount = async () => {
     if (!window.confirm("Are you sure you want to permanently delete your account? This action cannot be undone.")) return;
     try {
-      const res = await axiosInstance.delete("/user/delete-account");
+      const res = await axiosInstance.delete("/user/delete");
       if (res.data.success) {
         toast.success("Account deleted successfully.");
         dispatch(setAuthUser(null));

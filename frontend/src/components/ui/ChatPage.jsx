@@ -375,8 +375,7 @@ const ChatPage = () => {
                 <div
                   key={sUser._id}
                   onClick={() => handleUserSelect(sUser)}
-                  className="chatpage-user"
-                  style={{ backgroundColor: selectedUser?._id === sUser._id ? '#efefef' : 'transparent' }}
+                  className={`chatpage-user ${selectedUser?._id === sUser._id ? 'selected' : ''}`}
                 >
                   <Avatar style={{width: 56, height: 56}}>
                     <AvatarImage src={sUser.profilePicture || fallbackAvatar(sUser.username)} />

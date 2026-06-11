@@ -12,7 +12,7 @@
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-elevated);
+  background-color: var(--bg-color);
 }
 
 .chatpage-sidebar h2 {
@@ -32,7 +32,21 @@
 }
 
 .chatpage-user:hover {
-  background-color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatpage-user.selected {
+  background-color: #ffffff !important;
+  border-radius: 12px;
+  margin: 0 8px;
+}
+
+.chatpage-user.selected .username {
+  color: #000000 !important;
+}
+
+.chatpage-user.selected .status {
+  color: #4b5563 !important;
 }
 
 .chatpage-user .username {
